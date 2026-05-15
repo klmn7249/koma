@@ -1011,8 +1011,8 @@ img { max-width: 100%; display: block; }
       <div class="auth-logo">Kóma</div>
       <div class="auth-sub">Adminisztrátori bejelentkezés</div>
       <div class="form-field">
-        <label>Felhasználónév</label>
-        <input class="form-input" id="loginUser" type="text" autocomplete="username" placeholder="Felhasználónév">
+        <label>Email</label>
+        <input class="form-input" id="loginUser" type="text" autocomplete="username" placeholder="email@gmail.com">
       </div>
       <div class="form-field">
         <label>Jelszó</label>
@@ -1111,6 +1111,12 @@ img { max-width: 100%; display: block; }
 ============================================= -->
 <script type="module">
 import { initializeApp }                        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, collection, doc,
          getDocs, getDoc, addDoc, setDoc,
          updateDoc, deleteDoc, query,
@@ -1127,6 +1133,7 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
+const auth = getAuth(app);
 
 /* ════════════════════════════════════════════
    STATE
@@ -1143,11 +1150,14 @@ let featuredId    = null;
 /* ════════════════════════════════════════════
    UTILITY
 ════════════════════════════════════════════ */
-async function sha256(str) {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+function escapeHtml(str = '') {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
-
 function showToast(msg, duration=2600) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
@@ -1216,7 +1226,7 @@ window.handlePanelSearch = function(val) {
     (a.tags||[]).some(t => t.toLowerCase().includes(q))
   ).slice(0,6);
   box.innerHTML = hits.length
-    ? hits.map(a => `<div class="sp-result-item" onclick="closePanel();openArticle('${a.id}')">${a.title}</div>`).join('')
+    ? hits.map(a => `<div class="sp-result-item" onclick="closePanel();openArticle('${a.id}')">${escapeHtml(a.title)}</div>`).join('')
     : `<div style="font-size:13px;color:var(--muted);padding:8px 0;">Nincs találat.</div>`;
 };
 
@@ -1264,36 +1274,28 @@ async function fetchSettings() {
 /* ════════════════════════════════════════════
    BOOT — initialise site
 ════════════════════════════════════════════ */
-async function boot() {
-  /* restore session */
-  const saved = localStorage.getItem('koma_admin');
-  if (saved) {
-    try { currentAdmin = JSON.parse(saved); } catch(e) {}
+  onAuthStateChanged(auth, (user) => {
+  if (user) {
+    currentAdmin = {
+      email: user.email
+    };
+  } else {
+    currentAdmin = null;
   }
+
+  renderSpAdminArea();
+});
+   
+  async function boot() {
   /* restore dark mode toggle state */
   const dark = localStorage.getItem('koma_dark') === '1';
   const cb   = document.getElementById('darkToggle');
   if (cb) cb.checked = dark;
 
-  /* seed super-admin if not exists */
-  await seedSuperAdmin();
-
   await Promise.all([fetchArticles(), fetchTopics(), fetchSettings()]);
   renderTopics();
   renderMain();
   setupArticleHeaderHide();
-}
-
-async function seedSuperAdmin() {
-  const snap = await getDocs(collection(db,'admins'));
-  if (snap.empty) {
-    const hash = await sha256('723dIt0r49');
-    await setDoc(doc(db,'admins','Klmn'), {
-      username: 'Klmn',
-      passwordHash: hash,
-      role: 'super'
-    });
-  }
 }
 
 /* ════════════════════════════════════════════
@@ -1350,11 +1352,11 @@ function articleCardHTML(a) {
   return `
     <div class="article-card" onclick="openArticle('${a.id}')">
       <div class="card-body">
-        <div class="card-title">${a.title}</div>
-        ${a.desc   ? `<div class="card-desc">${a.desc}</div>` : ''}
-        ${a.author ? `<div class="card-author">${a.author}</div>` : ''}
+        <div class="card-title">${escapeHtml(a.title)}</div>
+        ${a.desc   ? `<div class="card-desc">${escapeHtml(a.title)}</div>` : ''}
+        ${a.author ? `<div class="card-author">${escapeHtml(a.title)}</div>` : ''}
       </div>
-      ${a.cover ? `<img class="card-thumb" src="${a.cover}" alt="${a.title}" loading="lazy">` : ''}
+      ${a.cover ? `<img class="card-thumb" src="${a.cover}" alt="${escapeHtml(a.title)}" loading="lazy">` : ''}
     </div>`;
 }
 
@@ -1407,11 +1409,11 @@ function buildArticleHTML(a, related) {
 
   return `
     <div class="art-header-spacer"></div>
-    ${a.cover ? `<img class="art-cover-img" src="${a.cover}" alt="${a.title}" loading="lazy">` : ''}
+    ${a.cover ? `<img class="art-cover-img" src="${a.cover}" alt="${escapeHtml(a.title)}" loading="lazy">` : ''}
     <div class="art-body">
-      <h1 class="art-title">${a.title}</h1>
+      <h1 class="art-title">${escapeHtml(a.title)}</h1>
       <div class="art-meta">
-        ${a.author ? `<span class="art-author">${a.author}</span>` : '<span></span>'}
+        ${a.author ? `<span class="art-author">${escapeHtml(a.title)}</span>` : '<span></span>'}
         <button class="share-btn" onclick="shareArticle('${a.id}','${encodeURIComponent(a.title)}')">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
           Megosztás
@@ -1432,7 +1434,7 @@ function renderBlock(b) {
     case 'image':     return `
       <div class="cb-image">
         <img src="${b.url||''}" alt="${b.caption||''}">
-        ${b.caption ? `<div class="cb-caption">${b.caption}</div>` : ''}
+        ${b.caption ? `<div class="cb-caption">${escapeHtml(a.title)}</div>` : ''}
       </div>`;
     default: return '';
   }
@@ -1471,35 +1473,29 @@ window.addEventListener('hashchange', routeHash);
 /* ════════════════════════════════════════════
    ADMIN LOGIN
 ════════════════════════════════════════════ */
-window.doLogin = async function() {
-  const user = document.getElementById('loginUser').value.trim();
-  const pass = document.getElementById('loginPass').value;
-  const err  = document.getElementById('loginErr');
-  err.style.display = 'none';
-  if (!user || !pass) { err.textContent='Kérjük töltsd ki mindkét mezőt.'; err.style.display='block'; return; }
+window.doLogin = async function () {
+  const email = document.getElementById('loginUser').value.trim();
+  const pass  = document.getElementById('loginPass').value;
+  const err   = document.getElementById('loginErr');
 
-  const hash = await sha256(pass);
-  const snap = await getDocs(query(collection(db,'admins'), where('username','==',user)));
-  if (snap.empty) {
-    err.textContent = 'Hibás felhasználónév vagy jelszó.'; err.style.display='block'; return;
+  err.style.display = 'none';
+
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+
+    showView('view-admin');
+    loadAdminDashboard();
+
+  } catch (e) {
+    err.textContent = 'Hibás email vagy jelszó.';
+    err.style.display = 'block';
   }
-  const adm = snap.docs[0];
-  if (adm.data().passwordHash !== hash) {
-    err.textContent = 'Hibás felhasználónév vagy jelszó.'; err.style.display='block'; return;
-  }
-  currentAdmin = { id:adm.id, username:adm.data().username, role:adm.data().role };
-  localStorage.setItem('koma_admin', JSON.stringify(currentAdmin));
-  document.getElementById('loginUser').value = '';
-  document.getElementById('loginPass').value = '';
-  showView('view-admin');
-  loadAdminDashboard();
 };
 
 window.confirmLogout = async function() {
   const ok = await openModal('Kijelentkezés','Biztosan ki szeretnél jelentkezni?','Kilépés');
   if (!ok) return;
-  currentAdmin = null;
-  localStorage.removeItem('koma_admin');
+  await signOut(auth);
   renderSpAdminArea();
   showMain();
   showToast('Sikeresen kijelentkeztél.');
@@ -1541,7 +1537,7 @@ function renderAdminArticles(ct) {
       : allArticles.map(a => `
         <div class="admin-article-row">
           <div style="flex:1;min-width:0;">
-            <div class="aar-title">${a.title}</div>
+            <div class="aar-title">${escapeHtml(a.title)}</div>
             <div class="aar-meta">${a.author||'—'} · ${a.tags&&a.tags.length?a.tags.map(t=>'#'+t).join(' '):''}</div>
           </div>
           <div class="aar-actions">
