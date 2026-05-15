@@ -1148,7 +1148,7 @@ function isAllowedAdmin(user) {
 ════════════════════════════════════════════ */
 let allArticles   = [];
 let allTopics     = [];
-let currentAdmin  = null;       // { email } when signed in via Firebase Auth
+let currentAdmin  = null;       // { uid, email, username }
 let editorArticle = null;       // article being edited (null = new)
 let editorBlocks  = [];         // [{type, text, url, caption}]
 let editorTags    = [];
@@ -1214,7 +1214,7 @@ function renderSpAdminArea() {
   if (currentAdmin) {
     area.innerHTML = `
       <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">
-        Bejelentkezve: <b style="color:var(--text);">${escapeHtml(currentAdmin.email)}</b>
+        Bejelentkezve: <b style="color:var(--text);">${escapeHtml(adminDisplayName())}</b>
       </p>
       <button class="sp-admin-btn" onclick="closePanel();showView('view-admin');loadAdminDashboard();">Admin felület</button>
       <button class="sp-logout-btn" onclick="closePanel();confirmLogout();">Kijelentkezés</button>`;
@@ -1287,12 +1287,38 @@ async function fetchSettings() {
   } catch(e) {}
 }
 
+async function loadAdminProfile(uid) {
+  const d = await getDoc(doc(db, 'profiles', uid));
+  return d.exists() ? d.data() : null;
+}
+
+function adminDisplayName(admin = currentAdmin) {
+  if (!admin) return '';
+  return (admin.username || '').trim() || admin.email || '';
+}
+
+function getAuthorName() {
+  const name = (currentAdmin?.username || '').trim();
+  if (name) return name;
+  const email = (currentAdmin?.email || auth.currentUser?.email || '').trim();
+  return email ? email.split('@')[0] : '';
+}
+
+async function setCurrentAdminFromUser(user) {
+  const profile = await loadAdminProfile(user.uid);
+  currentAdmin = {
+    uid: user.uid,
+    email: user.email,
+    username: profile?.username || ''
+  };
+}
+
 /* ════════════════════════════════════════════
    BOOT — initialise site
 ════════════════════════════════════════════ */
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (user && isAllowedAdmin(user)) {
-    currentAdmin = { email: user.email };
+    await setCurrentAdminFromUser(user);
   } else {
     currentAdmin = null;
     if (user && !isAllowedAdmin(user)) signOut(auth).catch(() => {});
@@ -1367,8 +1393,7 @@ function articleCardHTML(a) {
     <div class="article-card" onclick="openArticle('${a.id}')">
       <div class="card-body">
         <div class="card-title">${escapeHtml(a.title)}</div>
-        ${a.desc   ? `<div class="card-desc">${escapeHtml(a.desc)}</div>` : ''}
-        ${a.author ? `<div class="card-author">${escapeHtml(a.author)}</div>` : ''}
+        ${a.desc ? `<div class="card-desc">${escapeHtml(a.desc)}</div>` : ''}
       </div>
       ${a.cover ? `<img class="card-thumb" src="${a.cover}" alt="${escapeHtml(a.title)}" loading="lazy">` : ''}
     </div>`;
@@ -1533,7 +1558,7 @@ window.loadAdminDashboard = async function() {
     showView('view-login');
     return;
   }
-  document.getElementById('adminUserLabel').textContent = currentAdmin.email || '';
+  document.getElementById('adminUserLabel').textContent = adminDisplayName();
   document.getElementById('tabAccounts').style.display = 'none';
   await Promise.all([fetchArticles(), fetchTopics(), fetchSettings()]);
   adminTab('articles', document.querySelector('.admin-tab'));
@@ -1711,15 +1736,47 @@ window.deleteAccount = async function(id, name) {
 /* ── Profile tab ── */
 function renderAdminProfile(ct) {
   ct.innerHTML = `
-    <div class="admin-section-title">Bejelentkezett admin</div>
-    <p style="font-size:14px;color:var(--muted);margin:0 0 12px;">
+    <div class="admin-section-title">Profil</div>
+    <p style="font-size:14px;color:var(--muted);margin:0 0 16px;">
       Email: <b style="color:var(--text);">${escapeHtml(currentAdmin?.email || '')}</b>
     </p>
-    <p style="font-size:13px;color:var(--muted);line-height:1.5;">
-      Új admin felhasználót a Firebase Console → Authentication menüben adhatsz hozzá.
-      Az email címnek szerepelnie kell a Firestore szabályok admin listájában is.
-    </p>`;
+    <div class="form-field" style="max-width:360px;">
+      <label>Szerzőnév</label>
+      <input class="form-input" id="profUsername" type="text"
+        placeholder="pl. Kelemen G."
+        value="${escapeHtml(currentAdmin?.username || '')}">
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin:8px 0 14px;line-height:1.45;">
+      Ez a név jelenik meg a cikkekben szerzőként (a főoldali listában nem).
+    </p>
+    <button class="btn-primary" style="width:auto;padding:10px 20px;margin:0;" onclick="saveProfile()">Mentés</button>`;
 }
+
+window.saveProfile = async function() {
+  if (!currentAdmin?.uid) {
+    showToast('Jelentkezz be a profil mentéséhez.');
+    return;
+  }
+  const username = document.getElementById('profUsername').value.trim();
+  if (!username) {
+    showToast('A szerzőnév nem lehet üres.');
+    return;
+  }
+  try {
+    await setDoc(doc(db, 'profiles', currentAdmin.uid), {
+      username,
+      email: currentAdmin.email,
+      updatedAt: serverTimestamp()
+    }, { merge: true });
+    currentAdmin.username = username;
+    document.getElementById('adminUserLabel').textContent = username;
+    renderSpAdminArea();
+    showToast('Szerzőnév mentve.');
+  } catch (e) {
+    console.error(e);
+    showToast('A profil mentése sikertelen. Add hozzá a profiles szabályt a Firestore-ban.');
+  }
+};
 
 /* ════════════════════════════════════════════
    ARTICLE EDITOR
@@ -1853,9 +1910,9 @@ window.saveArticle = async function() {
   const cover = document.getElementById('edCover').value.trim();
   if (!title) { showToast('A cím megadása kötelező.'); return; }
 
-  const author = (currentAdmin?.email || auth.currentUser?.email || '').trim();
+  const author = getAuthorName();
   if (!author) {
-    showToast('Jelentkezz be a megengedett admin emaillel.');
+    showToast('Jelentkezz be, és állíts be szerzőnevet a Profil fülön.');
     showView('view-login');
     return;
   }
@@ -1933,6 +1990,10 @@ service cloud.firestore {
     }
     match /admins/{docId} {
       allow read, write: if false;
+    }
+    match /profiles/{uid} {
+      allow read: if true;
+      allow write: if isAdmin() && request.auth.uid == uid;
     }
   }
 }
