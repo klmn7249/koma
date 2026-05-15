@@ -1154,11 +1154,11 @@ function showToast(msg, duration=2600) {
   setTimeout(() => t.classList.remove('show'), duration);
 }
 
-function showView(id) {
+window.showView = function(id) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
-}
+  window.scrollTo(0, 0);
+};
 
 window.showMain = function() { showView('view-main'); renderMain(); };
 
