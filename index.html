@@ -1012,7 +1012,7 @@ img { max-width: 100%; display: block; }
       <div class="auth-sub">Adminisztrátori bejelentkezés</div>
       <div class="form-field">
         <label>Email</label>
-        <input class="form-input" id="loginUser" type="text" autocomplete="username" placeholder="email@gmail.com">
+        <input class="form-input" id="loginUser" type="email" autocomplete="username" placeholder="email@gmail.com">
       </div>
       <div class="form-field">
         <label>Jelszó</label>
@@ -1135,12 +1135,20 @@ const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 const auth = getAuth(app);
 
+/* Admin emails — must match Firestore rules isAdmin() list */
+const ADMIN_EMAILS = ['kelemeng771@gmail.com'];
+
+function isAllowedAdmin(user) {
+  const email = user?.email?.toLowerCase();
+  return email && ADMIN_EMAILS.includes(email);
+}
+
 /* ════════════════════════════════════════════
    STATE
 ════════════════════════════════════════════ */
 let allArticles   = [];
 let allTopics     = [];
-let currentAdmin  = null;       // {id, username, role}
+let currentAdmin  = null;       // { email } when signed in via Firebase Auth
 let editorArticle = null;       // article being edited (null = new)
 let editorBlocks  = [];         // [{type, text, url, caption}]
 let editorTags    = [];
@@ -1206,7 +1214,7 @@ function renderSpAdminArea() {
   if (currentAdmin) {
     area.innerHTML = `
       <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">
-        Bejelentkezve: <b style="color:var(--text);">${currentAdmin.username}</b>
+        Bejelentkezve: <b style="color:var(--text);">${escapeHtml(currentAdmin.email)}</b>
       </p>
       <button class="sp-admin-btn" onclick="closePanel();showView('view-admin');loadAdminDashboard();">Admin felület</button>
       <button class="sp-logout-btn" onclick="closePanel();confirmLogout();">Kijelentkezés</button>`;
@@ -1255,9 +1263,17 @@ window.closeModal = function(confirmed = false) {
 /* ════════════════════════════════════════════
    FIRESTORE HELPERS
 ════════════════════════════════════════════ */
+function articleSortTime(a) {
+  const t = a.createdAt || a.updatedAt;
+  if (!t) return 0;
+  if (typeof t.toMillis === 'function') return t.toMillis();
+  if (typeof t.seconds === 'number') return t.seconds * 1000;
+  return 0;
+}
 async function fetchArticles() {
-  const snap = await getDocs(query(collection(db,'articles'), orderBy('createdAt','desc')));
+  const snap = await getDocs(collection(db,'articles'));
   allArticles = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+  allArticles.sort((a, b) => articleSortTime(b) - articleSortTime(a));
 }
 async function fetchTopics() {
   const snap = await getDocs(collection(db,'topics'));
@@ -1274,15 +1290,13 @@ async function fetchSettings() {
 /* ════════════════════════════════════════════
    BOOT — initialise site
 ════════════════════════════════════════════ */
-  onAuthStateChanged(auth, (user) => {
-  if (user) {
-    currentAdmin = {
-      email: user.email
-    };
+onAuthStateChanged(auth, (user) => {
+  if (user && isAllowedAdmin(user)) {
+    currentAdmin = { email: user.email };
   } else {
     currentAdmin = null;
+    if (user && !isAllowedAdmin(user)) signOut(auth).catch(() => {});
   }
-
   renderSpAdminArea();
 });
    
@@ -1353,8 +1367,8 @@ function articleCardHTML(a) {
     <div class="article-card" onclick="openArticle('${a.id}')">
       <div class="card-body">
         <div class="card-title">${escapeHtml(a.title)}</div>
-        ${a.desc   ? `<div class="card-desc">${escapeHtml(a.title)}</div>` : ''}
-        ${a.author ? `<div class="card-author">${escapeHtml(a.title)}</div>` : ''}
+        ${a.desc   ? `<div class="card-desc">${escapeHtml(a.desc)}</div>` : ''}
+        ${a.author ? `<div class="card-author">${escapeHtml(a.author)}</div>` : ''}
       </div>
       ${a.cover ? `<img class="card-thumb" src="${a.cover}" alt="${escapeHtml(a.title)}" loading="lazy">` : ''}
     </div>`;
@@ -1374,7 +1388,13 @@ window.openArticle = async function(id) {
   }
 
   const related = getRelated(article);
-  document.getElementById('articleContent').innerHTML = buildArticleHTML(article, related);
+  try {
+    document.getElementById('articleContent').innerHTML = buildArticleHTML(article, related);
+  } catch (e) {
+    console.error(e);
+    showToast('Hiba a cikk megjelenítésekor.');
+    return;
+  }
   showView('view-article');
   /* reset header */
   const hdr = document.getElementById('article-header');
@@ -1413,7 +1433,7 @@ function buildArticleHTML(a, related) {
     <div class="art-body">
       <h1 class="art-title">${escapeHtml(a.title)}</h1>
       <div class="art-meta">
-        ${a.author ? `<span class="art-author">${escapeHtml(a.title)}</span>` : '<span></span>'}
+        ${a.author ? `<span class="art-author">${escapeHtml(a.author)}</span>` : '<span></span>'}
         <button class="share-btn" onclick="shareArticle('${a.id}','${encodeURIComponent(a.title)}')">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
           Megosztás
@@ -1427,14 +1447,14 @@ function buildArticleHTML(a, related) {
 
 function renderBlock(b) {
   switch(b.type) {
-    case 'para':      return `<p class="cb-para">${b.text||''}</p>`;
-    case 'heading':   return `<h2 class="cb-heading">${b.text||''}</h2>`;
-    case 'highlight': return `<div class="cb-highlight">${b.text||''}</div>`;
-    case 'quote':     return `<blockquote class="cb-quote">${b.text||''}</blockquote>`;
+    case 'para':      return `<p class="cb-para">${escapeHtml(b.text||'')}</p>`;
+    case 'heading':   return `<h2 class="cb-heading">${escapeHtml(b.text||'')}</h2>`;
+    case 'highlight': return `<div class="cb-highlight">${escapeHtml(b.text||'')}</div>`;
+    case 'quote':     return `<blockquote class="cb-quote">${escapeHtml(b.text||'')}</blockquote>`;
     case 'image':     return `
       <div class="cb-image">
         <img src="${b.url||''}" alt="${b.caption||''}">
-        ${b.caption ? `<div class="cb-caption">${escapeHtml(a.title)}</div>` : ''}
+        ${b.caption ? `<div class="cb-caption">${escapeHtml(b.caption)}</div>` : ''}
       </div>`;
     default: return '';
   }
@@ -1482,10 +1502,14 @@ window.doLogin = async function () {
 
   try {
     await signInWithEmailAndPassword(auth, email, pass);
-
+    if (!isAllowedAdmin(auth.currentUser)) {
+      await signOut(auth);
+      err.textContent = 'Ehhez az emailhez nincs admin jogosultság.';
+      err.style.display = 'block';
+      return;
+    }
     showView('view-admin');
     loadAdminDashboard();
-
   } catch (e) {
     err.textContent = 'Hibás email vagy jelszó.';
     err.style.display = 'block';
@@ -1505,10 +1529,12 @@ window.confirmLogout = async function() {
    ADMIN DASHBOARD
 ════════════════════════════════════════════ */
 window.loadAdminDashboard = async function() {
-  document.getElementById('adminUserLabel').textContent = currentAdmin?.username || '';
-  /* show accounts tab only for super-admin */
-  document.getElementById('tabAccounts').style.display =
-    currentAdmin?.role === 'super' ? '' : 'none';
+  if (!currentAdmin) {
+    showView('view-login');
+    return;
+  }
+  document.getElementById('adminUserLabel').textContent = currentAdmin.email || '';
+  document.getElementById('tabAccounts').style.display = 'none';
   await Promise.all([fetchArticles(), fetchTopics(), fetchSettings()]);
   adminTab('articles', document.querySelector('.admin-tab'));
 };
@@ -1683,27 +1709,15 @@ window.deleteAccount = async function(id, name) {
 /* ── Profile tab ── */
 function renderAdminProfile(ct) {
   ct.innerHTML = `
-    <div class="admin-section-title">Profil szerkesztése</div>
-    <div class="form-field" style="max-width:360px;">
-      <label>Felhasználónév módosítása</label>
-      <input class="form-input" id="profUser" value="${currentAdmin.username}">
-    </div>
-    <button class="btn-primary" style="width:auto;padding:10px 20px;margin:0;" onclick="saveProfile()">Mentés</button>`;
+    <div class="admin-section-title">Bejelentkezett admin</div>
+    <p style="font-size:14px;color:var(--muted);margin:0 0 12px;">
+      Email: <b style="color:var(--text);">${escapeHtml(currentAdmin?.email || '')}</b>
+    </p>
+    <p style="font-size:13px;color:var(--muted);line-height:1.5;">
+      Új admin felhasználót a Firebase Console → Authentication menüben adhatsz hozzá.
+      Az email címnek szerepelnie kell a Firestore szabályok admin listájában is.
+    </p>`;
 }
-
-window.saveProfile = async function() {
-  const newUser = document.getElementById('profUser').value.trim();
-  if (!newUser) { showToast('A felhasználónév nem lehet üres.'); return; }
-  if (newUser === currentAdmin.username) { showToast('Nincs változás.'); return; }
-  /* check uniqueness */
-  const snap = await getDocs(query(collection(db,'admins'), where('username','==',newUser)));
-  if (!snap.empty) { showToast('Ez a felhasználónév már foglalt.'); return; }
-  await updateDoc(doc(db,'admins',currentAdmin.id), { username: newUser });
-  currentAdmin.username = newUser;
-  localStorage.setItem('koma_admin', JSON.stringify(currentAdmin));
-  document.getElementById('adminUserLabel').textContent = newUser;
-  showToast('Felhasználónév frissítve.');
-};
 
 /* ════════════════════════════════════════════
    ARTICLE EDITOR
@@ -1841,7 +1855,7 @@ window.saveArticle = async function() {
     title, desc, cover,
     blocks:  editorBlocks.map(b => ({ ...b })),
     tags:    [...editorTags],
-    author:  currentAdmin.username,
+    author:  currentAdmin.email,
     updatedAt: serverTimestamp()
   };
 
@@ -1860,7 +1874,12 @@ window.saveArticle = async function() {
     loadAdminDashboard();
   } catch (e) {
     console.error(e);
-    showToast('A cikk mentése sikertelen. Ellenőrizd a Firebase szabályokat.');
+    const code = e?.code || '';
+    if (code === 'permission-denied') {
+      showToast('Nincs jogosultság. Jelentkezz be a megengedett admin emaillel, és ellenőrizd a Firestore szabályokat.');
+    } else {
+      showToast('A cikk mentése sikertelen: ' + (e.message || 'ismeretlen hiba'));
+    }
   }
 };
 
@@ -1875,25 +1894,9 @@ window.confirmLeaveEditor = async function() {
 boot().then(() => { routeHash(); }).catch(console.error);
 
 
-/* ════════════════════════════════════════════════════════════
-   FIRESTORE BIZTONSÁGI SZABÁLYOK
-   Másold be ezeket a Firebase Console-ba:
-   Firestore Database → Szabályok (Rules) fül → Közzététel
-
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /articles/{id}  { allow read: if true; allow write: if true; }
-    match /topics/{id}    { allow read: if true; allow write: if true; }
-    match /settings/{id}  { allow read: if true; allow write: if true; }
-    match /admins/{id}    { allow read: if true; allow write: if true; }
-  }
-}
-
-   MEGJEGYZÉS: A fenti szabályok bárki számára engedélyezik az
-   írást, de mivel az admin jelszavak SHA-256-tal titkosítva
-   vannak és a felhasználói felületen nincs írási hozzáférés,
-   ez a beállítás biztonságos a mindennapi használathoz.
+/*  FONTOS: Ne használj {document=**} mintát a gyűjteményeknél —
+   az nem illeszkedik a /articles/xyz dokumentumokra, ezért
+   a mentés permission-denied hibát ad.
 ════════════════════════════════════════════════════════════ */
 
 </script>
