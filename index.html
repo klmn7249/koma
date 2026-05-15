@@ -1658,8 +1658,10 @@ window.deleteTopic = async function(id) {
   showToast('Témakör törölve.');
 };
 
-/* ── Accounts tab (super only) ── */
+/* ── Accounts tab (disabled — admins collection blocked by rules) ── */
 function renderAdminAccounts(ct) {
+  ct.innerHTML = `<p style="font-size:13px;color:var(--muted);">Admin fiókokat a Firebase Console → Authentication menüben kezeld.</p>`;
+  return;
   getDocs(collection(db,'admins')).then(snap => {
     const admins = snap.docs.map(d => ({ id:d.id, ...d.data() }));
     ct.innerHTML = `
@@ -1851,11 +1853,18 @@ window.saveArticle = async function() {
   const cover = document.getElementById('edCover').value.trim();
   if (!title) { showToast('A cím megadása kötelező.'); return; }
 
+  const author = (currentAdmin?.email || auth.currentUser?.email || '').trim();
+  if (!author) {
+    showToast('Jelentkezz be a megengedett admin emaillel.');
+    showView('view-login');
+    return;
+  }
+
   const data = {
     title, desc, cover,
     blocks:  editorBlocks.map(b => ({ ...b })),
     tags:    [...editorTags],
-    author:  currentAdmin.email,
+    author,
     updatedAt: serverTimestamp()
   };
 
@@ -1894,7 +1903,41 @@ window.confirmLeaveEditor = async function() {
 boot().then(() => { routeHash(); }).catch(console.error);
 
 
-/*  FONTOS: Ne használj {document=**} mintát a gyűjteményeknél —
+/* ════════════════════════════════════════════════════════════
+   FIRESTORE BIZTONSÁGI SZABÁLYOK
+   Másold be ezeket a Firebase Console-ba:
+   Firestore Database → Szabályok (Rules) fül → Közzététel
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null &&
+        request.auth.token.email in [
+          "kelemeng771@gmail.com"
+        ];
+    }
+
+    match /articles/{articleId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /topics/{topicId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /admins/{docId} {
+      allow read, write: if false;
+    }
+  }
+}
+
+   FONTOS: Ne használj {document=**} mintát a gyűjteményeknél —
    az nem illeszkedik a /articles/xyz dokumentumokra, ezért
    a mentés permission-denied hibát ad.
 ════════════════════════════════════════════════════════════ */
