@@ -1154,11 +1154,12 @@ function showToast(msg, duration=2600) {
   setTimeout(() => t.classList.remove('show'), duration);
 }
 
-window.showView = function(id) {
+function showView(id) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
-};
+  window.scrollTo(0,0);
+}
+window.showView = showView;
 
 window.showMain = function() { showView('view-main'); renderMain(); };
 
@@ -1230,12 +1231,15 @@ function openModal(title, text, confirmLabel='Törlés') {
   document.getElementById('modalOverlay').classList.add('open');
   return new Promise(res => {
     _modalResolve = res;
-    document.getElementById('modalConfirm').onclick = () => { closeModal(); res(true);  };
+    document.getElementById('modalConfirm').onclick = () => closeModal(true);
   });
 }
-window.closeModal = function() {
+window.closeModal = function(confirmed = false) {
   document.getElementById('modalOverlay').classList.remove('open');
-  if (_modalResolve) { _modalResolve(false); _modalResolve = null; }
+  if (_modalResolve) {
+    _modalResolve(!!confirmed);
+    _modalResolve = null;
+  }
 };
 
 /* ════════════════════════════════════════════
@@ -1496,6 +1500,7 @@ window.confirmLogout = async function() {
   if (!ok) return;
   currentAdmin = null;
   localStorage.removeItem('koma_admin');
+  renderSpAdminArea();
   showMain();
   showToast('Sikeresen kijelentkeztél.');
 };
@@ -1566,14 +1571,19 @@ window.deleteArticle = async function(id) {
     `Biztosan törlöd a következő cikket? "${a?.title||id}" — Ez nem vonható vissza.`
   );
   if (!ok) return;
-  await deleteDoc(doc(db,'articles',id));
-  if (featuredId === id) {
-    featuredId = null;
-    await setDoc(doc(db,'settings','global'), { featuredId:null }, { merge:true });
+  try {
+    await deleteDoc(doc(db,'articles',id));
+    if (featuredId === id) {
+      featuredId = null;
+      await setDoc(doc(db,'settings','global'), { featuredId:null }, { merge:true });
+    }
+    await fetchArticles();
+    renderAdminArticles(document.getElementById('adminTabContent'));
+    showToast('Cikk törölve.');
+  } catch (e) {
+    console.error(e);
+    showToast('A cikk törlése sikertelen. Ellenőrizd a Firebase szabályokat.');
   }
-  await fetchArticles();
-  renderAdminArticles(document.getElementById('adminTabContent'));
-  showToast('Cikk törölve.');
 };
 
 /* ── Topics tab ── */
@@ -1763,13 +1773,13 @@ function renderBlocks() {
       ${b.type==='image' ? `
         <div class="block-img-stack">
           <input placeholder="Kép URL (https://…)" value="${b.url||''}"
-            oninput="editorBlocks[${i}].url=this.value;updateImgPreview(${i},this.value)">
+            oninput="updateBlockField(${i},'url',this.value);updateImgPreview(${i},this.value)">
           <input placeholder="Képaláírás (opcionális)" value="${b.caption||''}"
-            oninput="editorBlocks[${i}].caption=this.value">
+            oninput="updateBlockField(${i},'caption',this.value)">
           ${b.url?`<img class="img-preview" id="ip${i}" src="${b.url}" alt="előnézet">`:'<img class="img-preview" id="ip'+i+'" style="display:none;">'}
         </div>` : `
         <textarea class="block-textarea"
-          oninput="editorBlocks[${i}].text=this.value"
+          oninput="updateBlockField(${i},'text',this.value)"
           placeholder="${b.type==='para'?'Bekezdés szövege…':b.type==='heading'?'Alcím…':b.type==='highlight'?'Kiemelt szöveg…':'Idézet…'}"
         >${b.text||''}</textarea>`}
     </div>`).join('');
@@ -1783,6 +1793,10 @@ window.moveBlock = function(i, dir) {
   if (j<0||j>=editorBlocks.length) return;
   [editorBlocks[i],editorBlocks[j]] = [editorBlocks[j],editorBlocks[i]];
   renderBlocks();
+};
+/* Inline handlers run in global scope; module vars are not visible there. */
+window.updateBlockField = function(i, field, value) {
+  if (editorBlocks[i]) editorBlocks[i][field] = value;
 };
 window.updateImgPreview = function(i, url) {
   const el = document.getElementById('ip'+i);
@@ -1817,6 +1831,11 @@ window.removeTag = function(i) {
 
 /* ── Save article ── */
 window.saveArticle = async function() {
+  if (!currentAdmin) {
+    showToast('Jelentkezz be a cikk mentéséhez.');
+    showView('view-login');
+    return;
+  }
   const title = document.getElementById('edTitle').value.trim();
   const desc  = document.getElementById('edDesc').value.trim();
   const cover = document.getElementById('edCover').value.trim();
@@ -1824,24 +1843,29 @@ window.saveArticle = async function() {
 
   const data = {
     title, desc, cover,
-    blocks:  editorBlocks,
-    tags:    editorTags,
+    blocks:  editorBlocks.map(b => ({ ...b })),
+    tags:    [...editorTags],
     author:  currentAdmin.username,
     updatedAt: serverTimestamp()
   };
 
-  if (editorArticle) {
-    await updateDoc(doc(db,'articles',editorArticle.id), data);
-    showToast('Cikk frissítve.');
-  } else {
-    data.createdAt = serverTimestamp();
-    await addDoc(collection(db,'articles'), data);
-    showToast('Cikk közzétéve.');
+  try {
+    if (editorArticle) {
+      await updateDoc(doc(db,'articles',editorArticle.id), data);
+      showToast('Cikk frissítve.');
+    } else {
+      data.createdAt = serverTimestamp();
+      await addDoc(collection(db,'articles'), data);
+      showToast('Cikk közzétéve.');
+    }
+    await fetchArticles();
+    renderMain();
+    showView('view-admin');
+    loadAdminDashboard();
+  } catch (e) {
+    console.error(e);
+    showToast('A cikk mentése sikertelen. Ellenőrizd a Firebase szabályokat.');
   }
-  await fetchArticles();
-  renderMain();
-  showView('view-admin');
-  loadAdminDashboard();
 };
 
 window.confirmLeaveEditor = async function() {
