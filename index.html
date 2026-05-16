@@ -1471,15 +1471,13 @@ function articleCardHTML(a){
   return `
     <div class="article-card" onclick="openArticle('${a.id}')">
       <div class="card-body">
-        <div class="card-top">
-          ${cat?`<span class="cat-badge">${escapeHtml(cat.name)}</span>`:''}
-        </div>
         <div class="card-title">${escapeHtml(a.title)}</div>
         ${a.desc?`<div class="card-desc">${escapeHtml(a.desc)}</div>`:''}
-        <div class="card-bottom">
-          ${a.author?`<span class="card-author">${escapeHtml(a.author)}</span>`:''}
-          ${t?`<span class="card-time">${t}</span>`:''}
         </div>
+        <span class="card-meta">
+          ${cat?`<span class="cat-badge">${escapeHtml(cat.name)}</span>`:''}
+          ${t?`<span class="card-time">${t}</span>`:''}
+        </span>
       </div>
       ${a.cover?`<img class="card-thumb" src="${a.cover}" alt="${escapeHtml(a.title)}" loading="lazy">`:''}
     </div>`;
