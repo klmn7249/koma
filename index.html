@@ -124,6 +124,7 @@ img{max-width:100%;display:block;}
 .article-card:last-child{border-bottom:none;}
 .article-card:hover{opacity:.72;}
 .card-body{flex:1;min-width:0;}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap;}
 .card-title{font-family:'Archivo Black',sans-serif;font-size:16px;line-height:1.28;
   color:var(--text);margin-bottom:6px;}
 .card-desc{font-family:'Fira Sans',sans-serif;font-size:13px;color:var(--muted);
@@ -1471,13 +1472,15 @@ function articleCardHTML(a){
   return `
     <div class="article-card" onclick="openArticle('${a.id}')">
       <div class="card-body">
-        <div class="card-title">${escapeHtml(a.title)}</div>
-        ${a.desc?`<div class="card-desc">${escapeHtml(a.desc)}</div>`:''}
+        <div class="card-top">
+           <div class="card-title">${escapeHtml(a.title)}</div>
+           ${a.desc?`<div class="card-desc">${escapeHtml(a.desc)}</div>`:''}
+           </div>
         </div>
-        <span class="card-bottom">
+        <div class="card-bottom">
           ${cat?`<span class="cat-badge">${escapeHtml(cat.name)}</span>`:''}
           ${t?`<span class="card-time">${t}</span>`:''}
-        </span>
+        </div>
       </div>
       ${a.cover?`<img class="card-thumb" src="${a.cover}" alt="${escapeHtml(a.title)}" loading="lazy">`:''}
     </div>`;
