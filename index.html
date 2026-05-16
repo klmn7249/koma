@@ -76,7 +76,9 @@ img{max-width:100%;display:block;}
 /* =============================================
    TOPICS / CATEGORIES ROW
 ============================================= */
-.topics-row{position:sticky;top:56px;z-index:90;background:var(--topics-bg);
+.topics-row{position:sticky;top:56px;z-index:90;
+  background:color-mix(in srgb,var(--bg) 55%,transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid var(--border);display:flex;overflow-x:auto;
   scrollbar-width:none;padding:0 8px;}
 .topics-row::-webkit-scrollbar{display:none;}
@@ -115,6 +117,7 @@ img{max-width:100%;display:block;}
 .feat-meta{display:flex;align-items:center;gap:8px;padding-left:20px;margin-top:8px;}
 
 .section-div{height:1px;background:var(--divider);margin:28px 0;}
+.section-div.tight{margin:12px 0;}
 
 /* Article card */
 .article-card{display:flex;gap:14px;padding:18px 0;
@@ -122,14 +125,12 @@ img{max-width:100%;display:block;}
 .article-card:last-child{border-bottom:none;}
 .article-card:hover{opacity:.72;}
 .card-body{flex:1;min-width:0;}
-.card-top{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap;}
 .card-title{font-family:'Archivo Black',sans-serif;font-size:16px;line-height:1.28;
   color:var(--text);margin-bottom:6px;}
 .card-desc{font-family:'Fira Sans',sans-serif;font-size:13px;color:var(--muted);
   line-height:1.55;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;
   -webkit-box-orient:vertical;overflow:hidden;}
-.card-bottom{display:flex;align-items:center;gap:8px;}
-.card-author{font-family:'Fira Sans',sans-serif;font-style:italic;font-size:12px;color:var(--anth);}
+.card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .card-time{font-family:'Fira Sans',sans-serif;font-size:11px;color:var(--muted);}
 .card-thumb{width:96px;height:68px;object-fit:cover;border-radius:7px;
   flex-shrink:0;align-self:flex-start;}
@@ -145,17 +146,17 @@ img{max-width:100%;display:block;}
 /* =============================================
    PODCAST ROW (Main Page)
 ============================================= */
-.podcast-section{margin-bottom:12px;}
+.podcast-section{margin-bottom:8px;}
 .podcast-section-hd{display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:14px;}
+  margin-bottom:10px;}
 .podcast-section-label{font-family:'Archivo Black',sans-serif;font-size:11px;
   letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
 .podcast-section-more{font-family:'Archivo Black',sans-serif;font-size:11px;
   color:var(--tq);background:none;border:none;cursor:pointer;letter-spacing:.3px;}
-.podcast-row{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;
-  padding-bottom:4px;}
+.podcast-row{display:flex;align-items:flex-start;gap:12px;overflow-x:auto;scrollbar-width:none;
+  padding-bottom:2px;}
 .podcast-row::-webkit-scrollbar{display:none;}
-.pc-card{flex-shrink:0;width:130px;cursor:pointer;position:relative;}
+.pc-card{flex-shrink:0;width:130px;cursor:pointer;display:flex;flex-direction:column;}
 .pc-card-img-wrap{position:relative;width:130px;height:130px;border-radius:14px;
   overflow:hidden;background:var(--border);}
 .pc-card-img-wrap img{width:100%;height:100%;object-fit:cover;transition:opacity .2s;}
@@ -169,16 +170,15 @@ img{max-width:100%;display:block;}
   color:var(--text);margin-top:7px;overflow:hidden;display:-webkit-box;
   -webkit-line-clamp:2;-webkit-box-orient:vertical;}
 .pc-card-dur{font-size:10px;color:var(--muted);margin-top:2px;}
-.pc-logo-card{flex-shrink:0;width:130px;cursor:pointer;}
+.pc-logo-card{flex-shrink:0;width:130px;cursor:pointer;display:flex;flex-direction:column;}
 .pc-logo-box{width:130px;height:130px;border-radius:14px;background:var(--tq-tr);
   border:2px solid var(--tq-line);display:flex;align-items:center;
   justify-content:center;overflow:hidden;}
 .pc-logo-box img{width:100%;height:100%;object-fit:cover;border-radius:12px;}
 .pc-logo-label{font-family:'Archivo Black',sans-serif;font-size:11px;color:var(--tq);
   margin-top:7px;text-align:center;}
-.pc-more-card{flex-shrink:0;width:90px;cursor:pointer;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
-.pc-more-box{width:90px;height:130px;border-radius:14px;border:2px dashed var(--border);
+.pc-more-card{flex-shrink:0;width:130px;cursor:pointer;display:flex;flex-direction:column;}
+.pc-more-box{width:130px;height:130px;border-radius:14px;border:2px dashed var(--border);
   display:flex;align-items:center;justify-content:center;
   font-family:'Archivo Black',sans-serif;font-size:11px;color:var(--muted);
   transition:border-color .18s,color .18s;}
@@ -514,7 +514,7 @@ img{max-width:100%;display:block;}
 /* =============================================
    PODCAST PLAYER — PC FLOATING ISLAND
 ============================================= */
-.pc-player{position:fixed;left:7px;top:95%;transform:translateY(-95%);
+.pc-player{position:fixed;left:20px;top:50%;transform:translateY(-50%);
   width:260px;z-index:150;background:var(--surface);
   border:1px solid var(--border);border-radius:20px;
   box-shadow:0 8px 40px rgba(0,0,0,.18);overflow:hidden;
@@ -750,7 +750,7 @@ img{max-width:100%;display:block;}
     <div class="pcp-controls">
       <div style="display:flex;flex-direction:column;align-items:center;">
         <button class="pcp-btn" onclick="skipPlayer(-15)" title="-15s">
-         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://w3.org">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://w3.org">
   <!-- Flipped 3/4 Circle loop -->
           <path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38l-.73-1.19" />
          </svg>
@@ -1347,12 +1347,19 @@ async function boot(){
 function renderCategories(){
   const row=document.getElementById('topicsRow');
   const visible=allCategories.filter(t=>t.visible!==false);
-  const buttons=[{id:'all',name:'Összes'},...visible];
+  const buttons=[{id:'podcasts',name:'Podcastok',special:true},{id:'all',name:'Összes'},...visible];
   row.innerHTML=buttons.map(t=>
-    `<button class="topic-btn${t.id===currentCategory?' active':''}"
+    t.special
+      ?`<button class="topic-btn" onclick="goPodcastsFromNav(this)">${t.name}</button>`
+      :`<button class="topic-btn${t.id===currentCategory&&!currentTagFilter?' active':''}"
              onclick="filterCategory('${t.id}',this)">${t.name}</button>`
   ).join('');
 }
+window.goPodcastsFromNav=function(btn){
+  document.querySelectorAll('.topic-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  openPodcastPage();
+};
 window.filterCategory=function(id,btn){
   currentCategory=id;
   currentTagFilter=null;
@@ -1415,7 +1422,7 @@ function renderMain(){
           <div class="pc-logo-label">Podcastok</div>
         </div>
         ${featuredPodcasts.map(p=>`
-          <div class="pc-card">
+          <div class="pc-card" data-podcast-id="${p.id}">
             <div class="pc-card-img-wrap">
               ${p.cover?`<img src="${p.cover}" alt="${escapeHtml(p.title)}" loading="lazy">`:
                 `<div style="width:100%;height:100%;background:var(--tq-tr);display:flex;align-items:center;justify-content:center;color:var(--tq);">🎙</div>`}
@@ -1433,7 +1440,7 @@ function renderMain(){
         </div>
       </div>
     </div>
-    <div class="section-div"></div>`:'';
+    <div class="section-div tight"></div>`:'';
 
   // Set click handlers for podcast cards after render
   wrap.innerHTML=`
@@ -1453,12 +1460,9 @@ function renderMain(){
       ${rest.map(a=>articleCardHTML(a)).join('')}
     </div>`;
 
-  // Attach podcast card click handlers
-  const pcCards=wrap.querySelectorAll('.pc-card');
-  pcCards.forEach((card,i)=>{
-    const pod=featuredPodcasts[i];
-    if(!pod) return;
-    card.addEventListener('click',()=>startPodcast(pod));
+  wrap.querySelectorAll('.pc-card[data-podcast-id]').forEach(card=>{
+    const pod=featuredPodcasts.find(p=>p.id===card.dataset.podcastId);
+    if(pod) card.addEventListener('click',()=>startPodcast(pod));
   });
 }
 
@@ -1468,13 +1472,10 @@ function articleCardHTML(a){
   return `
     <div class="article-card" onclick="openArticle('${a.id}')">
       <div class="card-body">
-        <div class="card-top">
-          ${cat?`<span class="cat-badge">${escapeHtml(cat.name)}</span>`:''}
-        </div>
-        <div class="card-title">${escapeHtml(a.title)}</div>
+        <motion class="card-title">${escapeHtml(a.title)}</div>
         ${a.desc?`<div class="card-desc">${escapeHtml(a.desc)}</div>`:''}
-        <div class="card-bottom">
-          ${a.author?`<span class="card-author">${escapeHtml(a.author)}</span>`:''}
+        <div class="card-meta">
+          ${cat?`<span class="cat-badge">${escapeHtml(cat.name)}</span>`:''}
           ${t?`<span class="card-time">${t}</span>`:''}
         </div>
       </div>
@@ -1625,13 +1626,12 @@ function renderPoll(a){
 }
 
 window.votePoll=async function(articleId,optId){
-  localStorage.setItem('tfp_'+articleId,''+optId);
+  if(localStorage.getItem('tfp_'+articleId)){showToast('Már szavaztál.');return;}
   try{
-    const path=`votes.${optId}`;
-    await updateDoc(doc(db,'articles',articleId),{[path]:increment(1)});
+    await updateDoc(doc(db,'articles',articleId),{[`poll.votes.${optId}`]:increment(1)});
+    localStorage.setItem('tfp_'+articleId,''+optId);
     const d=await getDoc(doc(db,'articles',articleId));
     const a={id:articleId,...d.data()};
-    // re-render just the poll block
     const container=document.getElementById('poll-'+articleId);
     if(container){
       container.outerHTML=renderPoll(a);
@@ -1639,7 +1639,12 @@ window.votePoll=async function(articleId,optId){
         bar.style.width=bar.getAttribute('data-pct')+'%';
       }),100);
     }
-  }catch(e){showToast('Hiba a szavazás során.');}
+    const idx=allArticles.findIndex(x=>x.id===articleId);
+    if(idx>=0) allArticles[idx]=a;
+  }catch(e){
+    console.error(e);
+    showToast('Szavazás sikertelen. Ellenőrizd a Firestore szabályokat (poll szavazat).');
+  }
 };
 
 /* ── Share ── */
@@ -2146,7 +2151,9 @@ function renderBlocks(){
       <div class="block-header">
         <span class="block-type-label">${labels[b.type]||b.type}</span>
         <div class="block-header-actions">
-          ${b.type==='para'?`<button type="button" class="block-link-btn" onclick="event.stopPropagation();openLinkPopup(${i})" title="URL hozzáadása kijelölt szöveghez">🔗 Link</button>`:''}
+          ${b.type==='para'?`<button type="button" class="block-link-btn"
+            onmousedown="event.preventDefault();captureLinkSelection(${i})"
+            onclick="event.stopPropagation();openLinkPopup(${i})" title="Jelölj ki szöveget, majd kattints ide">🔗 Link</button>`:''}
           ${i>0?`<button class="block-del" title="Fel" onclick="moveBlock(${i},-1)">↑</button>`:''}
           ${i<editorBlocks.length-1?`<button class="block-del" title="Le" onclick="moveBlock(${i},1)">↓</button>`:''}
           <button class="block-del" onclick="removeBlock(${i})">✕</button>
@@ -2193,12 +2200,22 @@ window.updateYtPreview=function(i,url){
 };
 
 /* ── Link popup ── */
-window.openLinkPopup=function(blockIdx){
+window.captureLinkSelection=function(blockIdx){
   const ta=document.getElementById('bta'+blockIdx);
-  if(!ta){showToast('Először adj hozzá egy bekezdés blokkot.');return;}
+  if(!ta) return;
   _linkBlockIdx=blockIdx;
   _linkSelStart=ta.selectionStart;
   _linkSelEnd=ta.selectionEnd;
+};
+window.openLinkPopup=function(blockIdx){
+  const ta=document.getElementById('bta'+blockIdx);
+  if(!ta){showToast('Először adj hozzá egy bekezdés blokkot.');return;}
+  if(_linkBlockIdx!==blockIdx){
+    _linkBlockIdx=blockIdx;
+    _linkSelStart=ta.selectionStart;
+    _linkSelEnd=ta.selectionEnd;
+  }
+  if(_linkSelStart===_linkSelEnd) showToast('Jelölj ki a linkelni kívánt szöveget a bekezdésben.');
   const popup=document.getElementById('linkPopup');
   const rect=ta.getBoundingClientRect();
   popup.style.top=(rect.bottom+window.scrollY+6)+'px';
@@ -2219,8 +2236,14 @@ window.applyLink=function(){
   const selected=text.slice(_linkSelStart,_linkSelEnd)||'szöveg';
   const before=text.slice(0,_linkSelStart);
   const after=text.slice(_linkSelEnd);
+  if(!/^https?:\/\//i.test(url)) url='https://'+url;
   b.text=before+`[${selected}](${url})`+after;
   closeLinkPopup();renderBlocks();
+  showToast('Link beszúrva. A cikkben kattintható lesz.');
+  setTimeout(()=>{
+    const ta2=document.getElementById('bta'+_linkBlockIdx);
+    if(ta2) ta2.focus();
+  },50);
 };
 document.addEventListener('mousedown',e=>{
   if(!e.target.closest('#linkPopup')&&!e.target.closest('.block-link-btn'))
@@ -2478,7 +2501,15 @@ service cloud.firestore {
       return request.auth != null &&
         request.auth.token.email in ["kelemeng771@gmail.com"];
     }
-    match /articles/{id}           { allow read: if true; allow write: if isAdmin(); }
+    match /articles/{id} {
+      allow read: if true;
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin() || (
+        resource.data.poll != null &&
+        request.resource.data.poll.question == resource.data.poll.question &&
+        request.resource.data.poll.options == resource.data.poll.options
+      );
+    }
     match /topics/{id}             { allow read: if true; allow write: if isAdmin(); }
     match /settings/{id}           { allow read: if true; allow write: if isAdmin(); }
     match /podcasts/{id}           { allow read: if true; allow write: if isAdmin(); }
