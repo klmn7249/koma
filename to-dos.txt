@@ -1,0 +1,22 @@
+1. Auto detection of night-day mode
+2. Add video (YT) embedding
+3. Add time of publishing
+10. Add topic on main page display
+11. Add URL embedding within paragraphs
+12. Add polls within articles
+3. Add contact page
+  - Contact button in settings
+  - Contact page: email address, subject, title, message, add pics, sending.
+  - (Automatic response: If mail contains "subject" [or marked as else] automatic mail using Google Apps Script -> sending HTML-based email.)
+4. Add Podcast format and create audio player
+  - Add Podcast row on main page
+  - Add page fully dedicated to podcasts
+  - Create player for minimized and fullscreen view (Fullscreen only on mobile)
+5. Add Bookmarking and create page for that (device-based)
+
+6. Prepare for application format
+7. Create app for the site
+8. Create splash screen animation for app
+
+
+13. Puzzles? NO.
