@@ -921,10 +921,10 @@ img{max-width:100%;display:block;}
     </div>
     <div class="admin-content">
       <div class="admin-tabs">
-        <button class="admin-tab active" onclick="adminTab('articles',this)">Cikkek</button>
-        <button class="admin-tab" onclick="adminTab('categories',this)">Kategóriák</button>
-        <button class="admin-tab" onclick="adminTab('podcasts',this)">Podcastok</button>
-        <button class="admin-tab" onclick="adminTab('profile',this)">Profil</button>
+        <button class="admin-tab active" data-tab="articles" onclick="adminTab('articles',this)">Cikkek</button>
+        <button class="admin-tab" data-tab="categories" onclick="adminTab('categories',this)">Kategóriák</button>
+        <button class="admin-tab" data-tab="podcasts" onclick="adminTab('podcasts',this)">Podcastok</button>
+        <button class="admin-tab" data-tab="profile" onclick="adminTab('profile',this)">Profil</button>
       </div>
       <div id="adminTabContent"><div class="spinner-wrap"><div class="spinner"></div></div></div>
     </div>
@@ -1120,6 +1120,9 @@ let _linkSelEnd    = 0;
 function escapeHtml(s=''){
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')
           .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+function safeTextarea(s=''){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
 }
 function showToast(msg,dur=2600){
   const t=document.getElementById('toast');
@@ -1884,11 +1887,19 @@ window.confirmLogout=async function(){
 /* ════════════════════════════
    ADMIN DASHBOARD
 ════════════════════════════ */
-window.loadAdminDashboard=async function(){
+window.loadAdminDashboard=async function(opts={}){
   if(!currentAdmin){showView('view-login');return;}
   document.getElementById('adminUserLabel').textContent=adminDisplayName();
-  await Promise.all([fetchArticles(),fetchCategories(),fetchPodcasts(),fetchPodcastCats(),fetchSettings()]);
-  adminTab('articles',document.querySelector('.admin-tab'));
+  if(opts.refresh!==false){
+    const jobs=[fetchSettings()];
+    if(opts.articles!==false) jobs.push(fetchArticles());
+    if(opts.categories!==false) jobs.push(fetchCategories());
+    if(opts.podcasts!==false) jobs.push(fetchPodcasts(),fetchPodcastCats());
+    await Promise.all(jobs);
+  }
+  const tab=opts.tab||(opts.tabBtn?.dataset?.tab)||'articles';
+  const tabBtn=opts.tabBtn||document.querySelector(`.admin-tab[data-tab="${tab}"]`)||document.querySelector('.admin-tab');
+  if(tabBtn) adminTab(tab,tabBtn);
 };
 window.adminTab=function(tab,btn){
   document.querySelectorAll('.admin-tab').forEach(b=>b.classList.remove('active'));
@@ -1928,10 +1939,17 @@ function renderAdminArticles(ct){
           </div>
         </div>`;}).join('')}`;
 }
-window.toggleFeatured=async function(id){
+window.toggleFeatured=async function(id,btn){
   featuredId=id;
-  await setDoc(doc(db,'settings','global'),{featuredId:id},{merge:true});
-  loadAdminDashboard();showToast('Kiemelt cikk beállítva.');
+  document.querySelectorAll('#adminTabContent .act-btn.feat').forEach(b=>b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  showToast('Kiemelt cikk beállítva.');
+  try{
+    await setDoc(doc(db,'settings','global'),{featuredId:id},{merge:true});
+    await fetchArticles();
+    renderAdminArticles(document.getElementById('adminTabContent'));
+    renderMain();
+  }catch(e){showToast('Hiba: '+e.message);}
 };
 window.deleteArticle=async function(id){
   const a=allArticles.find(x=>x.id===id);
@@ -2004,7 +2022,7 @@ function renderAdminPodcasts(ct){
             <div class="aar-meta">${p.duration||'–'} · ${p.featured?'⭐ Kiemelt':''}</div>
           </div>
           <div class="aar-actions">
-            <button class="act-btn feat${p.featured?' on':''}" onclick="togglePodcastFeatured('${p.id}')">
+            <button class="act-btn feat${p.featured?' on':''}" onclick="togglePodcastFeatured('${p.id}',this)">
               ${p.featured?'★ Kiemelt':'☆ Kiemel'}
             </button>
             <button class="act-btn edit" onclick="openPodcastEditor('${p.id}')">Szerkeszt</button>
@@ -2012,16 +2030,21 @@ function renderAdminPodcasts(ct){
           </div>
         </div>`).join('')}`;
 }
-window.togglePodcastFeatured=async function(id){
+window.togglePodcastFeatured=async function(id,btn){
   const p=allPodcasts.find(x=>x.id===id);
   if(!p) return;
   const nowFeat=p.featured||false;
   const featCount=allPodcasts.filter(x=>x.featured).length;
   if(!nowFeat&&featCount>=5){showToast('Már 5 kiemelt podcast van. Vegyél le egyet.');return;}
-  const newOrder=nowFeat?null:Date.now();
-  await updateDoc(doc(db,'podcasts',id),{featured:!nowFeat,featuredOrder:newOrder||0});
-  await fetchPodcasts();renderAdminPodcasts(document.getElementById('adminTabContent'));
-  renderMain();showToast('Kiemelt podcast frissítve.');
+  document.querySelectorAll('#adminTabContent .act-btn.feat').forEach(b=>b.classList.remove('on'));
+  if(btn&&!nowFeat) btn.classList.add('on');
+  showToast('Kiemelt podcast frissítve.');
+  try{
+    await updateDoc(doc(db,'podcasts',id),{featured:!nowFeat,featuredOrder:nowFeat?0:Date.now()});
+    await fetchPodcasts();
+    renderAdminPodcasts(document.getElementById('adminTabContent'));
+    renderMain();
+  }catch(e){showToast('Hiba: '+e.message);}
 };
 window.deletePodcast=async function(id){
   const p=allPodcasts.find(x=>x.id===id);
@@ -2112,7 +2135,7 @@ function renderBlocks(){
       <div class="block-header">
         <span class="block-type-label">${labels[b.type]||b.type}</span>
         <div class="block-header-actions">
-          ${b.type==='para'?`<button class="block-link-btn" onclick="openLinkPopup(${i})" title="URL hozzáadása kijelölt szöveghez">🔗 Link</button>`:''}
+          ${b.type==='para'?`<button type="button" class="block-link-btn" onclick="event.stopPropagation();openLinkPopup(${i})" title="URL hozzáadása kijelölt szöveghez">🔗 Link</button>`:''}
           ${i>0?`<button class="block-del" title="Fel" onclick="moveBlock(${i},-1)">↑</button>`:''}
           ${i<editorBlocks.length-1?`<button class="block-del" title="Le" onclick="moveBlock(${i},1)">↓</button>`:''}
           <button class="block-del" onclick="removeBlock(${i})">✕</button>
@@ -2137,7 +2160,7 @@ function renderBlocks(){
       :`<textarea class="block-textarea" id="bta${i}"
           oninput="updateBlockField(${i},'text',this.value)"
           placeholder="${b.type==='para'?'Bekezdés szövege…':b.type==='heading'?'Alcím…':b.type==='highlight'?'Kiemelt szöveg…':'Idézet…'}"
-        >${escapeHtml(b.text||'')}</textarea>`}
+        >${safeTextarea(b.text||'')}</textarea>`}
     </div>`).join('');
 }
 
@@ -2161,14 +2184,14 @@ window.updateYtPreview=function(i,url){
 /* ── Link popup ── */
 window.openLinkPopup=function(blockIdx){
   const ta=document.getElementById('bta'+blockIdx);
-  if(!ta) return;
+  if(!ta){showToast('Először adj hozzá egy bekezdés blokkot.');return;}
   _linkBlockIdx=blockIdx;
   _linkSelStart=ta.selectionStart;
   _linkSelEnd=ta.selectionEnd;
   const popup=document.getElementById('linkPopup');
   const rect=ta.getBoundingClientRect();
   popup.style.top=(rect.bottom+window.scrollY+6)+'px';
-  popup.style.left=Math.min(rect.left,window.innerWidth-290)+'px';
+  popup.style.left=Math.max(8,Math.min(rect.left,window.innerWidth-290))+'px';
   document.getElementById('linkUrl').value='';
   popup.classList.add('show');
   setTimeout(()=>document.getElementById('linkUrl').focus(),50);
@@ -2188,12 +2211,22 @@ window.applyLink=function(){
   b.text=before+`[${selected}](${url})`+after;
   closeLinkPopup();renderBlocks();
 };
-document.addEventListener('click',e=>{
+document.addEventListener('mousedown',e=>{
   if(!e.target.closest('#linkPopup')&&!e.target.closest('.block-link-btn'))
     closeLinkPopup();
 });
 
 /* ── Poll editor ── */
+window.updatePollQuestion=function(v){if(editorPoll) editorPoll.question=v;};
+window.updatePollOption=function(i,v){if(editorPoll?.options[i]) editorPoll.options[i].text=v;};
+function syncPollFromDom(){
+  if(!editorPoll) return;
+  const q=document.getElementById('pollQuestionInput');
+  if(q) editorPoll.question=q.value;
+  document.querySelectorAll('.poll-opt-input').forEach((inp,i)=>{
+    if(editorPoll.options[i]) editorPoll.options[i].text=inp.value;
+  });
+}
 window.initPollEditor=function(){
   editorPoll={question:'',options:[{id:'opt1',text:''},{id:'opt2',text:''}],votes:{}};
   renderPollEditor();
@@ -2210,13 +2243,13 @@ function renderPollEditor(){
         <span style="font-family:'Archivo Black',sans-serif;font-size:12px;color:var(--muted);">SZAVAZÁS</span>
         <button class="block-del" onclick="removePoll()" title="Szavazás eltávolítása">✕</button>
       </div>
-      <input class="editor-input" placeholder="A szavazás kérdése…" value="${escapeHtml(editorPoll.question||'')}"
-        oninput="editorPoll.question=this.value" style="margin-bottom:10px;">
+      <input class="editor-input" id="pollQuestionInput" placeholder="A szavazás kérdése…" value="${escapeHtml(editorPoll.question||'')}"
+        oninput="updatePollQuestion(this.value)" style="margin-bottom:10px;">
       <div id="pollOptsList">
         ${editorPoll.options.map((o,i)=>`
           <div class="poll-opt-editor-row">
-            <input placeholder="Lehetőség ${i+1}…" value="${escapeHtml(o.text||'')}"
-              oninput="editorPoll.options[${i}].text=this.value">
+            <input class="poll-opt-input" placeholder="Lehetőség ${i+1}…" value="${escapeHtml(o.text||'')}"
+              oninput="updatePollOption(${i},this.value)">
             ${editorPoll.options.length>2?`<button class="block-del" onclick="removePollOpt(${i})">✕</button>`:''}
           </div>`).join('')}
       </div>
@@ -2273,17 +2306,14 @@ window.saveArticle=async function(){
     author,
     updatedAt:serverTimestamp()
   };
-  if(editorPoll&&editorPoll.question&&editorPoll.options.length>=2){
-    const pollToSave={
-      question:editorPoll.question,
-      options:editorPoll.options.filter(o=>o.text.trim()),
-      votes:editorArticle?.poll?.votes||{}
-    };
-    // init vote counts for new options
-    pollToSave.options.forEach(o=>{if(!(o.id in pollToSave.votes)) pollToSave.votes[o.id]=0;});
-    data.poll=pollToSave;
-  } else {
-    data.poll=null;
+  syncPollFromDom();
+  if(editorPoll){
+    const opts=editorPoll.options.map(o=>({id:o.id,text:(o.text||'').trim()})).filter(o=>o.text);
+    if(editorPoll.question.trim()&&opts.length>=2){
+      const pollToSave={question:editorPoll.question.trim(),options:opts,votes:{...(editorArticle?.poll?.votes||{})}};
+      opts.forEach(o=>{if(!(o.id in pollToSave.votes)) pollToSave.votes[o.id]=0;});
+      data.poll=pollToSave;
+    }
   }
 
   try{
@@ -2294,7 +2324,8 @@ window.saveArticle=async function(){
       await addDoc(collection(db,'articles'),data);showToast('Cikk közzétéve.');
     }
     await fetchArticles();renderMain();
-    showView('view-admin');loadAdminDashboard();
+    showView('view-admin');
+    loadAdminDashboard({podcasts:false,categories:false,tab:'articles'});
   }catch(e){
     console.error(e);
     showToast(e?.code==='permission-denied'?'Nincs jogosultság. Ellenőrizd a Firebase szabályokat.':'Mentési hiba: '+e.message);
@@ -2345,16 +2376,23 @@ window.showPodcastCatAdder=function(){
   el.style.display=el.style.display==='none'?'block':'none';
 };
 window.addPodcastCategory=async function(){
-  const val=document.getElementById('newPodCat').value.trim();if(!val) return;
+  const val=document.getElementById('newPodCat').value.trim();
+  if(!val){showToast('Add meg a kategória nevét.');return;}
   const id=val.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-áéíóöőúüű]/gi,'');
-  await setDoc(doc(db,'podcastCategories',id),{name:val,order:allPodcastCats.length});
-  await fetchPodcastCats();
-  const sel=document.getElementById('pedCategory');
-  sel.innerHTML='<option value="">— Válassz kategóriát —</option>'+
-    allPodcastCats.map(c=>`<option value="${c.id}">${escapeHtml(c.name)}</option>`).join('');
-  document.getElementById('newPodCat').value='';
-  document.getElementById('podcastCatAdder').style.display='none';
-  showToast(`"${val}" kategória hozzáadva.`);
+  if(!id){showToast('Érvénytelen kategórianév.');return;}
+  try{
+    await setDoc(doc(db,'podcastCategories',id),{name:val,order:allPodcastCats.length});
+    await fetchPodcastCats();
+    const sel=document.getElementById('pedCategory');
+    sel.innerHTML='<option value="">— Válassz kategóriát —</option>'+
+      allPodcastCats.map(c=>`<option value="${c.id}"${c.id===id?' selected':''}>${escapeHtml(c.name)}</option>`).join('');
+    document.getElementById('newPodCat').value='';
+    document.getElementById('podcastCatAdder').style.display='none';
+    showToast(`"${val}" kategória kész — most már mentheted a podcastot.`);
+  }catch(e){
+    console.error(e);
+    showToast('Kategória hiba: '+e.message);
+  }
 };
 
 window.handleAudioSelect=function(input){
@@ -2406,7 +2444,9 @@ window.savePodcast=async function(){
       data.createdAt=serverTimestamp();
       await addDoc(collection(db,'podcasts'),data);showToast('Podcast közzétéve.');
     }
-    await fetchPodcasts();showView('view-admin');loadAdminDashboard();
+    await fetchPodcasts();renderMain();
+    showView('view-admin');
+    loadAdminDashboard({articles:false,categories:false,tab:'podcasts'});
   }catch(e){showToast('Mentési hiba: '+e.message);}
 };
 
@@ -2443,7 +2483,8 @@ service cloud.firestore {
     match /b/{bucket}/o {
       match /podcasts/{file} {
         allow read: if true;
-        allow write: if request.auth != null;
+        allow write: if request.auth != null &&
+          request.auth.token.email == "kelemeng771@gmail.com";
       }
     }
   }
