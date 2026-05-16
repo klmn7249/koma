@@ -145,7 +145,7 @@ img{max-width:100%;display:block;}
 /* =============================================
    PODCAST ROW (Main Page)
 ============================================= */
-.podcast-section{margin-bottom:24px;}
+.podcast-section{margin-bottom:12px;}
 .podcast-section-hd{display:flex;align-items:center;justify-content:space-between;
   margin-bottom:14px;}
 .podcast-section-label{font-family:'Archivo Black',sans-serif;font-size:11px;
@@ -514,7 +514,7 @@ img{max-width:100%;display:block;}
 /* =============================================
    PODCAST PLAYER — PC FLOATING ISLAND
 ============================================= */
-.pc-player{position:fixed;left:20px;top:50%;transform:translateY(-50%);
+.pc-player{position:fixed;left:20px;top:35%;transform:translateY(-35%);
   width:260px;z-index:150;background:var(--surface);
   border:1px solid var(--border);border-radius:20px;
   box-shadow:0 8px 40px rgba(0,0,0,.18);overflow:hidden;
@@ -750,7 +750,10 @@ img{max-width:100%;display:block;}
     <div class="pcp-controls">
       <div style="display:flex;flex-direction:column;align-items:center;">
         <button class="pcp-btn" onclick="skipPlayer(-15)" title="-15s">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.25"/></svg>
+         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://w3.org">
+  <!-- Flipped 3/4 Circle loop -->
+          <path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38l-.73-1.19" />
+         </svg>
         </button>
         <span class="pcp-skip-label">15</span>
       </div>
@@ -759,7 +762,9 @@ img{max-width:100%;display:block;}
       </button>
       <div style="display:flex;flex-direction:column;align-items:center;">
         <button class="pcp-btn" onclick="skipPlayer(15)" title="+15s">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.49-3.25"/></svg>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://w3.org">
+           <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l.73-1.19" />
+          </svg>
         </button>
         <span class="pcp-skip-label">15</span>
       </div>
@@ -808,13 +813,19 @@ img{max-width:100%;display:block;}
   </div>
   <div class="mob-full-controls">
     <button class="mob-full-btn" onclick="skipPlayer(-15)">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.25"/></svg>
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://w3.org">
+  <!-- Flipped 3/4 Circle loop -->
+       <path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38l-.73-1.19" />
+      </svg>
     </button>
     <button class="mob-full-play" onclick="togglePlay()">
       <svg id="mfPlayIco" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
     </button>
     <button class="mob-full-btn" onclick="skipPlayer(15)">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.49-3.25"/></svg>
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" transform="matrix(-1,0,0,1,0,0)">
+  <!-- Flipped 3/4 Circle loop -->
+       <path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38l-.73-1.19"></path>
+      </svg>
     </button>
   </div>
   <div class="mob-full-bottom">
