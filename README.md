@@ -1,2 +1,2 @@
-# koma
-Kóma is a news website with unserious articles.
+# the forum
+The Forum is a news website with unserious articles.
