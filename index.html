@@ -117,7 +117,6 @@ img{max-width:100%;display:block;}
 .feat-meta{display:flex;align-items:center;gap:8px;padding-left:20px;margin-top:8px;}
 
 .section-div{height:1px;background:var(--divider);margin:28px 0;}
-.section-div.tight{margin:12px 0;}
 
 /* Article card */
 .article-card{display:flex;gap:14px;padding:18px 0;
@@ -514,7 +513,7 @@ img{max-width:100%;display:block;}
 /* =============================================
    PODCAST PLAYER — PC FLOATING ISLAND
 ============================================= */
-.pc-player{position:fixed;left:20px;top:50%;transform:translateY(-50%);
+.pc-player{position:fixed;left:1px;top:95%;transform:translateY(-95%);
   width:260px;z-index:150;background:var(--surface);
   border:1px solid var(--border);border-radius:20px;
   box-shadow:0 8px 40px rgba(0,0,0,.18);overflow:hidden;
@@ -1347,7 +1346,7 @@ async function boot(){
 function renderCategories(){
   const row=document.getElementById('topicsRow');
   const visible=allCategories.filter(t=>t.visible!==false);
-  const buttons=[{id:'podcasts',name:'Podcastok',special:true},{id:'all',name:'Összes'},...visible];
+  const buttons=[{id:'all',name:'Összes'},{id:'podcasts',name:'Podcastok',special:true},...visible];
   row.innerHTML=buttons.map(t=>
     t.special
       ?`<button class="topic-btn" onclick="goPodcastsFromNav(this)">${t.name}</button>`
@@ -1472,10 +1471,13 @@ function articleCardHTML(a){
   return `
     <div class="article-card" onclick="openArticle('${a.id}')">
       <div class="card-body">
-        <motion class="card-title">${escapeHtml(a.title)}</div>
-        ${a.desc?`<div class="card-desc">${escapeHtml(a.desc)}</div>`:''}
-        <div class="card-meta">
+        <div class="card-top">
           ${cat?`<span class="cat-badge">${escapeHtml(cat.name)}</span>`:''}
+        </div>
+        <div class="card-title">${escapeHtml(a.title)}</div>
+        ${a.desc?`<div class="card-desc">${escapeHtml(a.desc)}</div>`:''}
+        <div class="card-bottom">
+          ${a.author?`<span class="card-author">${escapeHtml(a.author)}</span>`:''}
           ${t?`<span class="card-time">${t}</span>`:''}
         </div>
       </div>
