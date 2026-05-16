@@ -13,915 +13,697 @@
    CSS CUSTOM PROPERTIES
 ============================================= */
 :root {
-  --tq:          #1ABCB0;
-  --tq-tr:       rgba(26,188,176,0.13);
-  --tq-line:     rgba(26,188,176,0.55);
-  --anth:        #383E42;
-  --text:        #111111;
-  --muted:       #666666;
-  --bg:          #FFFFFF;
-  --surface:     #FFFFFF;
-  --border:      #E4E4E4;
-  --divider:     rgba(0,0,0,0.07);
-  --shadow:      0 2px 12px rgba(0,0,0,0.07);
-  --topics-bg:   rgba(26,188,176,0.08);
+  --tq:        #1ABCB0;
+  --tq-tr:     rgba(26,188,176,0.13);
+  --tq-line:   rgba(26,188,176,0.55);
+  --anth:      #383E42;
+  --text:      #111111;
+  --muted:     #666666;
+  --bg:        #FFFFFF;
+  --surface:   #FFFFFF;
+  --border:    #E4E4E4;
+  --divider:   rgba(0,0,0,0.07);
+  --shadow:    0 2px 12px rgba(0,0,0,0.07);
+  --topics-bg: rgba(26,188,176,0.08);
 }
 [data-theme="dark"] {
-  --tq-tr:       rgba(26,188,176,0.10);
-  --anth:        #9A9A9A;
-  --text:        #EDEDED;
-  --muted:       #888888;
-  --bg:          #141414;
-  --surface:     #1E1E1E;
-  --border:      #2C2C2C;
-  --divider:     rgba(255,255,255,0.07);
-  --shadow:      0 2px 14px rgba(0,0,0,0.4);
-  --topics-bg:   rgba(26,188,176,0.07);
+  --tq-tr:     rgba(26,188,176,0.10);
+  --anth:      #9A9A9A;
+  --text:      #EDEDED;
+  --muted:     #888888;
+  --bg:        #141414;
+  --surface:   #1E1E1E;
+  --border:    #2C2C2C;
+  --divider:   rgba(255,255,255,0.07);
+  --shadow:    0 2px 14px rgba(0,0,0,0.4);
+  --topics-bg: rgba(26,188,176,0.07);
 }
 
 /* =============================================
    RESET & BASE
 ============================================= */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Fira Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  transition: background 0.25s, color 0.25s;
-  overflow-x: hidden;
-  line-height: 1.6;
-}
-button, input, textarea, select { font-family: inherit; }
-a { text-decoration: none; color: inherit; }
-img { max-width: 100%; display: block; }
-
-/* =============================================
-   VIEW SYSTEM
-============================================= */
-.view { display: none; }
-.view.active { display: block; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Fira Sans',sans-serif;background:var(--bg);color:var(--text);
+  transition:background .25s,color .25s;overflow-x:hidden;line-height:1.6;}
+button,input,textarea,select{font-family:inherit;}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;display:block;}
+.view{display:none;} .view.active{display:block;}
 
 /* =============================================
    HEADER
 ============================================= */
-.site-header {
-  background: var(--tq);
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 18px;
-  z-index: 100;
-  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
-}
-#main-header { position: sticky; top: 0; }
-#article-header { position: fixed; top: 0; width: 100%; }
-#article-header.hidden { transform: translateY(-100%); }
-
-.logo {
-  font-family: 'Changa One', cursive;
-  font-size: 26px;
-  color: #fff;
-  cursor: pointer;
-  letter-spacing: 0.5px;
-  user-select: none;
-}
-.header-right { display: flex; align-items: center; gap: 4px; }
-.header-left  { display: flex; align-items: center; gap: 8px; }
-
-.icon-btn {
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  border: none;
-  background: none;
-  color: #fff;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.18s;
-  flex-shrink: 0;
-}
-.icon-btn:hover { background: rgba(255,255,255,0.18); }
-
-.back-btn {
-  display: flex; align-items: center; gap: 5px;
-  border: none; background: none;
-  color: #fff; cursor: pointer;
-  font-size: 14px; font-family: 'Fira Sans', sans-serif;
-  padding: 5px 8px; border-radius: 7px;
-  transition: background 0.18s;
-}
-.back-btn:hover { background: rgba(255,255,255,0.18); }
+.site-header{background:var(--tq);height:56px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 18px;z-index:100;
+  transition:transform .3s cubic-bezier(.4,0,.2,1);}
+#main-header{position:sticky;top:0;}
+#article-header{position:fixed;top:0;width:100%;}
+#article-header.hidden{transform:translateY(-100%);}
+.logo{font-family:'Changa One',cursive;font-size:26px;color:#fff;cursor:pointer;
+  letter-spacing:.5px;user-select:none;}
+.header-right{display:flex;align-items:center;gap:4px;}
+.header-left{display:flex;align-items:center;gap:8px;}
+.icon-btn{width:38px;height:38px;border-radius:50%;border:none;background:none;color:#fff;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .18s;flex-shrink:0;}
+.icon-btn:hover{background:rgba(255,255,255,.18);}
+.back-btn{display:flex;align-items:center;gap:5px;border:none;background:none;color:#fff;
+  cursor:pointer;font-size:14px;font-family:'Fira Sans',sans-serif;padding:5px 8px;
+  border-radius:7px;transition:background .18s;}
+.back-btn:hover{background:rgba(255,255,255,.18);}
 
 /* =============================================
-   TOPICS ROW
+   TOPICS / CATEGORIES ROW
 ============================================= */
-.topics-row {
-  position: sticky;
-  top: 56px;
-  z-index: 90;
-  background: var(--topics-bg);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding: 0 8px;
-}
-.topics-row::-webkit-scrollbar { display: none; }
+.topics-row{position:sticky;top:56px;z-index:90;background:var(--topics-bg);
+  border-bottom:1px solid var(--border);display:flex;overflow-x:auto;
+  scrollbar-width:none;padding:0 8px;}
+.topics-row::-webkit-scrollbar{display:none;}
+.topic-btn{flex-shrink:0;padding:11px 15px;border:none;background:none;
+  font-family:'Archivo Black',sans-serif;font-size:12px;letter-spacing:.3px;
+  color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;
+  transition:color .18s,border-color .18s;white-space:nowrap;}
+.topic-btn:hover{color:var(--tq);}
+.topic-btn.active{color:var(--tq);border-bottom-color:var(--tq);}
 
-.topic-btn {
-  flex-shrink: 0;
-  padding: 11px 15px;
-  border: none; background: none;
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 12px; letter-spacing: 0.3px;
-  color: var(--muted);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: color 0.18s, border-color 0.18s;
-  white-space: nowrap;
-}
-.topic-btn:hover  { color: var(--tq); }
-.topic-btn.active { color: var(--tq); border-bottom-color: var(--tq); }
+/* Tag filter banner */
+.tag-filter-banner{background:var(--tq-tr);border-bottom:1px solid var(--tq-line);
+  padding:8px 16px;display:flex;align-items:center;justify-content:space-between;
+  font-size:13px;color:var(--tq);}
+.tag-filter-banner button{background:none;border:none;color:var(--tq);cursor:pointer;
+  font-size:18px;line-height:1;padding:0 4px;}
 
 /* =============================================
    MAIN PAGE LAYOUT
 ============================================= */
-.page-wrap {
-  max-width: 880px;
-  margin: 0 auto;
-  padding: 30px 16px 70px;
-}
+.page-wrap{max-width:880px;margin:0 auto;padding:30px 16px 70px;}
 
-/* Featured article */
-.feat-label {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--tq);
-  margin-bottom: 12px;
-}
-.feat-card { cursor: pointer; }
-.feat-card:hover .feat-title { color: var(--tq); }
-.feat-cover {
-  width: 100%; height: 320px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 18px;
-  transition: opacity 0.18s;
-}
-.feat-cover:hover { opacity: 0.9; }
-.feat-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px; font-weight: 700;
-  line-height: 1.22;
-  color: var(--text);
-  padding-left: 16px;
-  border-left: 4px solid var(--tq-line);
-  margin-bottom: 10px;
-  transition: color 0.18s;
-}
-.feat-desc {
-  font-family: 'Fira Sans', sans-serif;
-  font-size: 15px;
-  color: var(--muted);
-  padding-left: 20px;
-  line-height: 1.65;
-}
+/* Featured */
+.feat-label{font-family:'Archivo Black',sans-serif;font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--tq);margin-bottom:12px;}
+.feat-card{cursor:pointer;}
+.feat-card:hover .feat-title{color:var(--tq);}
+.feat-cover{width:100%;height:320px;object-fit:cover;border-radius:10px;
+  margin-bottom:18px;transition:opacity .18s;}
+.feat-cover:hover{opacity:.9;}
+.feat-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;
+  line-height:1.22;color:var(--text);padding-left:16px;
+  border-left:4px solid var(--tq-line);margin-bottom:10px;transition:color .18s;}
+.feat-desc{font-family:'Fira Sans',sans-serif;font-size:15px;color:var(--muted);
+  padding-left:20px;line-height:1.65;}
+.feat-meta{display:flex;align-items:center;gap:8px;padding-left:20px;margin-top:8px;}
 
-/* Divider */
-.section-div {
-  height: 1px;
-  background: var(--divider);
-  margin: 28px 0;
-}
+.section-div{height:1px;background:var(--divider);margin:28px 0;}
 
 /* Article card */
-.article-card {
-  display: flex;
-  gap: 14px;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--divider);
-  cursor: pointer;
-  transition: opacity 0.18s;
-}
-.article-card:last-child { border-bottom: none; }
-.article-card:hover { opacity: 0.72; }
-.card-body { flex: 1; min-width: 0; }
-.card-title {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 16px; line-height: 1.28;
-  color: var(--text);
-  margin-bottom: 6px;
-}
-.card-desc {
-  font-family: 'Fira Sans', sans-serif;
-  font-size: 13px; color: var(--muted);
-  line-height: 1.55; margin-bottom: 8px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.card-author {
-  font-family: 'Fira Sans', sans-serif;
-  font-style: italic; font-size: 12px;
-  color: var(--anth);
-}
-.card-thumb {
-  width: 96px; height: 68px;
-  object-fit: cover;
-  border-radius: 7px;
-  flex-shrink: 0;
-  align-self: flex-start;
-}
+.article-card{display:flex;gap:14px;padding:18px 0;
+  border-bottom:1px solid var(--divider);cursor:pointer;transition:opacity .18s;}
+.article-card:last-child{border-bottom:none;}
+.article-card:hover{opacity:.72;}
+.card-body{flex:1;min-width:0;}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap;}
+.card-title{font-family:'Archivo Black',sans-serif;font-size:16px;line-height:1.28;
+  color:var(--text);margin-bottom:6px;}
+.card-desc{font-family:'Fira Sans',sans-serif;font-size:13px;color:var(--muted);
+  line-height:1.55;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden;}
+.card-bottom{display:flex;align-items:center;gap:8px;}
+.card-author{font-family:'Fira Sans',sans-serif;font-style:italic;font-size:12px;color:var(--anth);}
+.card-time{font-family:'Fira Sans',sans-serif;font-size:11px;color:var(--muted);}
+.card-thumb{width:96px;height:68px;object-fit:cover;border-radius:7px;
+  flex-shrink:0;align-self:flex-start;}
 
-/* Empty state */
-.empty-state {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--muted);
-  font-size: 15px;
-}
+/* Category badge */
+.cat-badge{font-family:'Archivo Black',sans-serif;font-size:10px;letter-spacing:.5px;
+  text-transform:uppercase;color:#fff;background:var(--anth);
+  padding:2px 8px;border-radius:4px;white-space:nowrap;}
+[data-theme="dark"] .cat-badge{background:var(--muted);}
+
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted);font-size:15px;}
+
+/* =============================================
+   PODCAST ROW (Main Page)
+============================================= */
+.podcast-section{margin-bottom:24px;}
+.podcast-section-hd{display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:14px;}
+.podcast-section-label{font-family:'Archivo Black',sans-serif;font-size:11px;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+.podcast-section-more{font-family:'Archivo Black',sans-serif;font-size:11px;
+  color:var(--tq);background:none;border:none;cursor:pointer;letter-spacing:.3px;}
+.podcast-row{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;
+  padding-bottom:4px;}
+.podcast-row::-webkit-scrollbar{display:none;}
+.pc-card{flex-shrink:0;width:130px;cursor:pointer;position:relative;}
+.pc-card-img-wrap{position:relative;width:130px;height:130px;border-radius:14px;
+  overflow:hidden;background:var(--border);}
+.pc-card-img-wrap img{width:100%;height:100%;object-fit:cover;transition:opacity .2s;}
+.pc-card:hover .pc-card-img-wrap img{opacity:.82;}
+.pc-card-play{position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;opacity:0;transition:opacity .2s;}
+.pc-card:hover .pc-card-play{opacity:1;}
+.pc-play-circle{width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.55);
+  display:flex;align-items:center;justify-content:center;color:#fff;}
+.pc-card-title{font-family:'Archivo Black',sans-serif;font-size:11px;line-height:1.3;
+  color:var(--text);margin-top:7px;overflow:hidden;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.pc-card-dur{font-size:10px;color:var(--muted);margin-top:2px;}
+.pc-logo-card{flex-shrink:0;width:130px;cursor:pointer;}
+.pc-logo-box{width:130px;height:130px;border-radius:14px;background:var(--tq-tr);
+  border:2px solid var(--tq-line);display:flex;align-items:center;
+  justify-content:center;overflow:hidden;}
+.pc-logo-box img{width:100%;height:100%;object-fit:cover;border-radius:12px;}
+.pc-logo-label{font-family:'Archivo Black',sans-serif;font-size:11px;color:var(--tq);
+  margin-top:7px;text-align:center;}
+.pc-more-card{flex-shrink:0;width:90px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+.pc-more-box{width:90px;height:130px;border-radius:14px;border:2px dashed var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Archivo Black',sans-serif;font-size:11px;color:var(--muted);
+  transition:border-color .18s,color .18s;}
+.pc-more-card:hover .pc-more-box{border-color:var(--tq);color:var(--tq);}
 
 /* =============================================
    ARTICLE PAGE
 ============================================= */
-.art-header-spacer { height: 56px; }
-.art-cover-img {
-  width: 100%;
-  max-height: 460px;
-  object-fit: cover;
-}
-.art-body {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 28px 16px 60px;
-}
-.art-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 30px; font-weight: 700;
-  line-height: 1.22;
-  color: var(--text);
-  margin-bottom: 16px;
-}
-.art-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--divider);
-  margin-bottom: 28px;
-}
-.art-author {
-  font-family: 'Fira Sans', sans-serif;
-  font-style: italic;
-  font-size: 14px;
-  color: var(--anth);
-}
-.share-btn {
-  display: flex; align-items: center; gap: 6px;
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 6px 14px;
-  font-size: 13px; color: var(--text);
-  cursor: pointer;
-  transition: background 0.18s;
-  flex-shrink: 0;
-}
-.share-btn:hover { background: var(--border); }
+.art-header-spacer{height:56px;}
+.art-cover-img{width:100%;max-height:460px;object-fit:cover;}
+.art-body{max-width:700px;margin:0 auto;padding:28px 16px 60px;}
+.art-title{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;
+  line-height:1.22;color:var(--text);margin-bottom:16px;}
+.art-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  gap:12px;padding-bottom:18px;border-bottom:1px solid var(--divider);margin-bottom:28px;}
+.art-meta-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.art-author{font-family:'Fira Sans',sans-serif;font-style:italic;font-size:14px;color:var(--anth);}
+.art-time{font-family:'Fira Sans',sans-serif;font-size:13px;color:var(--muted);}
+.art-sep{color:var(--border);}
+.share-btn{display:flex;align-items:center;gap:6px;background:none;
+  border:1px solid var(--border);border-radius:20px;padding:6px 14px;
+  font-size:13px;color:var(--text);cursor:pointer;transition:background .18s;flex-shrink:0;}
+.share-btn:hover{background:var(--border);}
 
 /* Content blocks */
-.cb-para {
-  font-family: 'Fira Sans', sans-serif;
-  font-size: 16px; line-height: 1.85;
-  color: var(--text); margin-bottom: 20px;
-}
-.cb-heading {
-  font-family: 'Fira Sans', sans-serif;
-  font-weight: 600; font-size: 19px;
-  color: var(--text);
-  margin: 32px 0 12px;
-}
-.cb-highlight {
-  font-family: 'Fira Sans', sans-serif;
-  font-size: 16px; line-height: 1.75;
-  color: var(--text);
-  background: var(--tq-tr);
-  border-left: 3px solid var(--tq);
-  padding: 14px 18px;
-  margin: 24px 0;
-  border-radius: 0 8px 8px 0;
-}
-.cb-quote {
-  font-family: 'Fjalla One', sans-serif;
-  font-size: 22px; line-height: 1.45;
-  color: var(--anth);
-  border-left: 4px solid var(--anth);
-  padding: 8px 20px;
-  margin: 28px 0;
-}
-.cb-image { margin: 26px 0; }
-.cb-image img { width: 100%; border-radius: 8px; }
-.cb-caption {
-  font-family: 'Fira Sans', sans-serif;
-  font-style: italic; font-size: 12px;
-  color: var(--muted);
-  margin-top: 6px; text-align: center;
-}
+.cb-para{font-family:'Fira Sans',sans-serif;font-size:16px;line-height:1.85;
+  color:var(--text);margin-bottom:20px;}
+.cb-para a{color:var(--tq);text-decoration:underline;}
+.cb-heading{font-family:'Fira Sans',sans-serif;font-weight:600;font-size:19px;
+  color:var(--text);margin:32px 0 12px;}
+.cb-highlight{font-family:'Fira Sans',sans-serif;font-size:16px;line-height:1.75;
+  color:var(--text);background:var(--tq-tr);border-left:3px solid var(--tq);
+  padding:14px 18px;margin:24px 0;border-radius:0 8px 8px 0;}
+.cb-quote{font-family:'Fjalla One',sans-serif;font-size:22px;line-height:1.45;
+  color:var(--anth);border-left:4px solid var(--anth);padding:8px 20px;margin:28px 0;}
+.cb-image{margin:26px 0;}
+.cb-image img{width:100%;border-radius:8px;}
+.cb-caption{font-family:'Fira Sans',sans-serif;font-style:italic;font-size:12px;
+  color:var(--muted);margin-top:6px;text-align:center;}
+.cb-youtube{margin:26px 0;position:relative;padding-bottom:56.25%;height:0;overflow:hidden;
+  border-radius:10px;}
+.cb-youtube iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;
+  border-radius:10px;}
+
+/* Poll */
+.cb-poll{margin:28px 0;background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;box-shadow:var(--shadow);}
+.poll-header{background:var(--tq);padding:16px 20px;}
+.poll-question{font-family:'Fjalla One',sans-serif;font-size:18px;color:#fff;line-height:1.3;}
+.poll-body{padding:16px 20px;}
+.poll-options{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
+.poll-opt-btn{width:100%;padding:12px 16px;border-radius:10px;border:2px solid var(--border);
+  background:none;color:var(--text);font-size:14px;font-family:'Fira Sans',sans-serif;
+  cursor:pointer;text-align:left;transition:border-color .18s,background .18s;}
+.poll-opt-btn:hover{border-color:var(--tq);background:var(--tq-tr);}
+.poll-results{display:flex;flex-direction:column;gap:10px;}
+.poll-result-row{display:flex;flex-direction:column;gap:4px;}
+.poll-result-label{display:flex;justify-content:space-between;font-size:13px;color:var(--text);}
+.poll-result-bar-wrap{height:10px;background:var(--border);border-radius:10px;overflow:hidden;}
+.poll-result-bar{height:100%;background:var(--tq);border-radius:10px;width:0%;
+  transition:width .7s cubic-bezier(.4,0,.2,1);}
+.poll-result-bar.voted{background:var(--anth);}
+.poll-total{font-size:11px;color:var(--muted);margin-top:8px;}
 
 /* Hashtags */
-.art-tags {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  margin-top: 36px; padding-top: 22px;
-  border-top: 1px solid var(--divider);
-}
-.tag-pill {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 12px; color: var(--tq);
-  background: var(--tq-tr);
-  border: 1px solid rgba(26,188,176,0.22);
-  padding: 5px 13px; border-radius: 20px;
-  cursor: pointer;
-  transition: background 0.18s;
-}
-.tag-pill:hover { background: rgba(26,188,176,0.22); }
+.art-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px;padding-top:22px;
+  border-top:1px solid var(--divider);}
+.tag-pill{font-family:'Archivo Black',sans-serif;font-size:12px;color:var(--tq);
+  background:var(--tq-tr);border:1px solid rgba(26,188,176,.22);padding:5px 13px;
+  border-radius:20px;cursor:pointer;transition:background .18s;}
+.tag-pill:hover{background:rgba(26,188,176,.22);}
 
-/* Related articles */
-.related-wrap {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 0 16px 60px;
-}
-.related-label {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 10px; letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--muted); margin-bottom: 16px;
-}
-.related-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 14px;
-}
-.rel-card { cursor: pointer; transition: opacity 0.18s; }
-.rel-card:hover { opacity: 0.72; }
-.rel-thumb {
-  width: 100%; height: 110px;
-  object-fit: cover; border-radius: 7px;
-  margin-bottom: 7px;
-}
-.rel-title {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 13px; line-height: 1.3;
-  color: var(--text);
-}
+/* Related */
+.related-wrap{max-width:700px;margin:0 auto;padding:0 16px 60px;}
+.related-label{font-family:'Archivo Black',sans-serif;font-size:10px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;}
+.rel-card{cursor:pointer;transition:opacity .18s;}
+.rel-card:hover{opacity:.72;}
+.rel-thumb{width:100%;height:110px;object-fit:cover;border-radius:7px;margin-bottom:7px;}
+.rel-title{font-family:'Archivo Black',sans-serif;font-size:13px;line-height:1.3;color:var(--text);}
 
 /* =============================================
-   SETTINGS SIDE PANEL
+   SETTINGS PANEL
 ============================================= */
-.overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.4);
-  z-index: 200;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s;
-}
-.overlay.open {
-  opacity: 1;
-  pointer-events: all;
-}
-.side-panel {
-  position: fixed; top: 0; right: -330px;
-  width: 310px; height: 100%;
-  z-index: 201;
-  background: var(--surface);
-  box-shadow: -4px 0 28px rgba(0,0,0,0.14);
-  transition: right 0.28s cubic-bezier(0.4,0,0.2,1);
-  padding: 20px 18px;
-  overflow-y: auto;
-  display: flex; flex-direction: column; gap: 0;
-}
-.side-panel.open { right: 0; }
-
-.sp-header {
-  display: flex; align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-}
-.sp-keres {
-  display: flex; align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2px;
-}
-.sp-title {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 17px; color: var(--text);
-}
-.sp-close {
-  width: 34px; height: 34px; border-radius: 50%;
-  border: none; background: none;
-  cursor: pointer; color: var(--text);
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.18s;
-}
-.sp-close:hover { background: var(--border); }
-
-.sp-section-label {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 10px; letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--muted); margin-bottom: 8px;
-}
-.sp-search-box {
-  width: 100%; padding: 9px 12px;
-  border: 1px solid var(--border); border-radius: 8px;
-  background: var(--bg); color: var(--text);
-  font-size: 14px; outline: none;
-  transition: border-color 0.18s;
-  margin-bottom: 6px;
-}
-.sp-search-box:focus { border-color: var(--tq); }
-
-.sp-results { margin-bottom: 20px; }
-.sp-result-item {
-  padding: 9px 0; border-bottom: 1px solid var(--divider);
-  font-size: 14px; color: var(--text);
-  cursor: pointer; transition: color 0.18s;
-}
-.sp-result-item:hover { color: var(--tq); }
-
-.sp-toggle-row {
-  display: flex; align-items: center;
-  justify-content: space-between;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--divider);
-  margin-bottom: 20px;
-}
-.sp-toggle-label { font-size: 15px; color: var(--text); }
-
-/* Toggle switch */
-.toggle-wrap { position: relative; width: 44px; height: 24px; }
-.toggle-wrap input { opacity: 0; width: 0; height: 0; }
-.toggle-slider {
-  position: absolute; inset: 0;
-  background: var(--border); border-radius: 24px;
-  cursor: pointer; transition: background 0.25s;
-}
-.toggle-slider::before {
-  content: '';
-  position: absolute;
-  width: 18px; height: 18px;
-  left: 3px; top: 3px;
-  background: #fff; border-radius: 50%;
-  transition: transform 0.25s;
-}
-.toggle-wrap input:checked ~ .toggle-slider { background: var(--tq); }
-.toggle-wrap input:checked ~ .toggle-slider::before { transform: translateX(20px); }
-
-.sp-admin-btn {
-  width: 100%; padding: 11px;
-  background: var(--tq); color: #fff;
-  border: none; border-radius: 8px;
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 14px; cursor: pointer;
-  transition: opacity 0.18s; margin-top: 4px;
-}
-.sp-admin-btn:hover { opacity: 0.86; }
-.sp-logout-btn {
-  width: 100%; padding: 11px;
-  background: none; color: #e05555;
-  border: 1px solid #e05555; border-radius: 8px;
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 14px; cursor: pointer;
-  transition: background 0.18s; margin-top: 8px;
-}
-.sp-logout-btn:hover { background: rgba(224,85,85,0.08); }
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;
+  opacity:0;pointer-events:none;transition:opacity .25s;}
+.overlay.open{opacity:1;pointer-events:all;}
+.side-panel{position:fixed;top:0;right:-330px;width:310px;height:100%;z-index:201;
+  background:var(--surface);box-shadow:-4px 0 28px rgba(0,0,0,.14);
+  transition:right .28s cubic-bezier(.4,0,.2,1);padding:20px 18px;
+  overflow-y:auto;display:flex;flex-direction:column;}
+.side-panel.open{right:0;}
+.sp-keres{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;}
+.sp-title{font-family:'Archivo Black',sans-serif;font-size:17px;color:var(--text);}
+.sp-close{width:34px;height:34px;border-radius:50%;border:none;background:none;
+  cursor:pointer;color:var(--text);display:flex;align-items:center;justify-content:center;
+  transition:background .18s;}
+.sp-close:hover{background:var(--border);}
+.sp-section-label{font-family:'Archivo Black',sans-serif;font-size:10px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.sp-search-box{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;
+  background:var(--bg);color:var(--text);font-size:14px;outline:none;
+  transition:border-color .18s;margin-bottom:6px;}
+.sp-search-box:focus{border-color:var(--tq);}
+.sp-results{margin-bottom:20px;}
+.sp-result-item{padding:9px 0;border-bottom:1px solid var(--divider);font-size:14px;
+  color:var(--text);cursor:pointer;transition:color .18s;}
+.sp-result-item:hover{color:var(--tq);}
+.sp-toggle-row{display:flex;align-items:center;justify-content:space-between;
+  padding:14px 0;border-bottom:1px solid var(--divider);margin-bottom:20px;}
+.sp-toggle-label{font-size:15px;color:var(--text);}
+.toggle-wrap{position:relative;width:44px;height:24px;}
+.toggle-wrap input{opacity:0;width:0;height:0;}
+.toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:24px;
+  cursor:pointer;transition:background .25s;}
+.toggle-slider::before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;
+  background:#fff;border-radius:50%;transition:transform .25s;}
+.toggle-wrap input:checked~.toggle-slider{background:var(--tq);}
+.toggle-wrap input:checked~.toggle-slider::before{transform:translateX(20px);}
+.sp-admin-btn{width:100%;padding:11px;background:var(--tq);color:#fff;border:none;
+  border-radius:8px;font-family:'Archivo Black',sans-serif;font-size:14px;cursor:pointer;
+  transition:opacity .18s;margin-top:4px;}
+.sp-admin-btn:hover{opacity:.86;}
+.sp-logout-btn{width:100%;padding:11px;background:none;color:#e05555;
+  border:1px solid #e05555;border-radius:8px;font-family:'Archivo Black',sans-serif;
+  font-size:14px;cursor:pointer;transition:background .18s;margin-top:8px;}
+.sp-logout-btn:hover{background:rgba(224,85,85,.08);}
 
 /* =============================================
-   ADMIN LOGIN PAGE
+   ADMIN FORMS
 ============================================= */
-.auth-page {
-  min-height: 100vh;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--bg); padding: 20px;
-}
-.auth-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 38px 32px;
-  width: 100%; max-width: 380px;
-  box-shadow: var(--shadow);
-}
-.auth-logo {
-  font-family: 'Changa One', cursive;
-  font-size: 30px; color: var(--tq); margin-bottom: 4px;
-}
-.auth-sub {
-  font-size: 13px; color: var(--muted); margin-bottom: 28px;
-}
-.form-field { margin-bottom: 15px; }
-.form-field label {
-  display: block; font-size: 13px;
-  font-weight: 600; color: var(--text); margin-bottom: 5px;
-}
-.form-input {
-  width: 100%; padding: 10px 13px;
-  border: 1px solid var(--border); border-radius: 8px;
-  background: var(--bg); color: var(--text);
-  font-size: 14px; outline: none;
-  transition: border-color 0.18s;
-}
-.form-input:focus { border-color: var(--tq); }
-.form-input.error { border-color: #e05555; }
-.err-msg { font-size: 12px; color: #e05555; margin-top: 5px; }
-.btn-primary {
-  width: 100%; padding: 11px;
-  background: var(--tq); color: #fff;
-  border: none; border-radius: 8px;
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 14px; cursor: pointer;
-  transition: opacity 0.18s; margin-top: 6px;
-}
-.btn-primary:hover { opacity: 0.86; }
-.btn-secondary {
-  width: 100%; padding: 11px;
-  background: none; color: var(--text);
-  border: 1px solid var(--border); border-radius: 8px;
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 14px; cursor: pointer;
-  transition: background 0.18s; margin-top: 8px;
-}
-.btn-secondary:hover { background: var(--border); }
+.auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);padding:20px;}
+.auth-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:38px 32px;width:100%;max-width:380px;box-shadow:var(--shadow);}
+.auth-logo{font-family:'Changa One',cursive;font-size:30px;color:var(--tq);margin-bottom:4px;}
+.auth-sub{font-size:13px;color:var(--muted);margin-bottom:28px;}
+.form-field{margin-bottom:15px;}
+.form-field label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:5px;}
+.form-input{width:100%;padding:10px 13px;border:1px solid var(--border);border-radius:8px;
+  background:var(--bg);color:var(--text);font-size:14px;outline:none;
+  transition:border-color .18s;}
+.form-input:focus{border-color:var(--tq);}
+.err-msg{font-size:12px;color:#e05555;margin-top:5px;}
+.btn-primary{width:100%;padding:11px;background:var(--tq);color:#fff;border:none;
+  border-radius:8px;font-family:'Archivo Black',sans-serif;font-size:14px;cursor:pointer;
+  transition:opacity .18s;margin-top:6px;}
+.btn-primary:hover{opacity:.86;}
+.btn-secondary{width:100%;padding:11px;background:none;color:var(--text);
+  border:1px solid var(--border);border-radius:8px;font-family:'Archivo Black',sans-serif;
+  font-size:14px;cursor:pointer;transition:background .18s;margin-top:8px;}
+.btn-secondary:hover{background:var(--border);}
 
 /* =============================================
    ADMIN DASHBOARD
 ============================================= */
-.admin-page { min-height: 100vh; background: var(--bg); }
-.admin-topbar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 0 20px; height: 56px;
-  display: flex; align-items: center;
-  justify-content: space-between;
-  position: sticky; top: 0; z-index: 50;
-}
-.admin-logo {
-  font-family: 'Changa One', cursive;
-  font-size: 22px; color: var(--tq);
-}
-.admin-topbar-right {
-  display: flex; align-items: center; gap: 10px;
-}
-.admin-user {
-  font-family: 'Fira Sans', sans-serif;
-  font-style: italic; font-size: 13px;
-  color: var(--anth);
-}
-.admin-content {
-  max-width: 960px; margin: 0 auto;
-  padding: 28px 16px 60px;
-}
-.admin-section-title {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 18px; color: var(--text); margin-bottom: 18px;
-}
-.admin-tabs {
-  display: flex; gap: 4px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 24px;
-}
-.admin-tab {
-  padding: 10px 18px;
-  border: none; background: none;
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 13px; color: var(--muted);
-  cursor: pointer; border-bottom: 2px solid transparent;
-  transition: color 0.18s, border-color 0.18s;
-}
-.admin-tab:hover { color: var(--tq); }
-.admin-tab.active { color: var(--tq); border-bottom-color: var(--tq); }
-
-/* Admin article list */
-.admin-article-row {
-  display: flex; align-items: center;
-  justify-content: space-between;
-  gap: 12px; padding: 14px 0;
-  border-bottom: 1px solid var(--divider);
-  flex-wrap: wrap;
-}
-.aar-title {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 14px; color: var(--text);
-  flex: 1; min-width: 0;
-}
-.aar-meta {
-  font-size: 12px; color: var(--muted); margin-top: 2px;
-}
-.aar-actions { display: flex; gap: 6px; flex-shrink: 0; }
-.act-btn {
-  padding: 5px 12px; border-radius: 6px;
-  font-size: 12px; font-family: 'Archivo Black', sans-serif;
-  cursor: pointer; transition: opacity 0.18s; border: none;
-}
-.act-btn:hover { opacity: 0.8; }
-.act-btn.edit { background: var(--tq); color: #fff; }
-.act-btn.del  { background: #e05555; color: #fff; }
-.act-btn.feat { background: var(--border); color: var(--text); }
-.act-btn.feat.on { background: #f0a500; color: #fff; }
-
-/* New article button */
-.new-article-btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--tq); color: #fff;
-  border: none; border-radius: 8px;
-  padding: 10px 18px;
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 13px; cursor: pointer;
-  transition: opacity 0.18s; margin-bottom: 20px;
-}
-.new-article-btn:hover { opacity: 0.86; }
+.admin-page{min-height:100vh;background:var(--bg);}
+.admin-topbar{background:var(--surface);border-bottom:1px solid var(--border);
+  padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:50;}
+.admin-logo{font-family:'Changa One',cursive;font-size:22px;color:var(--tq);}
+.admin-topbar-right{display:flex;align-items:center;gap:10px;}
+.admin-user{font-family:'Fira Sans',sans-serif;font-style:italic;font-size:13px;color:var(--anth);}
+.admin-content{max-width:960px;margin:0 auto;padding:28px 16px 60px;}
+.admin-section-title{font-family:'Archivo Black',sans-serif;font-size:18px;
+  color:var(--text);margin-bottom:18px;}
+.admin-tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);
+  margin-bottom:24px;overflow-x:auto;scrollbar-width:none;}
+.admin-tabs::-webkit-scrollbar{display:none;}
+.admin-tab{flex-shrink:0;padding:10px 18px;border:none;background:none;
+  font-family:'Archivo Black',sans-serif;font-size:13px;color:var(--muted);
+  cursor:pointer;border-bottom:2px solid transparent;transition:color .18s,border-color .18s;}
+.admin-tab:hover{color:var(--tq);}
+.admin-tab.active{color:var(--tq);border-bottom-color:var(--tq);}
+.admin-article-row{display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:14px 0;border-bottom:1px solid var(--divider);flex-wrap:wrap;}
+.aar-title{font-family:'Archivo Black',sans-serif;font-size:14px;color:var(--text);
+  flex:1;min-width:0;}
+.aar-meta{font-size:12px;color:var(--muted);margin-top:2px;}
+.aar-actions{display:flex;gap:6px;flex-shrink:0;}
+.act-btn{padding:5px 12px;border-radius:6px;font-size:12px;
+  font-family:'Archivo Black',sans-serif;cursor:pointer;
+  transition:opacity .18s;border:none;}
+.act-btn:hover{opacity:.8;}
+.act-btn.edit{background:var(--tq);color:#fff;}
+.act-btn.del{background:#e05555;color:#fff;}
+.act-btn.feat{background:var(--border);color:var(--text);}
+.act-btn.feat.on{background:#f0a500;color:#fff;}
+.new-article-btn{display:inline-flex;align-items:center;gap:6px;background:var(--tq);
+  color:#fff;border:none;border-radius:8px;padding:10px 18px;
+  font-family:'Archivo Black',sans-serif;font-size:13px;cursor:pointer;
+  transition:opacity .18s;margin-bottom:20px;}
+.new-article-btn:hover{opacity:.86;}
+.topic-admin-row{display:flex;align-items:center;gap:10px;padding:10px 0;
+  border-bottom:1px solid var(--divider);}
+.topic-admin-name{flex:1;font-size:14px;color:var(--text);font-family:'Archivo Black',sans-serif;}
+.topic-visible-chk{accent-color:var(--tq);width:16px;height:16px;cursor:pointer;}
+.topic-vis-label{font-size:12px;color:var(--muted);}
+.account-row{display:flex;align-items:center;gap:12px;padding:12px 0;
+  border-bottom:1px solid var(--divider);flex-wrap:wrap;}
+.acc-name{flex:1;font-family:'Archivo Black',sans-serif;font-size:14px;color:var(--text);}
+.acc-role{font-size:11px;font-family:'Fira Sans',sans-serif;color:var(--tq);
+  border:1px solid var(--tq);border-radius:10px;padding:2px 9px;}
 
 /* =============================================
    ARTICLE EDITOR
 ============================================= */
-.editor-page { min-height: 100vh; background: var(--bg); }
-.editor-topbar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 0 20px; height: 56px;
-  display: flex; align-items: center;
-  justify-content: space-between; gap: 12px;
-  position: sticky; top: 0; z-index: 50;
-}
-.editor-topbar-title {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 15px; color: var(--text);
-  flex: 1;
-}
-.editor-body {
-  max-width: 820px; margin: 0 auto;
-  padding: 28px 16px 80px;
-}
-.editor-field { margin-bottom: 20px; }
-.editor-label {
-  display: block; font-size: 12px;
-  font-family: 'Archivo Black', sans-serif;
-  letter-spacing: 0.5px;
-  color: var(--muted); margin-bottom: 6px;
-}
-.editor-input {
-  width: 100%; padding: 10px 13px;
-  border: 1px solid var(--border); border-radius: 8px;
-  background: var(--bg); color: var(--text);
-  font-size: 15px; outline: none;
-  transition: border-color 0.18s;
-}
-.editor-input:focus { border-color: var(--tq); }
+.editor-page{min-height:100vh;background:var(--bg);}
+.editor-topbar{background:var(--surface);border-bottom:1px solid var(--border);
+  padding:0 20px;height:56px;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;position:sticky;top:0;z-index:50;}
+.editor-topbar-title{font-family:'Archivo Black',sans-serif;font-size:15px;
+  color:var(--text);flex:1;}
+.editor-body{max-width:820px;margin:0 auto;padding:28px 16px 80px;}
+.editor-field{margin-bottom:20px;}
+.editor-label{display:block;font-size:12px;font-family:'Archivo Black',sans-serif;
+  letter-spacing:.5px;color:var(--muted);margin-bottom:6px;}
+.editor-input{width:100%;padding:10px 13px;border:1px solid var(--border);border-radius:8px;
+  background:var(--bg);color:var(--text);font-size:15px;outline:none;
+  transition:border-color .18s;}
+.editor-input:focus{border-color:var(--tq);}
+.editor-select{width:100%;padding:10px 13px;border:1px solid var(--border);border-radius:8px;
+  background:var(--bg);color:var(--text);font-size:14px;outline:none;
+  transition:border-color .18s;cursor:pointer;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;padding-right:36px;}
+.editor-select:focus{border-color:var(--tq);}
 
-/* Content block builder */
-.block-toolbar {
-  display: flex; flex-wrap: wrap; gap: 6px;
-  padding: 12px 0; margin-bottom: 6px;
-  border-top: 1px solid var(--divider);
-  border-bottom: 1px solid var(--divider);
-}
-.blk-btn {
-  padding: 6px 12px; border-radius: 6px;
-  border: 1px solid var(--border);
-  background: var(--surface); color: var(--text);
-  font-size: 12px; font-family: 'Archivo Black', sans-serif;
-  cursor: pointer; transition: background 0.18s, border-color 0.18s;
-}
-.blk-btn:hover { border-color: var(--tq); color: var(--tq); }
+/* Block toolbar */
+.block-toolbar{display:flex;flex-wrap:wrap;gap:6px;padding:12px 0;margin-bottom:6px;
+  border-top:1px solid var(--divider);border-bottom:1px solid var(--divider);}
+.blk-btn{padding:6px 12px;border-radius:6px;border:1px solid var(--border);
+  background:var(--surface);color:var(--text);font-size:12px;
+  font-family:'Archivo Black',sans-serif;cursor:pointer;
+  transition:background .18s,border-color .18s;}
+.blk-btn:hover{border-color:var(--tq);color:var(--tq);}
+.blocks-area{margin-bottom:24px;}
+.content-block{position:relative;margin-bottom:10px;border-radius:8px;
+  border:1px solid var(--border);overflow:hidden;}
+.content-block:focus-within{border-color:var(--tq);}
+.block-header{display:flex;align-items:center;justify-content:space-between;
+  padding:6px 10px;background:var(--surface);border-bottom:1px solid var(--divider);}
+.block-type-label{font-size:10px;font-family:'Archivo Black',sans-serif;
+  letter-spacing:1px;color:var(--muted);text-transform:uppercase;}
+.block-header-actions{display:flex;gap:4px;align-items:center;}
+.block-del{width:22px;height:22px;border-radius:50%;border:none;background:none;
+  color:#e05555;cursor:pointer;font-size:14px;line-height:1;
+  display:flex;align-items:center;justify-content:center;transition:background .18s;}
+.block-del:hover{background:rgba(224,85,85,.1);}
+.block-link-btn{padding:2px 8px;border-radius:4px;border:1px solid var(--border);
+  background:none;color:var(--tq);font-size:11px;cursor:pointer;
+  font-family:'Archivo Black',sans-serif;transition:background .18s;}
+.block-link-btn:hover{background:var(--tq-tr);}
+.block-textarea{width:100%;padding:10px 13px;border:none;outline:none;resize:vertical;
+  background:var(--bg);color:var(--text);font-size:14px;line-height:1.65;min-height:80px;}
+.block-img-stack{padding:0 13px 10px;}
+.block-img-stack input{width:100%;padding:8px 10px;border:1px solid var(--border);
+  border-radius:6px;background:var(--bg);color:var(--text);font-size:13px;
+  outline:none;transition:border-color .18s;margin-bottom:6px;}
+.block-img-stack input:focus{border-color:var(--tq);}
+.img-preview{width:100%;max-height:180px;object-fit:cover;border-radius:6px;margin-top:6px;}
+.block-yt-input{padding:10px 13px;}
+.block-yt-input input{width:100%;padding:8px 10px;border:1px solid var(--border);
+  border-radius:6px;background:var(--bg);color:var(--text);font-size:13px;
+  outline:none;transition:border-color .18s;}
+.block-yt-input input:focus{border-color:var(--tq);}
+.yt-preview{margin:8px 13px 10px;position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;}
+.yt-preview iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
 
-.blocks-area { margin-bottom: 24px; }
-.content-block {
-  position: relative;
-  margin-bottom: 10px; border-radius: 8px;
-  border: 1px solid var(--border); overflow: hidden;
-}
-.content-block:focus-within { border-color: var(--tq); }
-.block-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 6px 10px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--divider);
-}
-.block-type-label {
-  font-size: 10px; font-family: 'Archivo Black', sans-serif;
-  letter-spacing: 1px; color: var(--muted); text-transform: uppercase;
-}
-.block-del {
-  width: 22px; height: 22px; border-radius: 50%;
-  border: none; background: none; color: #e05555;
-  cursor: pointer; font-size: 14px; line-height: 1;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.18s;
-}
-.block-del:hover { background: rgba(224,85,85,0.1); }
-.block-textarea {
-  width: 100%; padding: 10px 13px;
-  border: none; outline: none; resize: vertical;
-  background: var(--bg); color: var(--text);
-  font-size: 14px; line-height: 1.65;
-  min-height: 80px;
-}
-.block-img-field {
-  display: flex; gap: 8px; align-items: center;
-  padding: 10px 13px;
-}
-.block-img-field input {
-  flex: 1; padding: 8px 10px;
-  border: 1px solid var(--border); border-radius: 6px;
-  background: var(--bg); color: var(--text);
-  font-size: 13px; outline: none;
-  transition: border-color 0.18s;
-}
-.block-img-field input:focus { border-color: var(--tq); }
-.block-img-stack { padding: 0 13px 10px; }
-.block-img-stack input {
-  width: 100%; padding: 8px 10px;
-  border: 1px solid var(--border); border-radius: 6px;
-  background: var(--bg); color: var(--text);
-  font-size: 13px; outline: none;
-  transition: border-color 0.18s; margin-bottom: 6px;
-}
-.block-img-stack input:focus { border-color: var(--tq); }
-.img-preview {
-  width: 100%; max-height: 180px;
-  object-fit: cover; border-radius: 6px; margin-top: 6px;
-}
+/* Link popup */
+.link-popup{position:fixed;z-index:400;background:var(--surface);
+  border:1px solid var(--border);border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.15);
+  padding:12px;display:none;width:280px;}
+.link-popup.show{display:block;}
+.link-popup input{width:100%;padding:8px 10px;border:1px solid var(--border);
+  border-radius:6px;background:var(--bg);color:var(--text);font-size:13px;
+  outline:none;margin-bottom:8px;transition:border-color .18s;}
+.link-popup input:focus{border-color:var(--tq);}
+.link-popup-actions{display:flex;gap:6px;}
+.link-popup-actions button{flex:1;padding:7px;border-radius:6px;border:none;
+  font-size:12px;font-family:'Archivo Black',sans-serif;cursor:pointer;}
+.link-popup-ok{background:var(--tq);color:#fff;}
+.link-popup-cancel{background:var(--border);color:var(--text);}
 
 /* Tags editor */
-.tags-input-wrap {
-  display: flex; flex-wrap: wrap; gap: 6px;
-  padding: 8px 10px;
-  border: 1px solid var(--border); border-radius: 8px;
-  background: var(--bg); cursor: text;
-  min-height: 44px; align-items: center;
-  transition: border-color 0.18s;
-}
-.tags-input-wrap:focus-within { border-color: var(--tq); }
-.tag-chip {
-  display: flex; align-items: center; gap: 4px;
-  background: var(--tq-tr);
-  border: 1px solid rgba(26,188,176,0.22);
-  color: var(--tq);
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 11px; border-radius: 20px;
-  padding: 3px 10px;
-}
-.tag-chip button {
-  background: none; border: none; color: var(--tq);
-  cursor: pointer; font-size: 13px; line-height: 1;
-  padding: 0; display: flex; align-items: center;
-}
-.tags-text-input {
-  border: none; outline: none; background: none;
-  color: var(--text); font-size: 13px; min-width: 80px; flex: 1;
-}
+.tags-input-wrap{display:flex;flex-wrap:wrap;gap:6px;padding:8px 10px;
+  border:1px solid var(--border);border-radius:8px;background:var(--bg);cursor:text;
+  min-height:44px;align-items:center;transition:border-color .18s;}
+.tags-input-wrap:focus-within{border-color:var(--tq);}
+.tag-chip{display:flex;align-items:center;gap:4px;background:var(--tq-tr);
+  border:1px solid rgba(26,188,176,.22);color:var(--tq);
+  font-family:'Archivo Black',sans-serif;font-size:11px;border-radius:20px;padding:3px 10px;}
+.tag-chip button{background:none;border:none;color:var(--tq);cursor:pointer;
+  font-size:13px;line-height:1;padding:0;display:flex;align-items:center;}
+.tags-text-input{border:none;outline:none;background:none;color:var(--text);
+  font-size:13px;min-width:80px;flex:1;}
+
+/* Poll editor */
+.poll-editor{background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:16px;margin-bottom:12px;}
+.poll-opt-editor-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
+.poll-opt-editor-row input{flex:1;padding:8px 10px;border:1px solid var(--border);
+  border-radius:6px;background:var(--bg);color:var(--text);font-size:13px;outline:none;
+  transition:border-color .18s;}
+.poll-opt-editor-row input:focus{border-color:var(--tq);}
 
 /* =============================================
-   TOPICS ADMIN
+   PODCAST PAGE
 ============================================= */
-.topic-admin-row {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 0; border-bottom: 1px solid var(--divider);
-}
-.topic-admin-name {
-  flex: 1; font-size: 14px; color: var(--text);
-  font-family: 'Archivo Black', sans-serif;
-}
-.topic-visible-chk { accent-color: var(--tq); width: 16px; height: 16px; cursor: pointer; }
-.topic-vis-label { font-size: 12px; color: var(--muted); }
+.podcast-page-wrap{max-width:880px;margin:0 auto;padding:28px 16px 120px;}
+.podcast-cat-section{margin-bottom:36px;}
+.podcast-cat-title{font-family:'Archivo Black',sans-serif;font-size:14px;
+  letter-spacing:.5px;color:var(--text);margin-bottom:16px;padding-bottom:10px;
+  border-bottom:1px solid var(--divider);}
+.podcast-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px;}
+.pg-card{cursor:pointer;transition:opacity .18s;}
+.pg-card:hover{opacity:.82;}
+.pg-img-wrap{position:relative;border-radius:14px;overflow:hidden;
+  aspect-ratio:1;background:var(--border);}
+.pg-img-wrap img{width:100%;height:100%;object-fit:cover;transition:opacity .2s;}
+.pg-card:hover .pg-img-wrap img{opacity:.82;}
+.pg-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .2s;}
+.pg-card:hover .pg-play{opacity:1;}
+.pg-title{font-family:'Archivo Black',sans-serif;font-size:12px;line-height:1.3;
+  color:var(--text);margin-top:8px;overflow:hidden;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.pg-dur{font-size:11px;color:var(--muted);margin-top:2px;}
+.saved-section-label{font-family:'Archivo Black',sans-serif;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;color:var(--tq);margin-bottom:14px;}
 
 /* =============================================
-   ACCOUNTS ADMIN
+   PODCAST PLAYER — PC FLOATING ISLAND
 ============================================= */
-.account-row {
-  display: flex; align-items: center;
-  gap: 12px; padding: 12px 0;
-  border-bottom: 1px solid var(--divider); flex-wrap: wrap;
-}
-.acc-name {
-  flex: 1; font-family: 'Archivo Black', sans-serif;
-  font-size: 14px; color: var(--text);
-}
-.acc-role {
-  font-size: 11px; font-family: 'Fira Sans', sans-serif;
-  color: var(--tq); border: 1px solid var(--tq);
-  border-radius: 10px; padding: 2px 9px;
-}
+.pc-player{position:fixed;left:20px;top:50%;transform:translateY(-50%);
+  width:260px;z-index:150;background:var(--surface);
+  border:1px solid var(--border);border-radius:20px;
+  box-shadow:0 8px 40px rgba(0,0,0,.18);overflow:hidden;
+  display:none;flex-direction:column;}
+.pc-player.active{display:flex;}
+@media(max-width:700px){.pc-player{display:none!important;}}
+.pcp-cover{width:100%;aspect-ratio:1;object-fit:cover;display:block;}
+.pcp-body{padding:14px 16px 16px;}
+.pcp-title{font-family:'Archivo Black',sans-serif;font-size:13px;line-height:1.3;
+  color:var(--text);margin-bottom:3px;overflow:hidden;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.pcp-author{font-family:'Fira Sans',sans-serif;font-style:italic;font-size:12px;
+  color:var(--muted);margin-bottom:12px;}
+.pcp-progress-wrap{margin-bottom:8px;}
+.pcp-times{display:flex;justify-content:space-between;font-size:11px;
+  color:var(--muted);margin-bottom:4px;}
+.pcp-bar{width:100%;height:4px;background:var(--border);border-radius:4px;
+  cursor:pointer;position:relative;}
+.pcp-bar-fill{height:100%;background:var(--tq);border-radius:4px;width:0%;
+  transition:width .5s linear;pointer-events:none;}
+.pcp-controls{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px;}
+.pcp-btn{background:none;border:none;color:var(--text);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:color .18s;}
+.pcp-btn:hover{color:var(--tq);}
+.pcp-play-btn{width:44px;height:44px;border-radius:50%;background:var(--tq);
+  color:#fff;border:none;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;transition:opacity .18s;}
+.pcp-play-btn:hover{opacity:.85;}
+.pcp-skip-label{font-size:9px;font-family:'Archivo Black',sans-serif;color:var(--muted);}
+.pcp-bottom{display:flex;align-items:center;justify-content:space-between;
+  padding-top:8px;border-top:1px solid var(--divider);}
+.pcp-speed{background:none;border:1px solid var(--border);border-radius:6px;
+  padding:3px 8px;font-size:11px;font-family:'Archivo Black',sans-serif;
+  color:var(--text);cursor:pointer;transition:border-color .18s;}
+.pcp-speed:hover{border-color:var(--tq);}
+.pcp-save{background:none;border:none;cursor:pointer;color:var(--muted);
+  display:flex;align-items:center;gap:4px;font-size:11px;
+  font-family:'Archivo Black',sans-serif;transition:color .18s;}
+.pcp-save:hover,.pcp-save.saved{color:var(--tq);}
+.pcp-desc{margin-top:12px;padding-top:10px;border-top:1px solid var(--divider);
+  font-size:12px;color:var(--muted);line-height:1.6;max-height:90px;overflow-y:auto;}
+.pcp-close{position:absolute;top:8px;right:8px;width:28px;height:28px;
+  border-radius:50%;background:rgba(0,0,0,.4);color:#fff;border:none;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:14px;line-height:1;z-index:2;}
 
 /* =============================================
-   TOAST NOTIFICATIONS
+   PODCAST PLAYER — MOBILE MINI
 ============================================= */
-.toast {
-  position: fixed; bottom: 24px; left: 50%;
-  transform: translateX(-50%) translateY(80px);
-  background: #222; color: #fff;
-  font-size: 13px; font-family: 'Fira Sans', sans-serif;
-  padding: 10px 22px; border-radius: 24px;
-  z-index: 999; transition: transform 0.3s, opacity 0.3s;
-  opacity: 0; pointer-events: none; white-space: nowrap;
-}
-.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+.mob-player{position:fixed;bottom:0;left:0;right:0;z-index:150;
+  background:var(--surface);border-top:1px solid var(--border);
+  display:none;flex-direction:column;}
+.mob-player.active{display:flex;}
+@media(min-width:701px){.mob-player{display:none!important;}}
+.mob-prog-top{height:3px;background:var(--border);}
+.mob-prog-fill{height:100%;background:var(--tq);width:0%;transition:width .5s linear;}
+.mob-mini{display:flex;align-items:center;gap:10px;padding:10px 14px;
+  height:64px;cursor:pointer;}
+.mob-mini-cover{width:42px;height:42px;border-radius:8px;object-fit:cover;flex-shrink:0;}
+.mob-mini-info{flex:1;min-width:0;overflow:hidden;}
+.mob-mini-title{font-family:'Archivo Black',sans-serif;font-size:13px;
+  color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mob-mini-author{font-size:11px;color:var(--muted);}
+.mob-play-btn{width:38px;height:38px;border-radius:50%;background:var(--tq);
+  color:#fff;border:none;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;}
+/* prevent expanding player when tapping play button */
+.mob-play-btn{position:relative;z-index:2;}
 
 /* =============================================
-   MODAL
+   PODCAST PLAYER — MOBILE FULLSCREEN
 ============================================= */
-.modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.45);
-  z-index: 300; display: none;
-  align-items: center; justify-content: center;
-  padding: 20px;
-}
-.modal-overlay.open { display: flex; }
-.modal-box {
-  background: var(--surface);
-  border-radius: 14px; padding: 28px;
-  max-width: 400px; width: 100%;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-}
-.modal-title {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 16px; color: var(--text); margin-bottom: 10px;
-}
-.modal-text { font-size: 14px; color: var(--muted); margin-bottom: 22px; }
-.modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
-.modal-cancel {
-  padding: 8px 18px; border-radius: 7px;
-  border: 1px solid var(--border); background: none;
-  color: var(--text); font-size: 13px; cursor: pointer;
-  font-family: 'Archivo Black', sans-serif;
-  transition: background 0.18s;
-}
-.modal-cancel:hover { background: var(--border); }
-.modal-confirm {
-  padding: 8px 18px; border-radius: 7px;
-  border: none; background: #e05555; color: #fff;
-  font-size: 13px; cursor: pointer;
-  font-family: 'Archivo Black', sans-serif;
-  transition: opacity 0.18s;
-}
-.modal-confirm:hover { opacity: 0.82; }
+.mob-full{position:fixed;inset:0;z-index:160;background:var(--bg);
+  display:none;flex-direction:column;overflow-y:auto;}
+.mob-full.active{display:flex;}
+.mob-full-hdr{display:flex;align-items:center;justify-content:flex-end;
+  padding:14px 16px;}
+.mob-full-close{width:34px;height:34px;border-radius:50%;border:none;
+  background:var(--surface);color:var(--text);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);}
+.mob-full-cover{width:72%;max-width:280px;margin:10px auto 20px;border-radius:18px;
+  overflow:hidden;aspect-ratio:1;}
+.mob-full-cover img{width:100%;height:100%;object-fit:cover;}
+.mob-full-info{text-align:center;padding:0 20px 16px;}
+.mob-full-title{font-family:'Archivo Black',sans-serif;font-size:18px;
+  line-height:1.3;color:var(--text);margin-bottom:4px;}
+.mob-full-author{font-family:'Fira Sans',sans-serif;font-style:italic;
+  font-size:14px;color:var(--muted);}
+.mob-full-prog{padding:0 20px 10px;}
+.mob-full-times{display:flex;justify-content:space-between;font-size:12px;
+  color:var(--muted);margin-bottom:6px;}
+.mob-full-bar{width:100%;height:5px;background:var(--border);border-radius:5px;
+  cursor:pointer;position:relative;}
+.mob-full-bar-fill{height:100%;background:var(--tq);border-radius:5px;
+  width:0%;transition:width .5s linear;}
+.mob-full-controls{display:flex;align-items:center;justify-content:center;
+  gap:16px;padding:10px 20px 16px;}
+.mob-full-play{width:52px;height:52px;border-radius:50%;background:var(--tq);
+  color:#fff;border:none;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;}
+.mob-full-btn{background:none;border:none;color:var(--text);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:color .18s;}
+.mob-full-btn:hover{color:var(--tq);}
+.mob-full-bottom{display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px 16px;}
+.mob-full-speed{background:none;border:1px solid var(--border);border-radius:6px;
+  padding:5px 12px;font-size:12px;font-family:'Archivo Black',sans-serif;
+  color:var(--text);cursor:pointer;}
+.mob-full-save{background:none;border:none;cursor:pointer;color:var(--muted);
+  display:flex;align-items:center;gap:4px;font-size:12px;
+  font-family:'Archivo Black',sans-serif;transition:color .18s;}
+.mob-full-save.saved,.mob-full-save:hover{color:var(--tq);}
+.mob-full-desc{margin:0 20px 20px;padding:14px;background:var(--surface);
+  border-radius:10px;border:1px solid var(--border);font-size:13px;
+  color:var(--muted);line-height:1.65;}
 
 /* =============================================
-   LOADING SPINNER
+   PODCAST EDITOR (ADMIN)
 ============================================= */
-.spinner-wrap {
-  display: flex; align-items: center; justify-content: center;
-  padding: 60px 0;
-}
-.spinner {
-  width: 36px; height: 36px;
-  border: 3px solid var(--border);
-  border-top-color: var(--tq);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
+.podcast-ed-page{min-height:100vh;background:var(--bg);}
+
+/* =============================================
+   TOAST + MODAL + SPINNER
+============================================= */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:#222;color:#fff;font-size:13px;font-family:'Fira Sans',sans-serif;
+  padding:10px 22px;border-radius:24px;z-index:999;
+  transition:transform .3s,opacity .3s;opacity:0;pointer-events:none;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;
+  display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--surface);border-radius:14px;padding:28px;
+  max-width:400px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,.18);}
+.modal-title{font-family:'Archivo Black',sans-serif;font-size:16px;
+  color:var(--text);margin-bottom:10px;}
+.modal-text{font-size:14px;color:var(--muted);margin-bottom:22px;}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;}
+.modal-cancel{padding:8px 18px;border-radius:7px;border:1px solid var(--border);
+  background:none;color:var(--text);font-size:13px;cursor:pointer;
+  font-family:'Archivo Black',sans-serif;transition:background .18s;}
+.modal-cancel:hover{background:var(--border);}
+.modal-confirm{padding:8px 18px;border-radius:7px;border:none;background:#e05555;
+  color:#fff;font-size:13px;cursor:pointer;font-family:'Archivo Black',sans-serif;
+  transition:opacity .18s;}
+.modal-confirm:hover{opacity:.82;}
+.spinner-wrap{display:flex;align-items:center;justify-content:center;padding:60px 0;}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--tq);
+  border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
 
 /* =============================================
    RESPONSIVE
 ============================================= */
-@media (max-width: 600px) {
-  .feat-cover { height: 210px; }
-  .feat-title { font-size: 22px; }
-  .art-title  { font-size: 24px; }
-  .related-grid { grid-template-columns: 1fr 1fr; }
-  .admin-article-row { flex-direction: column; align-items: flex-start; }
-  .aar-actions { width: 100%; }
+@media(max-width:600px){
+  .feat-cover{height:210px;}
+  .feat-title{font-size:22px;}
+  .art-title{font-size:24px;}
+  .related-grid{grid-template-columns:1fr 1fr;}
+  .admin-article-row{flex-direction:column;align-items:flex-start;}
+  .aar-actions{width:100%;}
+  .pc-player{display:none!important;}
+  .podcast-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));}
 }
 </style>
 </head>
 <body>
 
-<!-- =============================================
-     OVERLAY (Settings panel backdrop)
-============================================= -->
+<!-- OVERLAY -->
 <div class="overlay" id="overlay" onclick="closePanel()"></div>
 
-<!-- =============================================
-     SETTINGS SIDE PANEL
-============================================= -->
+<!-- LINK POPUP -->
+<div class="link-popup" id="linkPopup">
+  <div style="font-size:11px;font-family:'Archivo Black',sans-serif;color:var(--muted);margin-bottom:6px;">URL HOZZÁADÁSA</div>
+  <input id="linkUrl" type="url" placeholder="https://…">
+  <div class="link-popup-actions">
+    <button class="link-popup-cancel" onclick="closeLinkPopup()">Mégsem</button>
+    <button class="link-popup-ok" onclick="applyLink()">Hozzáad</button>
+  </div>
+</div>
+
+<!-- SETTINGS PANEL -->
 <div class="side-panel" id="sidePanel">
-  
   <div class="sp-keres">
     <span class="sp-title">Keresés</span>
     <button class="sp-close" onclick="closePanel()" aria-label="Bezárás">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
   </div>
-
   <div style="margin-bottom:20px;">
     <input class="sp-search-box" id="spSearchInput" placeholder="Cikkek keresése…" oninput="handlePanelSearch(this.value)">
     <div class="sp-results" id="spResults"></div>
@@ -937,18 +719,14 @@ img { max-width: 100%; display: block; }
   <div id="spAdminArea"></div>
 </div>
 
-<!-- =============================================
-     TOAST
-============================================= -->
+<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- =============================================
-     CONFIRM MODAL
-============================================= -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-box">
     <div class="modal-title" id="modalTitle"></div>
-    <div class="modal-text"  id="modalText"></div>
+    <div class="modal-text" id="modalText"></div>
     <div class="modal-actions">
       <button class="modal-cancel" onclick="closeModal()">Mégsem</button>
       <button class="modal-confirm" id="modalConfirm">Törlés</button>
@@ -956,16 +734,107 @@ img { max-width: 100%; display: block; }
   </div>
 </div>
 
-<!-- =============================================
-     VIEW: MAIN PAGE
-============================================= -->
+<!-- PC PODCAST PLAYER -->
+<div class="pc-player" id="pcPlayer">
+  <button class="pcp-close" onclick="closePlayer()">✕</button>
+  <img class="pcp-cover" id="pcpCover" src="" alt="">
+  <div class="pcp-body">
+    <div class="pcp-title" id="pcpTitle"></div>
+    <div class="pcp-author" id="pcpAuthor"></div>
+    <div class="pcp-progress-wrap">
+      <div class="pcp-times"><span id="pcpCur">0:00</span><span id="pcpDur">0:00</span></div>
+      <div class="pcp-bar" id="pcpBar" onclick="seekPlayer(event,this)">
+        <div class="pcp-bar-fill" id="pcpFill"></div>
+      </div>
+    </div>
+    <div class="pcp-controls">
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <button class="pcp-btn" onclick="skipPlayer(-15)" title="-15s">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.25"/></svg>
+        </button>
+        <span class="pcp-skip-label">15</span>
+      </div>
+      <button class="pcp-play-btn" id="pcpPlayBtn" onclick="togglePlay()">
+        <svg id="pcpPlayIco" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </button>
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <button class="pcp-btn" onclick="skipPlayer(15)" title="+15s">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.49-3.25"/></svg>
+        </button>
+        <span class="pcp-skip-label">15</span>
+      </div>
+    </div>
+    <div class="pcp-bottom">
+      <button class="pcp-save" id="pcpSave" onclick="toggleSave()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        <span id="pcpSaveLbl">Mentés</span>
+      </button>
+      <button class="pcp-speed" onclick="cycleSpeed()"><span id="pcpSpeed">1×</span></button>
+    </div>
+    <div class="pcp-desc" id="pcpDesc"></div>
+  </div>
+</div>
+
+<!-- MOBILE MINI PLAYER -->
+<div class="mob-player" id="mobPlayer">
+  <div class="mob-prog-top"><div class="mob-prog-fill" id="mobFill"></div></div>
+  <div class="mob-mini" onclick="openMobFull(event)">
+    <img class="mob-mini-cover" id="mobCover" src="" alt="">
+    <div class="mob-mini-info">
+      <div class="mob-mini-title" id="mobTitle"></div>
+      <div class="mob-mini-author" id="mobAuthor"></div>
+    </div>
+    <button class="mob-play-btn" onclick="togglePlay(event)">
+      <svg id="mobPlayIco" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- MOBILE FULLSCREEN PLAYER -->
+<div class="mob-full" id="mobFull">
+  <div class="mob-full-hdr">
+    <button class="mob-full-close" onclick="closeMobFull()">✕</button>
+  </div>
+  <div class="mob-full-cover"><img id="mfCover" src="" alt=""></div>
+  <div class="mob-full-info">
+    <div class="mob-full-title" id="mfTitle"></div>
+    <div class="mob-full-author" id="mfAuthor"></div>
+  </div>
+  <div class="mob-full-prog">
+    <div class="mob-full-times"><span id="mfCur">0:00</span><span id="mfDur">0:00</span></div>
+    <div class="mob-full-bar" id="mfBar" onclick="seekPlayer(event,this)">
+      <div class="mob-full-bar-fill" id="mfFill"></div>
+    </div>
+  </div>
+  <div class="mob-full-controls">
+    <button class="mob-full-btn" onclick="skipPlayer(-15)">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.25"/></svg>
+    </button>
+    <button class="mob-full-play" onclick="togglePlay()">
+      <svg id="mfPlayIco" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    </button>
+    <button class="mob-full-btn" onclick="skipPlayer(15)">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.49-3.25"/></svg>
+    </button>
+  </div>
+  <div class="mob-full-bottom">
+    <button class="mob-full-save" id="mfSave" onclick="toggleSave()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      <span id="mfSaveLbl">Mentés</span>
+    </button>
+    <button class="mob-full-speed" onclick="cycleSpeed()"><span id="mfSpeed">1×</span></button>
+  </div>
+  <div class="mob-full-desc" id="mfDesc"></div>
+</div>
+
+<!-- ======== VIEW: MAIN PAGE ======== -->
 <div class="view active" id="view-main">
   <header class="site-header" id="main-header">
     <div class="header-left">
       <span class="logo" onclick="showMain()">The Forum</span>
     </div>
     <div class="header-right">
-      <button class="icon-btn" onclick="openPanel(); document.getElementById('spSearchInput').focus();" aria-label="Keresés">
+      <button class="icon-btn" onclick="openPanel();setTimeout(()=>document.getElementById('spSearchInput').focus(),300)" aria-label="Keresés">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </button>
       <button class="icon-btn" onclick="openPanel()" aria-label="Beállítások">
@@ -973,19 +842,17 @@ img { max-width: 100%; display: block; }
       </button>
     </div>
   </header>
-
   <div class="topics-row" id="topicsRow"></div>
-
+  <div id="tagBanner" style="display:none;" class="tag-filter-banner">
+    <span id="tagBannerText"></span>
+    <button onclick="clearTagFilter()">✕</button>
+  </div>
   <div class="page-wrap">
-    <div id="mainContent">
-      <div class="spinner-wrap"><div class="spinner"></div></div>
-    </div>
+    <div id="mainContent"><div class="spinner-wrap"><div class="spinner"></div></div></div>
   </div>
 </div>
 
-<!-- =============================================
-     VIEW: ARTICLE PAGE
-============================================= -->
+<!-- ======== VIEW: ARTICLE PAGE ======== -->
 <div class="view" id="view-article">
   <header class="site-header" id="article-header">
     <div class="header-left">
@@ -1003,9 +870,24 @@ img { max-width: 100%; display: block; }
   <div id="articleContent"></div>
 </div>
 
-<!-- =============================================
-     VIEW: ADMIN LOGIN
-============================================= -->
+<!-- ======== VIEW: PODCAST PAGE ======== -->
+<div class="view" id="view-podcasts">
+  <header class="site-header">
+    <div class="header-left">
+      <button class="back-btn" onclick="showMain()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        Vissza
+      </button>
+    </div>
+    <div class="header-left"><span class="logo" style="cursor:default;">Podcastok</span></div>
+    <div></div>
+  </header>
+  <div class="podcast-page-wrap" id="podcastPageContent">
+    <div class="spinner-wrap"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<!-- ======== VIEW: ADMIN LOGIN ======== -->
 <div class="view" id="view-login">
   <div class="auth-page">
     <div class="auth-card">
@@ -1026,9 +908,7 @@ img { max-width: 100%; display: block; }
   </div>
 </div>
 
-<!-- =============================================
-     VIEW: ADMIN DASHBOARD
-============================================= -->
+<!-- ======== VIEW: ADMIN DASHBOARD ======== -->
 <div class="view" id="view-admin">
   <div class="admin-page">
     <div class="admin-topbar">
@@ -1036,26 +916,22 @@ img { max-width: 100%; display: block; }
       <div class="admin-topbar-right">
         <span class="admin-user" id="adminUserLabel"></span>
         <button class="act-btn edit" style="font-size:11px;" onclick="showView('view-main')">Főoldal</button>
-        <button class="act-btn del"  style="font-size:11px;" onclick="confirmLogout()">Kilépés</button>
+        <button class="act-btn del" style="font-size:11px;" onclick="confirmLogout()">Kilépés</button>
       </div>
     </div>
     <div class="admin-content">
       <div class="admin-tabs">
         <button class="admin-tab active" onclick="adminTab('articles',this)">Cikkek</button>
-        <button class="admin-tab" onclick="adminTab('topics',this)">Témák</button>
-        <button class="admin-tab" onclick="adminTab('accounts',this)" id="tabAccounts" style="display:none;">Fiókok</button>
+        <button class="admin-tab" onclick="adminTab('categories',this)">Kategóriák</button>
+        <button class="admin-tab" onclick="adminTab('podcasts',this)">Podcastok</button>
         <button class="admin-tab" onclick="adminTab('profile',this)">Profil</button>
       </div>
-      <div id="adminTabContent">
-        <div class="spinner-wrap"><div class="spinner"></div></div>
-      </div>
+      <div id="adminTabContent"><div class="spinner-wrap"><div class="spinner"></div></div></div>
     </div>
   </div>
 </div>
 
-<!-- =============================================
-     VIEW: ARTICLE EDITOR
-============================================= -->
+<!-- ======== VIEW: ARTICLE EDITOR ======== -->
 <div class="view" id="view-editor">
   <div class="editor-page">
     <div class="editor-topbar">
@@ -1067,23 +943,25 @@ img { max-width: 100%; display: block; }
       <button class="btn-primary" style="width:auto;padding:8px 18px;margin:0;" onclick="saveArticle()">Mentés</button>
     </div>
     <div class="editor-body">
-
       <div class="editor-field">
         <label class="editor-label">CÍM</label>
         <input class="editor-input" id="edTitle" placeholder="A cikk címe…" style="font-size:20px;font-family:'Playfair Display',serif;">
       </div>
-
       <div class="editor-field">
         <label class="editor-label">RÖVID LEÍRÁS (főoldalon jelenik meg)</label>
         <input class="editor-input" id="edDesc" placeholder="Rövid leírás…">
       </div>
-
       <div class="editor-field">
         <label class="editor-label">BORÍTÓKÉP URL (opcionális)</label>
         <input class="editor-input" id="edCover" placeholder="https://…" oninput="previewCover()">
         <img id="edCoverPreview" style="margin-top:10px;border-radius:8px;max-height:200px;object-fit:cover;display:none;">
       </div>
-
+      <div class="editor-field">
+        <label class="editor-label">KATEGÓRIA <span style="color:#e05555;">*</span></label>
+        <select class="editor-select" id="edCategory">
+          <option value="">— Válassz kategóriát —</option>
+        </select>
+      </div>
       <div class="editor-field">
         <label class="editor-label">TARTALOM BLOKKOK</label>
         <div class="block-toolbar">
@@ -1092,918 +970,1485 @@ img { max-width: 100%; display: block; }
           <button class="blk-btn" onclick="addBlock('highlight')">+ Kiemelés</button>
           <button class="blk-btn" onclick="addBlock('quote')">+ Idézet</button>
           <button class="blk-btn" onclick="addBlock('image')">+ Kép</button>
+          <button class="blk-btn" onclick="addBlock('youtube')">+ YouTube</button>
         </div>
         <div class="blocks-area" id="blocksArea"></div>
       </div>
-
+      <div class="editor-field">
+        <label class="editor-label">SZAVAZÁS (opcionális)</label>
+        <div id="pollEditorWrap"></div>
+        <button class="blk-btn" id="addPollBtn" onclick="initPollEditor()" style="margin-top:8px;">+ Szavazás hozzáadása</button>
+      </div>
       <div class="editor-field">
         <label class="editor-label">HASHTAGEK (Enter-rel add hozzá)</label>
         <div class="tags-input-wrap" id="tagsWrap" onclick="document.getElementById('tagInput').focus()">
           <input class="tags-text-input" id="tagInput" placeholder="#téma…" onkeydown="handleTagInput(event)">
         </div>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- =============================================
-     FIREBASE SDK
-============================================= -->
+<!-- ======== VIEW: PODCAST EDITOR ======== -->
+<div class="view" id="view-podcast-editor">
+  <div class="podcast-ed-page">
+    <div class="editor-topbar">
+      <button class="back-btn" style="color:var(--text);" onclick="showView('view-admin');loadAdminDashboard()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        Vissza
+      </button>
+      <span class="editor-topbar-title" id="pedTopTitle">Új podcast</span>
+      <button class="btn-primary" style="width:auto;padding:8px 18px;margin:0;" onclick="savePodcast()">Mentés</button>
+    </div>
+    <div class="editor-body">
+      <div class="editor-field">
+        <label class="editor-label">CÍM</label>
+        <input class="editor-input" id="pedTitle" placeholder="Podcast epizód címe…">
+      </div>
+      <div class="editor-field">
+        <label class="editor-label">BORÍTÓKÉP URL (1080×1080px)</label>
+        <input class="editor-input" id="pedCover" placeholder="https://…" oninput="previewPodcastCover()">
+        <img id="pedCoverPreview" style="margin-top:10px;border-radius:14px;max-height:200px;object-fit:cover;display:none;">
+      </div>
+      <div class="editor-field">
+        <label class="editor-label">LEÍRÁS</label>
+        <textarea class="editor-input" id="pedDesc" placeholder="Epizód leírása…" rows="4" style="resize:vertical;"></textarea>
+      </div>
+      <div class="editor-field">
+        <label class="editor-label">KATEGÓRIA</label>
+        <div style="display:flex;gap:8px;margin-bottom:10px;">
+          <select class="editor-select" id="pedCategory" style="flex:1;"></select>
+          <button class="blk-btn" onclick="showPodcastCatAdder()">+ Új kategória</button>
+        </div>
+        <div id="podcastCatAdder" style="display:none;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:6px;">
+          <div style="display:flex;gap:8px;">
+            <input class="editor-input" id="newPodCat" placeholder="Kategória neve…" style="flex:1;">
+            <button class="btn-primary" style="width:auto;padding:8px 14px;margin:0;" onclick="addPodcastCategory()">Hozzáad</button>
+          </div>
+        </div>
+      </div>
+      <div class="editor-field">
+        <label class="editor-label">AUDIOFÁJL FELTÖLTÉSE</label>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">
+          MP3 formátum ajánlott. A fájl a Firebase Storage-ba kerül.
+        </p>
+        <input type="file" id="pedAudio" accept="audio/*" onchange="handleAudioSelect(this)" style="display:none;">
+        <button class="blk-btn" onclick="document.getElementById('pedAudio').click()">📂 Fájl választása</button>
+        <div id="pedAudioInfo" style="margin-top:8px;font-size:13px;color:var(--muted);"></div>
+        <div id="pedUploadProgress" style="display:none;margin-top:10px;">
+          <div style="height:6px;background:var(--border);border-radius:6px;overflow:hidden;">
+            <div id="pedProgressBar" style="height:100%;background:var(--tq);width:0%;transition:width .2s;"></div>
+          </div>
+          <div id="pedProgressLabel" style="font-size:12px;color:var(--muted);margin-top:4px;">0%</div>
+        </div>
+        <div id="pedExistingAudio" style="margin-top:8px;font-size:13px;color:var(--tq);"></div>
+      </div>
+      <div class="editor-field">
+        <label class="editor-label">IDŐTARTAM (percek:másodpercek, pl. 42:30)</label>
+        <input class="editor-input" id="pedDuration" placeholder="42:30">
+      </div>
+      <div class="editor-field" style="display:flex;align-items:center;gap:12px;">
+        <input type="checkbox" id="pedFeatured" style="accent-color:var(--tq);width:18px;height:18px;">
+        <label for="pedFeatured" style="font-size:14px;color:var(--text);cursor:pointer;">
+          Főoldalon kiemelt (max. 5)
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== FIREBASE ======== -->
 <script type="module">
-import { initializeApp }                        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, collection, doc,
-         getDocs, getDoc, addDoc, setDoc,
-         updateDoc, deleteDoc, query,
-         orderBy, where, serverTimestamp }      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, doc, getDocs, getDoc, addDoc, setDoc,
+  updateDoc, deleteDoc, query, orderBy, where, serverTimestamp, increment }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 /* ── Firebase init ── */
 const firebaseConfig = {
-  apiKey:            "AIzaSyDvZU8qdiCE23Rjx-CD175-i0XrHZymHT4",
-  authDomain:        "koma-news.firebaseapp.com",
-  projectId:         "koma-news",
-  storageBucket:     "koma-news.firebasestorage.app",
-  messagingSenderId: "935844182822",
-  appId:             "1:935844182822:web:fb9f0b08020e8a62739fe7"
+  apiKey:"AIzaSyDvZU8qdiCE23Rjx-CD175-i0XrHZymHT4",
+  authDomain:"koma-news.firebaseapp.com",
+  projectId:"koma-news",
+  storageBucket:"koma-news.firebasestorage.app",
+  messagingSenderId:"935844182822",
+  appId:"1:935844182822:web:fb9f0b08020e8a62739fe7"
 };
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
-const auth = getAuth(app);
+const app     = initializeApp(firebaseConfig);
+const db      = getFirestore(app);
+const auth    = getAuth(app);
+const storage = getStorage(app);
 
-/* Admin emails — must match Firestore rules isAdmin() list */
 const ADMIN_EMAILS = ['kelemeng771@gmail.com'];
+function isAllowedAdmin(user){ return ADMIN_EMAILS.includes(user?.email?.toLowerCase()); }
 
-function isAllowedAdmin(user) {
-  const email = user?.email?.toLowerCase();
-  return email && ADMIN_EMAILS.includes(email);
-}
-
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    STATE
-════════════════════════════════════════════ */
-let allArticles   = [];
-let allTopics     = [];
-let currentAdmin  = null;       // { uid, email, username }
-let editorArticle = null;       // article being edited (null = new)
-let editorBlocks  = [];         // [{type, text, url, caption}]
-let editorTags    = [];
-let currentTopic  = 'all';
-let featuredId    = null;
+════════════════════════════ */
+let allArticles      = [];
+let allCategories    = [];   // replaces allTopics for main page
+let allPodcasts      = [];
+let allPodcastCats   = [];
+let currentAdmin     = null;
+let editorArticle    = null;
+let editorBlocks     = [];
+let editorTags       = [];
+let editorPoll       = null;  // {question:'', options:[{id,text}]}
+let currentCategory  = 'all';
+let currentTagFilter = null;
+let featuredId       = null;
+let podcastAudioUrl  = '';    // resolved Firebase Storage URL for current editor
+let currentPodcastEdit = null;
 
-/* ════════════════════════════════════════════
+/* ── Player state ── */
+let audioEl       = null;
+let playerPodcast = null;
+let playbackRate  = 1;
+const SPEEDS      = [0.75,1,1.25,1.5,2];
+
+/* ── Link popup state ── */
+let _linkBlockIdx  = -1;
+let _linkSelStart  = 0;
+let _linkSelEnd    = 0;
+
+/* ════════════════════════════
    UTILITY
-════════════════════════════════════════════ */
-function escapeHtml(str = '') {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+════════════════════════════ */
+function escapeHtml(s=''){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')
+          .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
 }
-function showToast(msg, duration=2600) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), duration);
+function showToast(msg,dur=2600){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),dur);
 }
-
-function showView(id) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+function showView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
 }
-window.showView = showView;
-
-window.showMain = function() { showView('view-main'); renderMain(); };
-
-/* ════════════════════════════════════════════
-   DARK MODE
-════════════════════════════════════════════ */
-window.toggleDark = function(on) {
-  document.documentElement.setAttribute('data-theme', on ? 'dark' : 'light');
-  localStorage.setItem('koma_dark', on ? '1' : '0');
+window.showView=showView;
+window.showMain=function(){
+  currentTagFilter=null;
+  document.getElementById('tagBanner').style.display='none';
+  showView('view-main');
+  renderCategories();
+  renderMain();
 };
-(function() {
-  const saved = localStorage.getItem('koma_dark');
-  const on    = saved === '1';
-  document.documentElement.setAttribute('data-theme', on ? 'dark' : 'light');
-  const cb = document.getElementById('darkToggle');
-  if (cb) cb.checked = on;
-})();
 
-/* ════════════════════════════════════════════
+/* ── Hungarian date/time ── */
+const HU_MON=['január','február','március','április','május','június',
+               'július','augusztus','szeptember','október','november','december'];
+function formatTime(ts){
+  if(!ts) return '';
+  let ms;
+  if(typeof ts.toMillis==='function') ms=ts.toMillis();
+  else if(typeof ts.seconds==='number') ms=ts.seconds*1000;
+  else return '';
+  const d=new Date(ms), now=new Date();
+  const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const aday =new Date(d.getFullYear(),d.getMonth(),d.getDate());
+  const diff =Math.floor((today-aday)/86400000);
+  if(diff===0) return d.toLocaleTimeString('hu-HU',{hour:'2-digit',minute:'2-digit'});
+  if(d.getFullYear()===now.getFullYear()){
+    const m=HU_MON[d.getMonth()];
+    return m.charAt(0).toUpperCase()+m.slice(1)+' '+d.getDate()+'.';
+  }
+  return d.getFullYear()+'. '+HU_MON[d.getMonth()]+' '+d.getDate()+'.';
+}
+
+/* ── Link parser ── */
+function parseLinks(text){
+  return escapeHtml(text).replace(/\[([^\]]+)\]\(([^)]+)\)/g,
+    (_,t,u)=>`<a href="${escapeHtml(u)}" target="_blank" rel="noopener">${t}</a>`);
+}
+
+/* ── YouTube ID ── */
+function ytId(url){
+  const m=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/);
+  return m?m[1]:null;
+}
+
+/* ════════════════════════════
+   DARK MODE (auto-detect)
+════════════════════════════ */
+(function(){
+  const saved=localStorage.getItem('koma_dark');
+  let on;
+  if(saved!==null) on=saved==='1';
+  else on=window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme',on?'dark':'light');
+  const cb=document.getElementById('darkToggle');
+  if(cb) cb.checked=on;
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',e=>{
+    if(localStorage.getItem('koma_dark')!==null) return; // user overrode
+    document.documentElement.setAttribute('data-theme',e.matches?'dark':'light');
+    const cb2=document.getElementById('darkToggle');
+    if(cb2) cb2.checked=e.matches;
+  });
+})();
+window.toggleDark=function(on){
+  document.documentElement.setAttribute('data-theme',on?'dark':'light');
+  localStorage.setItem('koma_dark',on?'1':'0');
+};
+
+/* ════════════════════════════
    SETTINGS PANEL
-════════════════════════════════════════════ */
-window.openPanel = function() {
+════════════════════════════ */
+window.openPanel=function(){
   document.getElementById('sidePanel').classList.add('open');
   document.getElementById('overlay').classList.add('open');
   renderSpAdminArea();
 };
-window.closePanel = function() {
+window.closePanel=function(){
   document.getElementById('sidePanel').classList.remove('open');
   document.getElementById('overlay').classList.remove('open');
 };
-
-function renderSpAdminArea() {
-  const area = document.getElementById('spAdminArea');
-  if (currentAdmin) {
-    area.innerHTML = `
+function renderSpAdminArea(){
+  const area=document.getElementById('spAdminArea');
+  if(currentAdmin){
+    area.innerHTML=`
       <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">
         Bejelentkezve: <b style="color:var(--text);">${escapeHtml(adminDisplayName())}</b>
       </p>
       <button class="sp-admin-btn" onclick="closePanel();showView('view-admin');loadAdminDashboard();">Admin felület</button>
       <button class="sp-logout-btn" onclick="closePanel();confirmLogout();">Kijelentkezés</button>`;
   } else {
-    area.innerHTML = `<button class="sp-admin-btn" onclick="closePanel();showView('view-login')">Admin bejelentkezés</button>`;
+    area.innerHTML=`<button class="sp-admin-btn" onclick="closePanel();showView('view-login')">Admin bejelentkezés</button>`;
   }
 }
-
-/* ── Panel search ── */
-window.handlePanelSearch = function(val) {
-  const box = document.getElementById('spResults');
-  if (!val.trim()) { box.innerHTML = ''; return; }
-  const q = val.toLowerCase();
-  const hits = allArticles.filter(a =>
-    a.title.toLowerCase().includes(q) ||
-    (a.desc||'').toLowerCase().includes(q) ||
-    (a.tags||[]).some(t => t.toLowerCase().includes(q))
+window.handlePanelSearch=function(val){
+  const box=document.getElementById('spResults');
+  if(!val.trim()){box.innerHTML='';return;}
+  const q=val.toLowerCase();
+  const hits=allArticles.filter(a=>
+    a.title.toLowerCase().includes(q)||(a.desc||'').toLowerCase().includes(q)||
+    (a.tags||[]).some(t=>t.toLowerCase().includes(q))
   ).slice(0,6);
-  box.innerHTML = hits.length
-    ? hits.map(a => `<div class="sp-result-item" onclick="closePanel();openArticle('${a.id}')">${escapeHtml(a.title)}</div>`).join('')
-    : `<div style="font-size:13px;color:var(--muted);padding:8px 0;">Nincs találat.</div>`;
+  box.innerHTML=hits.length
+    ?hits.map(a=>`<div class="sp-result-item" onclick="closePanel();openArticle('${a.id}')">${escapeHtml(a.title)}</div>`).join('')
+    :`<div style="font-size:13px;color:var(--muted);padding:8px 0;">Nincs találat.</div>`;
 };
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    MODAL
-════════════════════════════════════════════ */
-let _modalResolve = null;
-function openModal(title, text, confirmLabel='Törlés') {
-  document.getElementById('modalTitle').textContent   = title;
-  document.getElementById('modalText').textContent    = text;
-  document.getElementById('modalConfirm').textContent = confirmLabel;
+════════════════════════════ */
+let _modalResolve=null;
+function openModal(title,text,confirmLabel='Törlés'){
+  document.getElementById('modalTitle').textContent=title;
+  document.getElementById('modalText').textContent=text;
+  document.getElementById('modalConfirm').textContent=confirmLabel;
   document.getElementById('modalOverlay').classList.add('open');
-  return new Promise(res => {
-    _modalResolve = res;
-    document.getElementById('modalConfirm').onclick = () => closeModal(true);
+  return new Promise(res=>{
+    _modalResolve=res;
+    document.getElementById('modalConfirm').onclick=()=>closeModal(true);
   });
 }
-window.closeModal = function(confirmed = false) {
+window.closeModal=function(confirmed=false){
   document.getElementById('modalOverlay').classList.remove('open');
-  if (_modalResolve) {
-    _modalResolve(!!confirmed);
-    _modalResolve = null;
-  }
+  if(_modalResolve){_modalResolve(!!confirmed);_modalResolve=null;}
 };
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    FIRESTORE HELPERS
-════════════════════════════════════════════ */
-function articleSortTime(a) {
-  const t = a.createdAt || a.updatedAt;
-  if (!t) return 0;
-  if (typeof t.toMillis === 'function') return t.toMillis();
-  if (typeof t.seconds === 'number') return t.seconds * 1000;
+════════════════════════════ */
+function tsToMs(ts){
+  if(!ts) return 0;
+  if(typeof ts.toMillis==='function') return ts.toMillis();
+  if(typeof ts.seconds==='number') return ts.seconds*1000;
   return 0;
 }
-async function fetchArticles() {
-  const snap = await getDocs(collection(db,'articles'));
-  allArticles = snap.docs.map(d => ({ id:d.id, ...d.data() }));
-  allArticles.sort((a, b) => articleSortTime(b) - articleSortTime(a));
+async function fetchArticles(){
+  const snap=await getDocs(collection(db,'articles'));
+  allArticles=snap.docs.map(d=>({id:d.id,...d.data()}));
+  allArticles.sort((a,b)=>tsToMs(b.createdAt)-tsToMs(a.createdAt));
 }
-async function fetchTopics() {
-  const snap = await getDocs(collection(db,'topics'));
-  allTopics   = snap.docs.map(d => ({ id:d.id, ...d.data() }));
-  allTopics.sort((a,b)=>(a.order||0)-(b.order||0));
+async function fetchCategories(){
+  const snap=await getDocs(collection(db,'topics'));
+  allCategories=snap.docs.map(d=>({id:d.id,...d.data()}));
+  allCategories.sort((a,b)=>(a.order||0)-(b.order||0));
 }
-async function fetchSettings() {
-  try {
-    const d = await getDoc(doc(db,'settings','global'));
-    if (d.exists()) featuredId = d.data().featuredId || null;
-  } catch(e) {}
+async function fetchPodcasts(){
+  const snap=await getDocs(collection(db,'podcasts'));
+  allPodcasts=snap.docs.map(d=>({id:d.id,...d.data()}));
+  allPodcasts.sort((a,b)=>tsToMs(b.createdAt)-tsToMs(a.createdAt));
+}
+async function fetchPodcastCats(){
+  const snap=await getDocs(collection(db,'podcastCategories'));
+  allPodcastCats=snap.docs.map(d=>({id:d.id,...d.data()}));
+  allPodcastCats.sort((a,b)=>(a.order||0)-(b.order||0));
+}
+async function fetchSettings(){
+  try{
+    const d=await getDoc(doc(db,'settings','global'));
+    if(d.exists()) featuredId=d.data().featuredId||null;
+  }catch(e){}
+}
+async function loadAdminProfile(uid){
+  const d=await getDoc(doc(db,'profiles',uid));
+  return d.exists()?d.data():null;
+}
+function adminDisplayName(admin=currentAdmin){
+  if(!admin) return '';
+  return (admin.username||'').trim()||admin.email||'';
+}
+function getAuthorName(){
+  const n=(currentAdmin?.username||'').trim();
+  if(n) return n;
+  return (currentAdmin?.email||auth.currentUser?.email||'').split('@')[0];
+}
+async function setCurrentAdminFromUser(user){
+  const profile=await loadAdminProfile(user.uid);
+  currentAdmin={uid:user.uid,email:user.email,username:profile?.username||''};
 }
 
-async function loadAdminProfile(uid) {
-  const d = await getDoc(doc(db, 'profiles', uid));
-  return d.exists() ? d.data() : null;
-}
-
-function adminDisplayName(admin = currentAdmin) {
-  if (!admin) return '';
-  return (admin.username || '').trim() || admin.email || '';
-}
-
-function getAuthorName() {
-  const name = (currentAdmin?.username || '').trim();
-  if (name) return name;
-  const email = (currentAdmin?.email || auth.currentUser?.email || '').trim();
-  return email ? email.split('@')[0] : '';
-}
-
-async function setCurrentAdminFromUser(user) {
-  const profile = await loadAdminProfile(user.uid);
-  currentAdmin = {
-    uid: user.uid,
-    email: user.email,
-    username: profile?.username || ''
-  };
-}
-
-/* ════════════════════════════════════════════
-   BOOT — initialise site
-════════════════════════════════════════════ */
-onAuthStateChanged(auth, async (user) => {
-  if (user && isAllowedAdmin(user)) {
-    await setCurrentAdminFromUser(user);
-  } else {
-    currentAdmin = null;
-    if (user && !isAllowedAdmin(user)) signOut(auth).catch(() => {});
-  }
+/* ════════════════════════════
+   BOOT
+════════════════════════════ */
+onAuthStateChanged(auth,async(user)=>{
+  if(user&&isAllowedAdmin(user)) await setCurrentAdminFromUser(user);
+  else{ currentAdmin=null; if(user&&!isAllowedAdmin(user)) signOut(auth).catch(()=>{}); }
   renderSpAdminArea();
 });
-   
-  async function boot() {
-  /* restore dark mode toggle state */
-  const dark = localStorage.getItem('koma_dark') === '1';
-  const cb   = document.getElementById('darkToggle');
-  if (cb) cb.checked = dark;
 
-  await Promise.all([fetchArticles(), fetchTopics(), fetchSettings()]);
-  renderTopics();
+async function boot(){
+  const dark=localStorage.getItem('koma_dark');
+  const on=dark!==null?dark==='1':window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const cb=document.getElementById('darkToggle');
+  if(cb) cb.checked=on;
+
+  await Promise.all([fetchArticles(),fetchCategories(),fetchPodcasts(),fetchPodcastCats(),fetchSettings()]);
+  renderCategories();
   renderMain();
   setupArticleHeaderHide();
 }
 
-/* ════════════════════════════════════════════
-   TOPICS ROW RENDER
-════════════════════════════════════════════ */
-function renderTopics() {
-  const row      = document.getElementById('topicsRow');
-  const visible  = allTopics.filter(t => t.visible !== false);
-  const buttons  = [{ id:'all', name:'Összes' }, ...visible];
-  row.innerHTML  = buttons.map(t =>
-    `<button class="topic-btn${t.id===currentTopic?' active':''}"
-             onclick="filterTopic('${t.id}',this)">${t.name}</button>`
+/* ════════════════════════════
+   CATEGORIES ROW
+════════════════════════════ */
+function renderCategories(){
+  const row=document.getElementById('topicsRow');
+  const visible=allCategories.filter(t=>t.visible!==false);
+  const buttons=[{id:'all',name:'Összes'},...visible];
+  row.innerHTML=buttons.map(t=>
+    `<button class="topic-btn${t.id===currentCategory?' active':''}"
+             onclick="filterCategory('${t.id}',this)">${t.name}</button>`
   ).join('');
 }
-
-window.filterTopic = function(id, btn) {
-  currentTopic = id;
-  document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
+window.filterCategory=function(id,btn){
+  currentCategory=id;
+  currentTagFilter=null;
+  document.getElementById('tagBanner').style.display='none';
+  document.querySelectorAll('.topic-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderMain();
+};
+window.filterByTag=function(tag){
+  currentTagFilter=tag;
+  currentCategory='all';
+  document.querySelectorAll('.topic-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.topic-btn')?.classList.add('active');
+  document.getElementById('tagBanner').style.display='flex';
+  document.getElementById('tagBannerText').textContent=`Szűrés: #${tag}`;
+  showView('view-main');
+  renderMain();
+};
+window.clearTagFilter=function(){
+  currentTagFilter=null;
+  document.getElementById('tagBanner').style.display='none';
   renderMain();
 };
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    MAIN PAGE RENDER
-════════════════════════════════════════════ */
-function renderMain() {
-  const wrap = document.getElementById('mainContent');
-  let articles = currentTopic === 'all'
-    ? allArticles
-    : allArticles.filter(a => (a.tags||[]).includes(currentTopic));
+════════════════════════════ */
+function renderMain(){
+  const wrap=document.getElementById('mainContent');
+  let articles=allArticles;
+  if(currentTagFilter){
+    articles=allArticles.filter(a=>(a.tags||[]).includes(currentTagFilter));
+  } else if(currentCategory!=='all'){
+    articles=allArticles.filter(a=>a.category===currentCategory);
+  }
 
-  if (!articles.length) {
-    wrap.innerHTML = `<div class="empty-state">Nincsenek cikkek ebben a témában.</div>`;
+  if(!articles.length){
+    wrap.innerHTML=`<div class="empty-state">Nincsenek cikkek ebben a témában.</div>`;
     return;
   }
 
-  const featured = articles.find(a => a.id === featuredId) || articles[0];
-  const rest     = articles.filter(a => a.id !== featured.id);
+  const featured=articles.find(a=>a.id===featuredId)||articles[0];
+  const rest=articles.filter(a=>a.id!==featured.id);
+  const featCat=allCategories.find(c=>c.id===featured.category);
+  const featTime=formatTime(featured.createdAt);
 
-  wrap.innerHTML = `
+  // Podcast row (featured podcasts, show after first article)
+  const featuredPodcasts=allPodcasts.filter(p=>p.featured).sort((a,b)=>(a.featuredOrder||0)-(b.featuredOrder||0)).slice(0,5);
+  const podcastRowHTML=featuredPodcasts.length?`
+    <div class="podcast-section">
+      <div class="podcast-section-hd">
+        <span class="podcast-section-label">🎙 Podcastok</span>
+        <button class="podcast-section-more" onclick="openPodcastPage()">Összes →</button>
+      </div>
+      <div class="podcast-row">
+        <div class="pc-logo-card" onclick="openPodcastPage()">
+          <div class="pc-logo-box">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--tq)" stroke-width="1.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </div>
+          <div class="pc-logo-label">Podcastok</div>
+        </div>
+        ${featuredPodcasts.map(p=>`
+          <div class="pc-card">
+            <div class="pc-card-img-wrap">
+              ${p.cover?`<img src="${p.cover}" alt="${escapeHtml(p.title)}" loading="lazy">`:
+                `<div style="width:100%;height:100%;background:var(--tq-tr);display:flex;align-items:center;justify-content:center;color:var(--tq);">🎙</div>`}
+              <div class="pc-card-play">
+                <div class="pc-play-circle">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="pc-card-title">${escapeHtml(p.title)}</div>
+            ${p.duration?`<div class="pc-card-dur">${p.duration}</div>`:''}
+          </div>`).join('')}
+        <div class="pc-more-card" onclick="openPodcastPage()">
+          <div class="pc-more-box">Több…</div>
+        </div>
+      </div>
+    </div>
+    <div class="section-div"></div>`:'';
+
+  // Set click handlers for podcast cards after render
+  wrap.innerHTML=`
     <div class="feat-label">Kiemelt cikk</div>
     <div class="feat-card" onclick="openArticle('${featured.id}')">
-      ${featured.cover ? `<img class="feat-cover" src="${featured.cover}" alt="${featured.title}" loading="lazy">` : ''}
-      <div class="feat-title">${featured.title}</div>
-      ${featured.desc ? `<div class="feat-desc">${featured.desc}</div>` : ''}
+      ${featured.cover?`<img class="feat-cover" src="${featured.cover}" alt="${escapeHtml(featured.title)}" loading="lazy">`:''}
+      <div class="feat-title">${escapeHtml(featured.title)}</div>
+      ${featured.desc?`<div class="feat-desc">${escapeHtml(featured.desc)}</div>`:''}
+      <div class="feat-meta">
+        ${featCat?`<span class="cat-badge">${escapeHtml(featCat.name)}</span>`:''}
+        ${featTime?`<span style="font-size:12px;color:var(--muted);font-family:'Fira Sans',sans-serif;">${featTime}</span>`:''}
+      </div>
     </div>
     <div class="section-div"></div>
+    ${podcastRowHTML}
     <div id="articleList">
-      ${rest.map(a => articleCardHTML(a)).join('')}
+      ${rest.map(a=>articleCardHTML(a)).join('')}
     </div>`;
+
+  // Attach podcast card click handlers
+  const pcCards=wrap.querySelectorAll('.pc-card');
+  pcCards.forEach((card,i)=>{
+    const pod=featuredPodcasts[i];
+    if(!pod) return;
+    card.addEventListener('click',()=>startPodcast(pod));
+  });
 }
 
-function articleCardHTML(a) {
+function articleCardHTML(a){
+  const cat=allCategories.find(c=>c.id===a.category);
+  const t=formatTime(a.createdAt);
   return `
     <div class="article-card" onclick="openArticle('${a.id}')">
       <div class="card-body">
+        <div class="card-top">
+          ${cat?`<span class="cat-badge">${escapeHtml(cat.name)}</span>`:''}
+        </div>
         <div class="card-title">${escapeHtml(a.title)}</div>
-        ${a.desc ? `<div class="card-desc">${escapeHtml(a.desc)}</div>` : ''}
+        ${a.desc?`<div class="card-desc">${escapeHtml(a.desc)}</div>`:''}
+        <div class="card-bottom">
+          ${a.author?`<span class="card-author">${escapeHtml(a.author)}</span>`:''}
+          ${t?`<span class="card-time">${t}</span>`:''}
+        </div>
       </div>
-      ${a.cover ? `<img class="card-thumb" src="${a.cover}" alt="${escapeHtml(a.title)}" loading="lazy">` : ''}
+      ${a.cover?`<img class="card-thumb" src="${a.cover}" alt="${escapeHtml(a.title)}" loading="lazy">`:''}
     </div>`;
 }
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    OPEN ARTICLE
-════════════════════════════════════════════ */
-window.openArticle = async function(id) {
-  let article = allArticles.find(a => a.id === id);
-  if (!article) {
-    try {
-      const d = await getDoc(doc(db,'articles',id));
-      if (d.exists()) article = { id:d.id, ...d.data() };
-      else { showToast('A cikk nem található.'); return; }
-    } catch(e) { showToast('Hiba a cikk betöltésekor.'); return; }
+════════════════════════════ */
+window.openArticle=async function(id){
+  let article=allArticles.find(a=>a.id===id);
+  if(!article){
+    try{
+      const d=await getDoc(doc(db,'articles',id));
+      if(d.exists()) article={id:d.id,...d.data()};
+      else{showToast('A cikk nem található.');return;}
+    }catch(e){showToast('Hiba a cikk betöltésekor.');return;}
   }
-
-  const related = getRelated(article);
-  try {
-    document.getElementById('articleContent').innerHTML = buildArticleHTML(article, related);
-  } catch (e) {
-    console.error(e);
-    showToast('Hiba a cikk megjelenítésekor.');
-    return;
-  }
+  const related=getRelated(article);
+  document.getElementById('articleContent').innerHTML=buildArticleHTML(article,related);
   showView('view-article');
-  /* reset header */
-  const hdr = document.getElementById('article-header');
-  hdr.classList.remove('hidden');
-  lastScrollY = 0;
+  document.getElementById('article-header').classList.remove('hidden');
+  lastScrollY=0;
+  // Animate poll bars after render
+  setTimeout(()=>{
+    document.querySelectorAll('.poll-result-bar').forEach(bar=>{
+      bar.style.width=bar.getAttribute('data-pct')+'%';
+    });
+  },100);
 };
 
-function getRelated(article) {
-  const tags = article.tags || [];
+function getRelated(article){
+  const cat=article.category;
+  const tags=article.tags||[];
   return allArticles
-    .filter(a => a.id !== article.id && (a.tags||[]).some(t => tags.includes(t)))
-    .sort(() => Math.random() - 0.5)
-    .slice(0,4);
+    .filter(a=>a.id!==article.id&&(a.category===cat||(a.tags||[]).some(t=>tags.includes(t))))
+    .sort(()=>Math.random()-.5).slice(0,4);
 }
 
-function buildArticleHTML(a, related) {
-  const blocks = (a.blocks||[]).map(renderBlock).join('');
-  const tags   = (a.tags||[]).map(t =>
-    `<span class="tag-pill" onclick="filterTopic('${t}');showMain();">#${t}</span>`
+function buildArticleHTML(a,related){
+  const blocks=(a.blocks||[]).map(renderBlock).join('');
+  const cat=allCategories.find(c=>c.id===a.category);
+  const t=formatTime(a.createdAt);
+  const tags=(a.tags||[]).map(tag=>
+    `<span class="tag-pill" onclick="filterByTag('${tag}')">#${tag}</span>`
   ).join('');
-  const relHTML = related.length ? `
+  const pollHTML=a.poll?renderPoll(a):'' ;
+  const relHTML=related.length?`
     <div class="related-wrap">
-      <div class="related-label">Hasonló cikkek</div>
+      <div class="related-label">Kapcsolódó cikkek</div>
       <div class="related-grid">
-        ${related.map(r => `
+        ${related.map(r=>`
           <div class="rel-card" onclick="openArticle('${r.id}')">
-            ${r.cover ? `<img class="rel-thumb" src="${r.cover}" alt="${r.title}" loading="lazy">` : ''}
-            <div class="rel-title">${r.title}</div>
+            ${r.cover?`<img class="rel-thumb" src="${r.cover}" alt="${escapeHtml(r.title)}" loading="lazy">`:''}
+            <div class="rel-title">${escapeHtml(r.title)}</div>
           </div>`).join('')}
       </div>
-    </div>` : '';
+    </div>`:'';
 
   return `
     <div class="art-header-spacer"></div>
-    ${a.cover ? `<img class="art-cover-img" src="${a.cover}" alt="${escapeHtml(a.title)}" loading="lazy">` : ''}
+    ${a.cover?`<img class="art-cover-img" src="${a.cover}" alt="${escapeHtml(a.title)}" loading="lazy">`:''}
     <div class="art-body">
+      ${cat?`<div style="margin-bottom:10px;"><span class="cat-badge">${escapeHtml(cat.name)}</span></div>`:''}
       <h1 class="art-title">${escapeHtml(a.title)}</h1>
       <div class="art-meta">
-        ${a.author ? `<span class="art-author">${escapeHtml(a.author)}</span>` : '<span></span>'}
+        <div class="art-meta-left">
+          ${a.author?`<span class="art-author">${escapeHtml(a.author)}</span>`:''}
+          ${a.author&&t?`<span class="art-sep">|</span>`:''}
+          ${t?`<span class="art-time">${t}</span>`:''}
+        </div>
         <button class="share-btn" onclick="shareArticle('${a.id}','${encodeURIComponent(a.title)}')">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
           Megosztás
         </button>
       </div>
       ${blocks}
-      ${tags ? `<div class="art-tags">${tags}</div>` : ''}
+      ${pollHTML}
+      ${tags?`<div class="art-tags">${tags}</div>`:''}
     </div>
     ${relHTML}`;
 }
 
-function renderBlock(b) {
-  switch(b.type) {
-    case 'para':      return `<p class="cb-para">${escapeHtml(b.text||'')}</p>`;
+function renderBlock(b){
+  switch(b.type){
+    case 'para':      return `<p class="cb-para">${parseLinks(b.text||'')}</p>`;
     case 'heading':   return `<h2 class="cb-heading">${escapeHtml(b.text||'')}</h2>`;
-    case 'highlight': return `<div class="cb-highlight">${escapeHtml(b.text||'')}</div>`;
+    case 'highlight': return `<div class="cb-highlight">${parseLinks(b.text||'')}</div>`;
     case 'quote':     return `<blockquote class="cb-quote">${escapeHtml(b.text||'')}</blockquote>`;
     case 'image':     return `
       <div class="cb-image">
-        <img src="${b.url||''}" alt="${b.caption||''}">
-        ${b.caption ? `<div class="cb-caption">${escapeHtml(b.caption)}</div>` : ''}
+        <img src="${escapeHtml(b.url||'')}" alt="${escapeHtml(b.caption||'')}">
+        ${b.caption?`<div class="cb-caption">${escapeHtml(b.caption)}</div>`:''}
       </div>`;
+    case 'youtube': {
+      const id=ytId(b.url||'');
+      if(!id) return '';
+      return `<div class="cb-youtube"><iframe src="https://www.youtube.com/embed/${id}" allowfullscreen loading="lazy"></iframe></div>`;
+    }
     default: return '';
   }
 }
 
-/* ── Share ── */
-window.shareArticle = function(id, title) {
-  const url = `${location.origin}${location.pathname}#article/${id}`;
-  if (navigator.share) {
-    navigator.share({ title: decodeURIComponent(title), url }).catch(()=>{});
-  } else {
-    navigator.clipboard.writeText(url).then(() => showToast('Link másolva a vágólapra!'));
+/* ── Poll render (reader) ── */
+function renderPoll(a){
+  const poll=a.poll;
+  if(!poll||!poll.question||!(poll.options||[]).length) return '';
+  const articleId=a.id;
+  const voted=localStorage.getItem('tfp_'+articleId);
+  const votes=poll.votes||{};
+  const total=Object.values(votes).reduce((s,v)=>s+(v||0),0);
+
+  if(voted){
+    const rows=poll.options.map(o=>{
+      const v=votes[o.id]||0;
+      const pct=total>0?Math.round(v/total*100):0;
+      return `
+        <div class="poll-result-row">
+          <div class="poll-result-label">
+            <span>${escapeHtml(o.text)}${voted===o.id?' ✓':''}</span>
+            <span>${pct}% (${v})</span>
+          </div>
+          <div class="poll-result-bar-wrap">
+            <div class="poll-result-bar${voted===o.id?' voted':''}"
+                 data-pct="${pct}" style="width:0%"></div>
+          </div>
+        </div>`;
+    }).join('');
+    return `<div class="cb-poll">
+      <div class="poll-header"><div class="poll-question">${escapeHtml(poll.question)}</div></div>
+      <div class="poll-body">
+        <div class="poll-results">${rows}</div>
+        <div class="poll-total">${total} szavazat összesen</div>
+      </div>
+    </div>`;
   }
+
+  const opts=poll.options.map(o=>
+    `<button class="poll-opt-btn" onclick="votePoll('${articleId}','${o.id}')">${escapeHtml(o.text)}</button>`
+  ).join('');
+  return `<div class="cb-poll" id="poll-${articleId}">
+    <div class="poll-header"><div class="poll-question">${escapeHtml(poll.question)}</div></div>
+    <div class="poll-body">
+      <div class="poll-options">${opts}</div>
+    </div>
+  </div>`;
+}
+
+window.votePoll=async function(articleId,optId){
+  localStorage.setItem('tfp_'+articleId,''+optId);
+  try{
+    const path=`votes.${optId}`;
+    await updateDoc(doc(db,'articles',articleId),{[path]:increment(1)});
+    const d=await getDoc(doc(db,'articles',articleId));
+    const a={id:articleId,...d.data()};
+    // re-render just the poll block
+    const container=document.getElementById('poll-'+articleId);
+    if(container){
+      container.outerHTML=renderPoll(a);
+      setTimeout(()=>document.querySelectorAll('.poll-result-bar').forEach(bar=>{
+        bar.style.width=bar.getAttribute('data-pct')+'%';
+      }),100);
+    }
+  }catch(e){showToast('Hiba a szavazás során.');}
+};
+
+/* ── Share ── */
+window.shareArticle=function(id,title){
+  const url=`${location.origin}${location.pathname}#article/${id}`;
+  if(navigator.share) navigator.share({title:decodeURIComponent(title),url}).catch(()=>{});
+  else navigator.clipboard.writeText(url).then(()=>showToast('Link másolva!'));
 };
 
 /* ── Article header hide on scroll ── */
-let lastScrollY = 0;
-function setupArticleHeaderHide() {
-  window.addEventListener('scroll', () => {
-    if (!document.getElementById('view-article').classList.contains('active')) return;
-    const hdr = document.getElementById('article-header');
-    const cur = window.scrollY;
-    if (cur > lastScrollY && cur > 80) hdr.classList.add('hidden');
+let lastScrollY=0;
+function setupArticleHeaderHide(){
+  window.addEventListener('scroll',()=>{
+    if(!document.getElementById('view-article').classList.contains('active')) return;
+    const hdr=document.getElementById('article-header');
+    const cur=window.scrollY;
+    if(cur>lastScrollY&&cur>80) hdr.classList.add('hidden');
     else hdr.classList.remove('hidden');
-    lastScrollY = cur;
-  }, { passive:true });
+    lastScrollY=cur;
+  },{passive:true});
 }
 
-/* ── URL hash routing ── */
-function routeHash() {
-  const h = location.hash;
-  if (h.startsWith('#article/')) openArticle(h.slice(9));
+/* ── Hash routing ── */
+function routeHash(){
+  const h=location.hash;
+  if(h.startsWith('#article/')) openArticle(h.slice(9));
 }
-window.addEventListener('hashchange', routeHash);
+window.addEventListener('hashchange',routeHash);
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
+   PODCAST PAGE
+════════════════════════════ */
+window.openPodcastPage=async function(){
+  showView('view-podcasts');
+  renderPodcastPage();
+};
+
+function renderPodcastPage(){
+  const wrap=document.getElementById('podcastPageContent');
+  const savedIds=JSON.parse(localStorage.getItem('tf_saved_pods')||'[]');
+  const saved=savedIds.map(id=>allPodcasts.find(p=>p.id===id)).filter(Boolean);
+  let html='';
+
+  if(saved.length){
+    html+=`<div class="podcast-cat-section">
+      <div class="saved-section-label">Mentett podcastok</div>
+      <div class="podcast-grid">${saved.map(podCardHTML).join('')}</div>
+    </div>`;
+  }
+
+  const cats=allPodcastCats.length?allPodcastCats:[{id:'_uncategorized',name:'Podcastok'}];
+  cats.forEach(cat=>{
+    const pods=allPodcasts.filter(p=>p.category===cat.id||(cat.id==='_uncategorized'&&!p.category));
+    if(!pods.length) return;
+    html+=`<div class="podcast-cat-section">
+      <div class="podcast-cat-title">${escapeHtml(cat.name)}</div>
+      <div class="podcast-grid">${pods.map(podCardHTML).join('')}</div>
+    </div>`;
+  });
+
+  if(!html) html=`<div class="empty-state">Még nincsenek podcastok.</div>`;
+  wrap.innerHTML=html;
+
+  // attach click
+  wrap.querySelectorAll('.pg-card').forEach(card=>{
+    const id=card.getAttribute('data-id');
+    const pod=allPodcasts.find(p=>p.id===id);
+    if(pod) card.addEventListener('click',()=>startPodcast(pod));
+  });
+}
+
+function podCardHTML(p){
+  return `
+    <div class="pg-card" data-id="${p.id}">
+      <div class="pg-img-wrap">
+        ${p.cover?`<img src="${p.cover}" alt="${escapeHtml(p.title)}" loading="lazy">`:
+          `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--tq);font-size:32px;">🎙</div>`}
+        <div class="pg-play">
+          <div class="pc-play-circle">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="pg-title">${escapeHtml(p.title)}</div>
+      ${p.duration?`<div class="pg-dur">${p.duration}</div>`:''}
+    </div>`;
+}
+
+/* ════════════════════════════
+   PODCAST PLAYER
+════════════════════════════ */
+function startPodcast(pod){
+  playerPodcast=pod;
+  if(!audioEl){
+    audioEl=new Audio();
+    audioEl.addEventListener('timeupdate',onAudioTime);
+    audioEl.addEventListener('ended',()=>setPlayIcons(false));
+    audioEl.addEventListener('loadedmetadata',()=>updateDurationDisplay());
+  }
+  audioEl.src=pod.audioUrl||'';
+  audioEl.playbackRate=playbackRate;
+  audioEl.play().catch(()=>{});
+
+  // Set media session
+  if('mediaSession' in navigator){
+    navigator.mediaSession.metadata=new MediaMetadata({
+      title:pod.title,artist:pod.author||'The Forum',
+      artwork:pod.cover?[{src:pod.cover,sizes:'512x512',type:'image/png'}]:[]
+    });
+    navigator.mediaSession.setActionHandler('play',()=>audioEl.play());
+    navigator.mediaSession.setActionHandler('pause',()=>audioEl.pause());
+    navigator.mediaSession.setActionHandler('seekbackward',()=>skipPlayer(-15));
+    navigator.mediaSession.setActionHandler('seekforward',()=>skipPlayer(15));
+  }
+
+  updatePlayerUI();
+  setPlayIcons(true);
+  document.getElementById('pcPlayer').classList.add('active');
+  document.getElementById('mobPlayer').classList.add('active');
+}
+
+function updatePlayerUI(){
+  const pod=playerPodcast;
+  if(!pod) return;
+  const saved=isSaved(pod.id);
+  // PC
+  document.getElementById('pcpCover').src=pod.cover||'';
+  document.getElementById('pcpTitle').textContent=pod.title;
+  document.getElementById('pcpAuthor').textContent=pod.author||'';
+  document.getElementById('pcpDesc').textContent=pod.description||'';
+  setSaveUI(saved);
+  // Mobile mini
+  document.getElementById('mobCover').src=pod.cover||'';
+  document.getElementById('mobTitle').textContent=pod.title;
+  document.getElementById('mobAuthor').textContent=pod.author||'';
+  // Mobile full
+  document.getElementById('mfCover').src=pod.cover||'';
+  document.getElementById('mfTitle').textContent=pod.title;
+  document.getElementById('mfAuthor').textContent=pod.author||'';
+  document.getElementById('mfDesc').textContent=pod.description||'';
+}
+
+function onAudioTime(){
+  if(!audioEl) return;
+  const cur=audioEl.currentTime;
+  const dur=audioEl.duration||0;
+  const pct=dur>0?cur/dur*100:0;
+  document.getElementById('pcpFill').style.width=pct+'%';
+  document.getElementById('mobFill').style.width=pct+'%';
+  document.getElementById('mfFill').style.width=pct+'%';
+  document.getElementById('pcpCur').textContent=fmtSec(cur);
+  document.getElementById('mfCur').textContent=fmtSec(cur);
+}
+function updateDurationDisplay(){
+  const dur=audioEl?.duration||0;
+  document.getElementById('pcpDur').textContent=fmtSec(dur);
+  document.getElementById('mfDur').textContent=fmtSec(dur);
+}
+function fmtSec(s){
+  const m=Math.floor(s/60),sec=Math.floor(s%60);
+  return m+':'+(sec<10?'0':'')+sec;
+}
+function setPlayIcons(playing){
+  const playIco=`<polygon points="5 3 19 12 5 21 5 3"/>`;
+  const pauseIco=`<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>`;
+  const ico=playing?pauseIco:playIco;
+  ['pcpPlayIco','mobPlayIco','mfPlayIco'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.innerHTML=ico;
+  });
+}
+
+window.togglePlay=function(e){
+  if(e) e.stopPropagation();
+  if(!audioEl) return;
+  if(audioEl.paused){ audioEl.play(); setPlayIcons(true); }
+  else{ audioEl.pause(); setPlayIcons(false); }
+};
+window.skipPlayer=function(sec){
+  if(!audioEl) return;
+  audioEl.currentTime=Math.max(0,audioEl.currentTime+sec);
+};
+window.seekPlayer=function(e,bar){
+  if(!audioEl) return;
+  const rect=bar.getBoundingClientRect();
+  const pct=(e.clientX-rect.left)/rect.width;
+  audioEl.currentTime=(audioEl.duration||0)*Math.max(0,Math.min(1,pct));
+};
+window.cycleSpeed=function(){
+  const idx=SPEEDS.indexOf(playbackRate);
+  playbackRate=SPEEDS[(idx+1)%SPEEDS.length];
+  if(audioEl) audioEl.playbackRate=playbackRate;
+  const lbl=playbackRate+'×';
+  document.getElementById('pcpSpeed').textContent=lbl;
+  document.getElementById('mfSpeed').textContent=lbl;
+};
+window.closePlayer=function(){
+  if(audioEl){audioEl.pause();audioEl.src='';}
+  document.getElementById('pcPlayer').classList.remove('active');
+  document.getElementById('mobPlayer').classList.remove('active');
+  playerPodcast=null;
+};
+window.openMobFull=function(e){
+  if(e.target.closest('.mob-play-btn')) return;
+  document.getElementById('mobFull').classList.add('active');
+};
+window.closeMobFull=function(){
+  document.getElementById('mobFull').classList.remove('active');
+};
+
+/* ── Saved podcasts ── */
+function isSaved(id){
+  const ids=JSON.parse(localStorage.getItem('tf_saved_pods')||'[]');
+  return ids.includes(id);
+}
+function setSaveUI(saved){
+  document.getElementById('pcpSave').classList.toggle('saved',saved);
+  document.getElementById('pcpSaveLbl').textContent=saved?'Mentve':'Mentés';
+  document.getElementById('mfSave').classList.toggle('saved',saved);
+  document.getElementById('mfSaveLbl').textContent=saved?'Mentve':'Mentés';
+}
+window.toggleSave=function(){
+  if(!playerPodcast) return;
+  const id=playerPodcast.id;
+  let ids=JSON.parse(localStorage.getItem('tf_saved_pods')||'[]');
+  if(ids.includes(id)) ids=ids.filter(x=>x!==id);
+  else ids.unshift(id);
+  localStorage.setItem('tf_saved_pods',JSON.stringify(ids));
+  setSaveUI(ids.includes(id));
+};
+
+/* ════════════════════════════
    ADMIN LOGIN
-════════════════════════════════════════════ */
-window.doLogin = async function () {
-  const email = document.getElementById('loginUser').value.trim();
-  const pass  = document.getElementById('loginPass').value;
-  const err   = document.getElementById('loginErr');
-
-  err.style.display = 'none';
-
-  try {
-    await signInWithEmailAndPassword(auth, email, pass);
-    if (!isAllowedAdmin(auth.currentUser)) {
+════════════════════════════ */
+window.doLogin=async function(){
+  const email=document.getElementById('loginUser').value.trim();
+  const pass=document.getElementById('loginPass').value;
+  const err=document.getElementById('loginErr');
+  err.style.display='none';
+  try{
+    await signInWithEmailAndPassword(auth,email,pass);
+    if(!isAllowedAdmin(auth.currentUser)){
       await signOut(auth);
-      err.textContent = 'Ehhez az emailhez nincs admin jogosultság.';
-      err.style.display = 'block';
-      return;
+      err.textContent='Ehhez az emailhez nincs admin jogosultság.';
+      err.style.display='block';return;
     }
-    showView('view-admin');
-    loadAdminDashboard();
-  } catch (e) {
-    err.textContent = 'Hibás email vagy jelszó.';
-    err.style.display = 'block';
-  }
+    showView('view-admin');loadAdminDashboard();
+  }catch(e){err.textContent='Hibás email vagy jelszó.';err.style.display='block';}
+};
+window.confirmLogout=async function(){
+  const ok=await openModal('Kijelentkezés','Biztosan ki szeretnél jelentkezni?','Kilépés');
+  if(!ok) return;
+  await signOut(auth);renderSpAdminArea();showMain();showToast('Sikeresen kijelentkeztél.');
 };
 
-window.confirmLogout = async function() {
-  const ok = await openModal('Kijelentkezés','Biztosan ki szeretnél jelentkezni?','Kilépés');
-  if (!ok) return;
-  await signOut(auth);
-  renderSpAdminArea();
-  showMain();
-  showToast('Sikeresen kijelentkeztél.');
-};
-
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    ADMIN DASHBOARD
-════════════════════════════════════════════ */
-window.loadAdminDashboard = async function() {
-  if (!currentAdmin) {
-    showView('view-login');
-    return;
-  }
-  document.getElementById('adminUserLabel').textContent = adminDisplayName();
-  document.getElementById('tabAccounts').style.display = 'none';
-  await Promise.all([fetchArticles(), fetchTopics(), fetchSettings()]);
-  adminTab('articles', document.querySelector('.admin-tab'));
+════════════════════════════ */
+window.loadAdminDashboard=async function(){
+  if(!currentAdmin){showView('view-login');return;}
+  document.getElementById('adminUserLabel').textContent=adminDisplayName();
+  await Promise.all([fetchArticles(),fetchCategories(),fetchPodcasts(),fetchPodcastCats(),fetchSettings()]);
+  adminTab('articles',document.querySelector('.admin-tab'));
 };
-
-window.adminTab = function(tab, btn) {
-  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+window.adminTab=function(tab,btn){
+  document.querySelectorAll('.admin-tab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  const ct = document.getElementById('adminTabContent');
-  switch(tab) {
-    case 'articles': renderAdminArticles(ct); break;
-    case 'topics':   renderAdminTopics(ct);   break;
-    case 'accounts': renderAdminAccounts(ct); break;
-    case 'profile':  renderAdminProfile(ct);  break;
+  const ct=document.getElementById('adminTabContent');
+  switch(tab){
+    case 'articles':   renderAdminArticles(ct);break;
+    case 'categories': renderAdminCategories(ct);break;
+    case 'podcasts':   renderAdminPodcasts(ct);break;
+    case 'profile':    renderAdminProfile(ct);break;
   }
 };
 
 /* ── Articles tab ── */
-function renderAdminArticles(ct) {
-  ct.innerHTML = `
+function renderAdminArticles(ct){
+  ct.innerHTML=`
     <button class="new-article-btn" onclick="openEditor(null)">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       Új cikk
     </button>
-    ${allArticles.length === 0
-      ? `<div class="empty-state">Még nincsenek cikkek.</div>`
-      : allArticles.map(a => `
+    ${allArticles.length===0
+      ?`<div class="empty-state">Még nincsenek cikkek.</div>`
+      :allArticles.map(a=>{
+        const cat=allCategories.find(c=>c.id===a.category);
+        return `
         <div class="admin-article-row">
           <div style="flex:1;min-width:0;">
             <div class="aar-title">${escapeHtml(a.title)}</div>
-            <div class="aar-meta">${a.author||'—'} · ${a.tags&&a.tags.length?a.tags.map(t=>'#'+t).join(' '):''}</div>
+            <div class="aar-meta">${escapeHtml(a.author||'—')} · ${cat?escapeHtml(cat.name):'–'} · ${formatTime(a.createdAt)}</div>
           </div>
           <div class="aar-actions">
-            <button class="act-btn feat${a.id===featuredId?' on':''}"
-              onclick="toggleFeatured('${a.id}',this)">
+            <button class="act-btn feat${a.id===featuredId?' on':''}" onclick="toggleFeatured('${a.id}',this)">
               ${a.id===featuredId?'★ Kiemelt':'☆ Kiemel'}
             </button>
             <button class="act-btn edit" onclick="openEditor('${a.id}')">Szerkeszt</button>
-            <button class="act-btn del"  onclick="deleteArticle('${a.id}')">Töröl</button>
+            <button class="act-btn del" onclick="deleteArticle('${a.id}')">Töröl</button>
+          </div>
+        </div>`;}).join('')}`;
+}
+window.toggleFeatured=async function(id){
+  featuredId=id;
+  await setDoc(doc(db,'settings','global'),{featuredId:id},{merge:true});
+  loadAdminDashboard();showToast('Kiemelt cikk beállítva.');
+};
+window.deleteArticle=async function(id){
+  const a=allArticles.find(x=>x.id===id);
+  const ok=await openModal('Cikk törlése',`Biztosan törlöd: "${a?.title||id}"?`);
+  if(!ok) return;
+  await deleteDoc(doc(db,'articles',id));
+  if(featuredId===id){featuredId=null;await setDoc(doc(db,'settings','global'),{featuredId:null},{merge:true});}
+  await fetchArticles();
+  renderAdminArticles(document.getElementById('adminTabContent'));
+  showToast('Cikk törölve.');
+};
+
+/* ── Categories tab ── */
+function renderAdminCategories(ct){
+  ct.innerHTML=`
+    <div style="display:flex;gap:8px;margin-bottom:18px;">
+      <input class="form-input" id="newCatInput" placeholder="Új kategória neve…" style="flex:1;">
+      <button class="btn-primary" style="width:auto;padding:10px 16px;margin:0;" onclick="addCategory()">Hozzáad</button>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">
+      A "Látható" jelölőnégyzet azt vezérli, megjelenjen-e a főoldal szűrősorában.
+    </p>
+    ${allCategories.map(t=>`
+      <div class="topic-admin-row">
+        <span class="topic-admin-name">${escapeHtml(t.name)}</span>
+        <label style="display:flex;align-items:center;gap:5px;cursor:pointer;">
+          <input type="checkbox" class="topic-visible-chk" ${t.visible!==false?'checked':''}
+            onchange="setCatVisible('${t.id}',this.checked)">
+          <span class="topic-vis-label">Látható</span>
+        </label>
+        <button class="act-btn del" style="font-size:11px;" onclick="deleteCategory('${t.id}')">Töröl</button>
+      </div>`).join('')}`;
+}
+window.addCategory=async function(){
+  const val=document.getElementById('newCatInput').value.trim();
+  if(!val) return;
+  const id=val.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-áéíóöőúüű]/gi,'');
+  await setDoc(doc(db,'topics',id),{name:val,visible:true,order:allCategories.length});
+  await fetchCategories();renderCategories();
+  renderAdminCategories(document.getElementById('adminTabContent'));
+  showToast(`"${val}" kategória hozzáadva.`);
+};
+window.setCatVisible=async function(id,val){
+  await updateDoc(doc(db,'topics',id),{visible:val});
+  await fetchCategories();renderCategories();showToast('Láthatóság frissítve.');
+};
+window.deleteCategory=async function(id){
+  const t=allCategories.find(x=>x.id===id);
+  const ok=await openModal('Kategória törlése',`Biztosan törlöd: "${t?.name||id}"?`);
+  if(!ok) return;
+  await deleteDoc(doc(db,'topics',id));
+  await fetchCategories();renderCategories();
+  renderAdminCategories(document.getElementById('adminTabContent'));
+  showToast('Kategória törölve.');
+};
+
+/* ── Podcasts admin tab ── */
+function renderAdminPodcasts(ct){
+  ct.innerHTML=`
+    <button class="new-article-btn" onclick="openPodcastEditor(null)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Új podcast
+    </button>
+    ${allPodcasts.length===0
+      ?`<div class="empty-state">Még nincsenek podcastok.</div>`
+      :allPodcasts.map(p=>`
+        <div class="admin-article-row">
+          <div style="flex:1;min-width:0;">
+            <div class="aar-title">${escapeHtml(p.title)}</div>
+            <div class="aar-meta">${p.duration||'–'} · ${p.featured?'⭐ Kiemelt':''}</div>
+          </div>
+          <div class="aar-actions">
+            <button class="act-btn feat${p.featured?' on':''}" onclick="togglePodcastFeatured('${p.id}')">
+              ${p.featured?'★ Kiemelt':'☆ Kiemel'}
+            </button>
+            <button class="act-btn edit" onclick="openPodcastEditor('${p.id}')">Szerkeszt</button>
+            <button class="act-btn del" onclick="deletePodcast('${p.id}')">Töröl</button>
           </div>
         </div>`).join('')}`;
 }
-
-/* ── Featured toggle ── */
-window.toggleFeatured = async function(id, btn) {
-  featuredId = id;
-  await setDoc(doc(db,'settings','global'), { featuredId: id }, { merge:true });
-  loadAdminDashboard();
-  showToast('Kiemelt cikk beállítva.');
+window.togglePodcastFeatured=async function(id){
+  const p=allPodcasts.find(x=>x.id===id);
+  if(!p) return;
+  const nowFeat=p.featured||false;
+  const featCount=allPodcasts.filter(x=>x.featured).length;
+  if(!nowFeat&&featCount>=5){showToast('Már 5 kiemelt podcast van. Vegyél le egyet.');return;}
+  const newOrder=nowFeat?null:Date.now();
+  await updateDoc(doc(db,'podcasts',id),{featured:!nowFeat,featuredOrder:newOrder||0});
+  await fetchPodcasts();renderAdminPodcasts(document.getElementById('adminTabContent'));
+  renderMain();showToast('Kiemelt podcast frissítve.');
 };
-
-/* ── Delete article ── */
-window.deleteArticle = async function(id) {
-  const a   = allArticles.find(x => x.id===id);
-  const ok  = await openModal(
-    'Cikk törlése',
-    `Biztosan törlöd a következő cikket? "${a?.title||id}" — Ez nem vonható vissza.`
-  );
-  if (!ok) return;
-  try {
-    await deleteDoc(doc(db,'articles',id));
-    if (featuredId === id) {
-      featuredId = null;
-      await setDoc(doc(db,'settings','global'), { featuredId:null }, { merge:true });
-    }
-    await fetchArticles();
-    renderAdminArticles(document.getElementById('adminTabContent'));
-    showToast('Cikk törölve.');
-  } catch (e) {
-    console.error(e);
-    showToast('A cikk törlése sikertelen. Ellenőrizd a Firebase szabályokat.');
-  }
-};
-
-/* ── Topics tab ── */
-function renderAdminTopics(ct) {
-  ct.innerHTML = `
-    <div style="display:flex;gap:8px;margin-bottom:18px;">
-      <input class="form-input" id="newTopicInput" placeholder="Új téma neve…" style="flex:1;">
-      <button class="btn-primary" style="width:auto;padding:10px 16px;margin:0;" onclick="addTopic()">Hozzáad</button>
-    </div>
-    <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">
-      A "Látható" jelölőnégyzettel vezéreld, hogy a téma megjelenjen-e a főoldal szűrősorában.
-    </div>
-    ${allTopics.map(t => `
-      <div class="topic-admin-row">
-        <span class="topic-admin-name">${t.name}</span>
-        <label style="display:flex;align-items:center;gap:5px;cursor:pointer;">
-          <input type="checkbox" class="topic-visible-chk"
-            ${t.visible!==false?'checked':''}
-            onchange="setTopicVisible('${t.id}',this.checked)">
-          <span class="topic-vis-label">Látható</span>
-        </label>
-        <button class="act-btn del" style="font-size:11px;" onclick="deleteTopic('${t.id}')">Töröl</button>
-      </div>`).join('')}`;
-}
-
-window.addTopic = async function() {
-  const val = document.getElementById('newTopicInput').value.trim();
-  if (!val) return;
-  const id  = val.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-á-üé]/g,'');
-  await setDoc(doc(db,'topics',id), { name:val, visible:true, order: allTopics.length });
-  await fetchTopics();
-  renderTopics();
-  renderAdminTopics(document.getElementById('adminTabContent'));
-  showToast(`"${val}" témakör hozzáadva.`);
-};
-window.setTopicVisible = async function(id, val) {
-  await updateDoc(doc(db,'topics',id), { visible: val });
-  await fetchTopics();
-  renderTopics();
-  showToast('Láthatóság frissítve.');
-};
-window.deleteTopic = async function(id) {
-  const t  = allTopics.find(x=>x.id===id);
-  const ok = await openModal('Témakör törlése', `Biztosan törlöd: "${t?.name||id}"?`);
-  if (!ok) return;
-  await deleteDoc(doc(db,'topics',id));
-  await fetchTopics();
-  renderTopics();
-  renderAdminTopics(document.getElementById('adminTabContent'));
-  showToast('Témakör törölve.');
-};
-
-/* ── Accounts tab (disabled — admins collection blocked by rules) ── */
-function renderAdminAccounts(ct) {
-  ct.innerHTML = `<p style="font-size:13px;color:var(--muted);">Admin fiókokat a Firebase Console → Authentication menüben kezeld.</p>`;
-  return;
-  getDocs(collection(db,'admins')).then(snap => {
-    const admins = snap.docs.map(d => ({ id:d.id, ...d.data() }));
-    ct.innerHTML = `
-      <div style="margin-bottom:20px;">
-        <div class="admin-section-title">Új fiók létrehozása</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
-          <input class="form-input" id="newAccUser" placeholder="Felhasználónév">
-          <input class="form-input" id="newAccPass" placeholder="Jelszó" type="password">
-        </div>
-        <button class="btn-primary" style="width:auto;padding:10px 18px;margin:0;" onclick="createAccount()">Fiók létrehozása</button>
-      </div>
-      <div class="section-div"></div>
-      <div class="admin-section-title">Meglévő fiókok</div>
-      ${admins.map(a => `
-        <div class="account-row">
-          <div class="acc-name">${a.username}</div>
-          <span class="acc-role">${a.role==='super'?'Super Admin':'Admin'}</span>
-          ${a.id !== currentAdmin.id && currentAdmin.role==='super' && a.role !== 'super'
-            ? `<button class="act-btn del" style="font-size:11px;" onclick="deleteAccount('${a.id}','${a.username}')">Töröl</button>`
-            : ''}
-        </div>`).join('')}`;
-  });
-}
-
-window.createAccount = async function() {
-  const user = document.getElementById('newAccUser').value.trim();
-  const pass = document.getElementById('newAccPass').value;
-  if (!user || !pass) { showToast('Töltsd ki mindkét mezőt.'); return; }
-  const snap = await getDocs(query(collection(db,'admins'), where('username','==',user)));
-  if (!snap.empty) { showToast('Ez a felhasználónév már foglalt.'); return; }
-  const hash = await sha256(pass);
-  await setDoc(doc(db,'admins',user), { username:user, passwordHash:hash, role:'admin' });
-  document.getElementById('newAccUser').value = '';
-  document.getElementById('newAccPass').value = '';
-  renderAdminAccounts(document.getElementById('adminTabContent'));
-  showToast(`"${user}" fiók létrehozva.`);
-};
-
-window.deleteAccount = async function(id, name) {
-  const ok = await openModal('Fiók törlése', `Biztosan törlöd "${name}" fiókját?`);
-  if (!ok) return;
-  await deleteDoc(doc(db,'admins',id));
-  renderAdminAccounts(document.getElementById('adminTabContent'));
-  showToast('Fiók törölve.');
+window.deletePodcast=async function(id){
+  const p=allPodcasts.find(x=>x.id===id);
+  const ok=await openModal('Podcast törlése',`Biztosan törlöd: "${p?.title||id}"?`);
+  if(!ok) return;
+  await deleteDoc(doc(db,'podcasts',id));
+  await fetchPodcasts();
+  renderAdminPodcasts(document.getElementById('adminTabContent'));
+  showToast('Podcast törölve.');
 };
 
 /* ── Profile tab ── */
-function renderAdminProfile(ct) {
-  ct.innerHTML = `
+function renderAdminProfile(ct){
+  ct.innerHTML=`
     <div class="admin-section-title">Profil</div>
     <p style="font-size:14px;color:var(--muted);margin:0 0 16px;">
-      Email: <b style="color:var(--text);">${escapeHtml(currentAdmin?.email || '')}</b>
+      Email: <b style="color:var(--text);">${escapeHtml(currentAdmin?.email||'')}</b>
     </p>
     <div class="form-field" style="max-width:360px;">
       <label>Szerzőnév</label>
       <input class="form-input" id="profUsername" type="text"
-        placeholder="pl. Kelemen G."
-        value="${escapeHtml(currentAdmin?.username || '')}">
+        placeholder="pl. Kelemen G." value="${escapeHtml(currentAdmin?.username||'')}">
     </div>
-    <p style="font-size:12px;color:var(--muted);margin:8px 0 14px;line-height:1.45;">
-      Ez a név jelenik meg a cikkekben szerzőként (a főoldali listában nem).
-    </p>
     <button class="btn-primary" style="width:auto;padding:10px 20px;margin:0;" onclick="saveProfile()">Mentés</button>`;
 }
-
-window.saveProfile = async function() {
-  if (!currentAdmin?.uid) {
-    showToast('Jelentkezz be a profil mentéséhez.');
-    return;
-  }
-  const username = document.getElementById('profUsername').value.trim();
-  if (!username) {
-    showToast('A szerzőnév nem lehet üres.');
-    return;
-  }
-  try {
-    await setDoc(doc(db, 'profiles', currentAdmin.uid), {
-      username,
-      email: currentAdmin.email,
-      updatedAt: serverTimestamp()
-    }, { merge: true });
-    currentAdmin.username = username;
-    document.getElementById('adminUserLabel').textContent = username;
-    renderSpAdminArea();
-    showToast('Szerzőnév mentve.');
-  } catch (e) {
-    console.error(e);
-    showToast('A profil mentése sikertelen. Add hozzá a profiles szabályt a Firestore-ban.');
-  }
+window.saveProfile=async function(){
+  if(!currentAdmin?.uid){showToast('Jelentkezz be.');return;}
+  const username=document.getElementById('profUsername').value.trim();
+  if(!username){showToast('A szerzőnév nem lehet üres.');return;}
+  await setDoc(doc(db,'profiles',currentAdmin.uid),{username,email:currentAdmin.email,updatedAt:serverTimestamp()},{merge:true});
+  currentAdmin.username=username;
+  document.getElementById('adminUserLabel').textContent=username;
+  renderSpAdminArea();showToast('Szerzőnév mentve.');
 };
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
    ARTICLE EDITOR
-════════════════════════════════════════════ */
-window.openEditor = function(id) {
-  editorBlocks  = [];
-  editorTags    = [];
-  editorArticle = id ? allArticles.find(a => a.id===id) : null;
+════════════════════════════ */
+window.openEditor=function(id){
+  editorBlocks=[];editorTags=[];editorPoll=null;
+  editorArticle=id?allArticles.find(a=>a.id===id):null;
 
-  document.getElementById('edTitle').value = editorArticle?.title||'';
-  document.getElementById('edDesc').value  = editorArticle?.desc||'';
-  document.getElementById('edCover').value = editorArticle?.cover||'';
-  document.getElementById('editorTopTitle').textContent = editorArticle ? 'Cikk szerkesztése' : 'Új cikk';
+  document.getElementById('edTitle').value=editorArticle?.title||'';
+  document.getElementById('edDesc').value=editorArticle?.desc||'';
+  document.getElementById('edCover').value=editorArticle?.cover||'';
+  document.getElementById('editorTopTitle').textContent=editorArticle?'Cikk szerkesztése':'Új cikk';
 
-  const prev = document.getElementById('edCoverPreview');
-  if (editorArticle?.cover) { prev.src=editorArticle.cover; prev.style.display='block'; }
-  else                       { prev.style.display='none'; }
+  const prev=document.getElementById('edCoverPreview');
+  if(editorArticle?.cover){prev.src=editorArticle.cover;prev.style.display='block';}
+  else prev.style.display='none';
 
-  /* load blocks */
-  if (editorArticle?.blocks) {
-    editorBlocks = editorArticle.blocks.map(b=>({...b}));
-  }
-  /* load tags */
-  editorTags = editorArticle?.tags ? [...editorArticle.tags] : [];
+  // Populate category dropdown
+  const sel=document.getElementById('edCategory');
+  sel.innerHTML=`<option value="">— Válassz kategóriát —</option>`+
+    allCategories.map(c=>`<option value="${c.id}"${editorArticle?.category===c.id?' selected':''}>${escapeHtml(c.name)}</option>`).join('');
 
-  renderBlocks();
-  renderTagChips();
+  if(editorArticle?.blocks) editorBlocks=editorArticle.blocks.map(b=>({...b}));
+  editorTags=editorArticle?.tags?[...editorArticle.tags]:[];
+  editorPoll=editorArticle?.poll?JSON.parse(JSON.stringify(editorArticle.poll)):null;
+
+  renderBlocks();renderTagChips();renderPollEditor();
   showView('view-editor');
 };
 
-window.previewCover = function() {
-  const val  = document.getElementById('edCover').value.trim();
-  const prev = document.getElementById('edCoverPreview');
-  if (val) { prev.src=val; prev.style.display='block'; }
-  else      { prev.style.display='none'; }
+window.previewCover=function(){
+  const val=document.getElementById('edCover').value.trim();
+  const prev=document.getElementById('edCoverPreview');
+  if(val){prev.src=val;prev.style.display='block';}else prev.style.display='none';
 };
 
 /* ── Block builder ── */
-window.addBlock = function(type) {
-  editorBlocks.push(type==='image'
-    ? { type:'image', url:'', caption:'' }
-    : { type, text:'' });
+window.addBlock=function(type){
+  editorBlocks.push(type==='image'?{type:'image',url:'',caption:''}
+    :type==='youtube'?{type:'youtube',url:''}
+    :{type,text:''});
   renderBlocks();
 };
 
-function renderBlocks() {
-  const area = document.getElementById('blocksArea');
-  if (!editorBlocks.length) {
-    area.innerHTML = `<div style="color:var(--muted);font-size:13px;padding:16px 0;">Adj hozzá blokkokat a fenti gombokkal.</div>`;
+function renderBlocks(){
+  const area=document.getElementById('blocksArea');
+  if(!editorBlocks.length){
+    area.innerHTML=`<div style="color:var(--muted);font-size:13px;padding:16px 0;">Adj hozzá blokkokat a fenti gombokkal.</div>`;
     return;
   }
-  const labels = { para:'Bekezdés', heading:'Alcím', highlight:'Kiemelés', quote:'Idézet', image:'Kép' };
-  area.innerHTML = editorBlocks.map((b,i) => `
+  const labels={para:'Bekezdés',heading:'Alcím',highlight:'Kiemelés',quote:'Idézet',image:'Kép',youtube:'YouTube'};
+  area.innerHTML=editorBlocks.map((b,i)=>`
     <div class="content-block">
       <div class="block-header">
         <span class="block-type-label">${labels[b.type]||b.type}</span>
-        <div style="display:flex;gap:4px;align-items:center;">
+        <div class="block-header-actions">
+          ${b.type==='para'?`<button class="block-link-btn" onclick="openLinkPopup(${i})" title="URL hozzáadása kijelölt szöveghez">🔗 Link</button>`:''}
           ${i>0?`<button class="block-del" title="Fel" onclick="moveBlock(${i},-1)">↑</button>`:''}
           ${i<editorBlocks.length-1?`<button class="block-del" title="Le" onclick="moveBlock(${i},1)">↓</button>`:''}
           <button class="block-del" onclick="removeBlock(${i})">✕</button>
         </div>
       </div>
-      ${b.type==='image' ? `
+      ${b.type==='image'?`
         <div class="block-img-stack">
-          <input placeholder="Kép URL (https://…)" value="${b.url||''}"
+          <input placeholder="Kép URL (https://…)" value="${escapeHtml(b.url||'')}"
             oninput="updateBlockField(${i},'url',this.value);updateImgPreview(${i},this.value)">
-          <input placeholder="Képaláírás (opcionális)" value="${b.caption||''}"
+          <input placeholder="Képaláírás (opcionális)" value="${escapeHtml(b.caption||'')}"
             oninput="updateBlockField(${i},'caption',this.value)">
-          ${b.url?`<img class="img-preview" id="ip${i}" src="${b.url}" alt="előnézet">`:'<img class="img-preview" id="ip'+i+'" style="display:none;">'}
-        </div>` : `
-        <textarea class="block-textarea"
+          <img class="img-preview" id="ip${i}" src="${b.url||''}" alt="előnézet" style="${b.url?'':'display:none'}">
+        </div>`
+      :b.type==='youtube'?`
+        <div class="block-yt-input">
+          <input placeholder="YouTube URL (https://youtu.be/…)" value="${escapeHtml(b.url||'')}"
+            oninput="updateBlockField(${i},'url',this.value);updateYtPreview(${i},this.value)">
+          <div id="ytp${i}" style="${ytId(b.url||'')?'':'display:none'}">
+            ${ytId(b.url||'')?`<div class="yt-preview"><iframe src="https://www.youtube.com/embed/${ytId(b.url||'')}"></iframe></div>`:''}
+          </div>
+        </div>`
+      :`<textarea class="block-textarea" id="bta${i}"
           oninput="updateBlockField(${i},'text',this.value)"
           placeholder="${b.type==='para'?'Bekezdés szövege…':b.type==='heading'?'Alcím…':b.type==='highlight'?'Kiemelt szöveg…':'Idézet…'}"
-        >${b.text||''}</textarea>`}
+        >${escapeHtml(b.text||'')}</textarea>`}
     </div>`).join('');
 }
 
-window.removeBlock = function(i) {
-  editorBlocks.splice(i,1); renderBlocks();
+window.removeBlock=function(i){editorBlocks.splice(i,1);renderBlocks();};
+window.moveBlock=function(i,dir){
+  const j=i+dir;if(j<0||j>=editorBlocks.length) return;
+  [editorBlocks[i],editorBlocks[j]]=[editorBlocks[j],editorBlocks[i]];renderBlocks();
 };
-window.moveBlock = function(i, dir) {
-  const j = i+dir;
-  if (j<0||j>=editorBlocks.length) return;
-  [editorBlocks[i],editorBlocks[j]] = [editorBlocks[j],editorBlocks[i]];
-  renderBlocks();
+window.updateBlockField=function(i,field,value){if(editorBlocks[i]) editorBlocks[i][field]=value;};
+window.updateImgPreview=function(i,url){
+  const el=document.getElementById('ip'+i);if(!el) return;
+  el.style.display=url?'block':'none';el.src=url;
 };
-/* Inline handlers run in global scope; module vars are not visible there. */
-window.updateBlockField = function(i, field, value) {
-  if (editorBlocks[i]) editorBlocks[i][field] = value;
+window.updateYtPreview=function(i,url){
+  const el=document.getElementById('ytp'+i);if(!el) return;
+  const id=ytId(url);
+  if(id){el.style.display='block';el.innerHTML=`<div class="yt-preview"><iframe src="https://www.youtube.com/embed/${id}"></iframe></div>`;}
+  else{el.style.display='none';el.innerHTML='';}
 };
-window.updateImgPreview = function(i, url) {
-  const el = document.getElementById('ip'+i);
-  if (!el) return;
-  el.style.display = url ? 'block' : 'none';
-  el.src = url;
+
+/* ── Link popup ── */
+window.openLinkPopup=function(blockIdx){
+  const ta=document.getElementById('bta'+blockIdx);
+  if(!ta) return;
+  _linkBlockIdx=blockIdx;
+  _linkSelStart=ta.selectionStart;
+  _linkSelEnd=ta.selectionEnd;
+  const popup=document.getElementById('linkPopup');
+  const rect=ta.getBoundingClientRect();
+  popup.style.top=(rect.bottom+window.scrollY+6)+'px';
+  popup.style.left=Math.min(rect.left,window.innerWidth-290)+'px';
+  document.getElementById('linkUrl').value='';
+  popup.classList.add('show');
+  setTimeout(()=>document.getElementById('linkUrl').focus(),50);
+};
+window.closeLinkPopup=function(){
+  document.getElementById('linkPopup').classList.remove('show');
+  _linkBlockIdx=-1;
+};
+window.applyLink=function(){
+  const url=document.getElementById('linkUrl').value.trim();
+  if(!url||_linkBlockIdx<0){closeLinkPopup();return;}
+  const b=editorBlocks[_linkBlockIdx];if(!b) return;
+  const text=b.text||'';
+  const selected=text.slice(_linkSelStart,_linkSelEnd)||'szöveg';
+  const before=text.slice(0,_linkSelStart);
+  const after=text.slice(_linkSelEnd);
+  b.text=before+`[${selected}](${url})`+after;
+  closeLinkPopup();renderBlocks();
+};
+document.addEventListener('click',e=>{
+  if(!e.target.closest('#linkPopup')&&!e.target.closest('.block-link-btn'))
+    closeLinkPopup();
+});
+
+/* ── Poll editor ── */
+window.initPollEditor=function(){
+  editorPoll={question:'',options:[{id:'opt1',text:''},{id:'opt2',text:''}],votes:{}};
+  renderPollEditor();
+  document.getElementById('addPollBtn').style.display='none';
+};
+function renderPollEditor(){
+  const wrap=document.getElementById('pollEditorWrap');
+  const addBtn=document.getElementById('addPollBtn');
+  if(!editorPoll){wrap.innerHTML='';addBtn.style.display='';return;}
+  addBtn.style.display='none';
+  wrap.innerHTML=`
+    <div class="poll-editor">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <span style="font-family:'Archivo Black',sans-serif;font-size:12px;color:var(--muted);">SZAVAZÁS</span>
+        <button class="block-del" onclick="removePoll()" title="Szavazás eltávolítása">✕</button>
+      </div>
+      <input class="editor-input" placeholder="A szavazás kérdése…" value="${escapeHtml(editorPoll.question||'')}"
+        oninput="editorPoll.question=this.value" style="margin-bottom:10px;">
+      <div id="pollOptsList">
+        ${editorPoll.options.map((o,i)=>`
+          <div class="poll-opt-editor-row">
+            <input placeholder="Lehetőség ${i+1}…" value="${escapeHtml(o.text||'')}"
+              oninput="editorPoll.options[${i}].text=this.value">
+            ${editorPoll.options.length>2?`<button class="block-del" onclick="removePollOpt(${i})">✕</button>`:''}
+          </div>`).join('')}
+      </div>
+      <button class="blk-btn" onclick="addPollOpt()" style="margin-top:8px;">+ Lehetőség</button>
+      ${editorArticle?.poll?.votes?`<div style="font-size:12px;color:var(--muted);margin-top:10px;">
+        Jelenlegi szavazatok: ${Object.values(editorArticle.poll.votes).reduce((s,v)=>s+(v||0),0)} db</div>`:''}
+    </div>`;
+}
+window.removePoll=function(){editorPoll=null;renderPollEditor();};
+window.addPollOpt=function(){
+  const id='opt'+(editorPoll.options.length+1)+'_'+Date.now();
+  editorPoll.options.push({id,text:''});renderPollEditor();
+};
+window.removePollOpt=function(i){
+  editorPoll.options.splice(i,1);renderPollEditor();
 };
 
 /* ── Tag chips ── */
-window.handleTagInput = function(e) {
-  if (e.key==='Enter'||e.key===',') {
+window.handleTagInput=function(e){
+  if(e.key==='Enter'||e.key===','){
     e.preventDefault();
-    const val = e.target.value.replace(/^#+/,'').trim().toLowerCase();
-    if (val && !editorTags.includes(val)) {
-      editorTags.push(val); renderTagChips();
-    }
-    e.target.value = '';
+    const val=e.target.value.replace(/^#+/,'').trim().toLowerCase();
+    if(val&&!editorTags.includes(val)){editorTags.push(val);renderTagChips();}
+    e.target.value='';
   }
 };
-function renderTagChips() {
-  const wrap = document.getElementById('tagsWrap');
-  const input= document.getElementById('tagInput');
-  wrap.innerHTML = editorTags.map((t,i) => `
-    <span class="tag-chip">#${t}
+function renderTagChips(){
+  const wrap=document.getElementById('tagsWrap');
+  const input=document.getElementById('tagInput');
+  wrap.innerHTML=editorTags.map((t,i)=>`
+    <span class="tag-chip">#${escapeHtml(t)}
       <button onclick="removeTag(${i})">✕</button>
     </span>`).join('');
   wrap.appendChild(input);
 }
-window.removeTag = function(i) {
-  editorTags.splice(i,1); renderTagChips();
-};
+window.removeTag=function(i){editorTags.splice(i,1);renderTagChips();};
 
 /* ── Save article ── */
-window.saveArticle = async function() {
-  if (!currentAdmin) {
-    showToast('Jelentkezz be a cikk mentéséhez.');
-    showView('view-login');
-    return;
-  }
-  const title = document.getElementById('edTitle').value.trim();
-  const desc  = document.getElementById('edDesc').value.trim();
-  const cover = document.getElementById('edCover').value.trim();
-  if (!title) { showToast('A cím megadása kötelező.'); return; }
+window.saveArticle=async function(){
+  if(!currentAdmin){showToast('Jelentkezz be.');showView('view-login');return;}
+  const title=document.getElementById('edTitle').value.trim();
+  const desc=document.getElementById('edDesc').value.trim();
+  const cover=document.getElementById('edCover').value.trim();
+  const category=document.getElementById('edCategory').value;
+  if(!title){showToast('A cím megadása kötelező.');return;}
+  if(!category){showToast('Válassz kategóriát.');return;}
+  const author=getAuthorName();
+  if(!author){showToast('Állíts be szerzőnevet a Profil fülön.');return;}
 
-  const author = getAuthorName();
-  if (!author) {
-    showToast('Jelentkezz be, és állíts be szerzőnevet a Profil fülön.');
-    showView('view-login');
-    return;
-  }
-
-  const data = {
-    title, desc, cover,
-    blocks:  editorBlocks.map(b => ({ ...b })),
-    tags:    [...editorTags],
+  const data={
+    title,desc,cover,category,
+    blocks:editorBlocks.map(b=>({...b})),
+    tags:[...editorTags],
     author,
-    updatedAt: serverTimestamp()
+    updatedAt:serverTimestamp()
   };
+  if(editorPoll&&editorPoll.question&&editorPoll.options.length>=2){
+    const pollToSave={
+      question:editorPoll.question,
+      options:editorPoll.options.filter(o=>o.text.trim()),
+      votes:editorArticle?.poll?.votes||{}
+    };
+    // init vote counts for new options
+    pollToSave.options.forEach(o=>{if(!(o.id in pollToSave.votes)) pollToSave.votes[o.id]=0;});
+    data.poll=pollToSave;
+  } else {
+    data.poll=null;
+  }
 
-  try {
-    if (editorArticle) {
-      await updateDoc(doc(db,'articles',editorArticle.id), data);
-      showToast('Cikk frissítve.');
-    } else {
-      data.createdAt = serverTimestamp();
-      await addDoc(collection(db,'articles'), data);
-      showToast('Cikk közzétéve.');
+  try{
+    if(editorArticle){
+      await updateDoc(doc(db,'articles',editorArticle.id),data);showToast('Cikk frissítve.');
+    }else{
+      data.createdAt=serverTimestamp();
+      await addDoc(collection(db,'articles'),data);showToast('Cikk közzétéve.');
     }
-    await fetchArticles();
-    renderMain();
-    showView('view-admin');
-    loadAdminDashboard();
-  } catch (e) {
+    await fetchArticles();renderMain();
+    showView('view-admin');loadAdminDashboard();
+  }catch(e){
     console.error(e);
-    const code = e?.code || '';
-    if (code === 'permission-denied') {
-      showToast('Nincs jogosultság. Jelentkezz be a megengedett admin emaillel, és ellenőrizd a Firestore szabályokat.');
-    } else {
-      showToast('A cikk mentése sikertelen: ' + (e.message || 'ismeretlen hiba'));
-    }
+    showToast(e?.code==='permission-denied'?'Nincs jogosultság. Ellenőrizd a Firebase szabályokat.':'Mentési hiba: '+e.message);
   }
 };
-
-window.confirmLeaveEditor = async function() {
-  const ok = await openModal('Kilépés szerkesztőből','Nem mentett változtatások elvesznek. Biztosan kilépsz?','Kilépés');
-  if (ok) { showView('view-admin'); loadAdminDashboard(); }
+window.confirmLeaveEditor=async function(){
+  const ok=await openModal('Kilépés szerkesztőből','Nem mentett változtatások elvesznek. Biztosan kilépsz?','Kilépés');
+  if(ok){showView('view-admin');loadAdminDashboard();}
 };
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════
+   PODCAST EDITOR
+════════════════════════════ */
+window.openPodcastEditor=function(id){
+  currentPodcastEdit=id?allPodcasts.find(p=>p.id===id):null;
+  podcastAudioUrl=currentPodcastEdit?.audioUrl||'';
+  document.getElementById('pedTopTitle').textContent=currentPodcastEdit?'Podcast szerkesztése':'Új podcast';
+  document.getElementById('pedTitle').value=currentPodcastEdit?.title||'';
+  document.getElementById('pedCover').value=currentPodcastEdit?.cover||'';
+  document.getElementById('pedDesc').value=currentPodcastEdit?.description||'';
+  document.getElementById('pedDuration').value=currentPodcastEdit?.duration||'';
+  document.getElementById('pedFeatured').checked=currentPodcastEdit?.featured||false;
+  const prev=document.getElementById('pedCoverPreview');
+  if(currentPodcastEdit?.cover){prev.src=currentPodcastEdit.cover;prev.style.display='block';}
+  else prev.style.display='none';
+  document.getElementById('pedExistingAudio').textContent=podcastAudioUrl?'✓ Már van feltöltött audiofájl':'';
+  document.getElementById('pedAudioInfo').textContent='';
+  document.getElementById('pedUploadProgress').style.display='none';
+  document.getElementById('pedProgressBar').style.width='0%';
+
+  // Populate podcast category select
+  const sel=document.getElementById('pedCategory');
+  sel.innerHTML='<option value="">— Válassz kategóriát —</option>'+
+    allPodcastCats.map(c=>`<option value="${c.id}"${currentPodcastEdit?.category===c.id?' selected':''}>${escapeHtml(c.name)}</option>`).join('');
+
+  document.getElementById('podcastCatAdder').style.display='none';
+  showView('view-podcast-editor');
+};
+
+window.previewPodcastCover=function(){
+  const val=document.getElementById('pedCover').value.trim();
+  const prev=document.getElementById('pedCoverPreview');
+  if(val){prev.src=val;prev.style.display='block';}else prev.style.display='none';
+};
+
+window.showPodcastCatAdder=function(){
+  const el=document.getElementById('podcastCatAdder');
+  el.style.display=el.style.display==='none'?'block':'none';
+};
+window.addPodcastCategory=async function(){
+  const val=document.getElementById('newPodCat').value.trim();if(!val) return;
+  const id=val.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-áéíóöőúüű]/gi,'');
+  await setDoc(doc(db,'podcastCategories',id),{name:val,order:allPodcastCats.length});
+  await fetchPodcastCats();
+  const sel=document.getElementById('pedCategory');
+  sel.innerHTML='<option value="">— Válassz kategóriát —</option>'+
+    allPodcastCats.map(c=>`<option value="${c.id}">${escapeHtml(c.name)}</option>`).join('');
+  document.getElementById('newPodCat').value='';
+  document.getElementById('podcastCatAdder').style.display='none';
+  showToast(`"${val}" kategória hozzáadva.`);
+};
+
+window.handleAudioSelect=function(input){
+  const file=input.files[0];if(!file) return;
+  document.getElementById('pedAudioInfo').textContent=`Fájl: ${file.name} (${(file.size/1048576).toFixed(1)} MB)`;
+  document.getElementById('pedUploadProgress').style.display='block';
+
+  const storageRef=ref(storage,`podcasts/${Date.now()}_${file.name}`);
+  const task=uploadBytesResumable(storageRef,file);
+  task.on('state_changed',
+    snap=>{
+      const pct=Math.round(snap.bytesTransferred/snap.totalBytes*100);
+      document.getElementById('pedProgressBar').style.width=pct+'%';
+      document.getElementById('pedProgressLabel').textContent=pct+'%';
+    },
+    err=>{showToast('Feltöltési hiba: '+err.message);},
+    async()=>{
+      podcastAudioUrl=await getDownloadURL(task.snapshot.ref);
+      document.getElementById('pedExistingAudio').textContent='✓ Audiofájl feltöltve';
+      document.getElementById('pedUploadProgress').style.display='none';
+      showToast('Audiofájl sikeresen feltöltve!');
+    }
+  );
+};
+
+window.savePodcast=async function(){
+  if(!currentAdmin){showToast('Jelentkezz be.');return;}
+  const title=document.getElementById('pedTitle').value.trim();
+  const cover=document.getElementById('pedCover').value.trim();
+  const description=document.getElementById('pedDesc').value.trim();
+  const category=document.getElementById('pedCategory').value;
+  const duration=document.getElementById('pedDuration').value.trim();
+  const featured=document.getElementById('pedFeatured').checked;
+  if(!title){showToast('A cím megadása kötelező.');return;}
+  if(!podcastAudioUrl){showToast('Tölts fel egy audiofájlt.');return;}
+
+  if(featured){
+    const featCount=allPodcasts.filter(p=>p.featured&&p.id!==currentPodcastEdit?.id).length;
+    if(featCount>=5){showToast('Már 5 kiemelt podcast van. Vegyél le egyet.');return;}
+  }
+
+  const data={title,cover,description,category,duration,featured,
+    audioUrl:podcastAudioUrl,author:getAuthorName(),updatedAt:serverTimestamp(),
+    featuredOrder:featured?Date.now():0};
+  try{
+    if(currentPodcastEdit){
+      await updateDoc(doc(db,'podcasts',currentPodcastEdit.id),data);showToast('Podcast frissítve.');
+    }else{
+      data.createdAt=serverTimestamp();
+      await addDoc(collection(db,'podcasts'),data);showToast('Podcast közzétéve.');
+    }
+    await fetchPodcasts();showView('view-admin');loadAdminDashboard();
+  }catch(e){showToast('Mentési hiba: '+e.message);}
+};
+
+/* ════════════════════════════
    BOOT
-════════════════════════════════════════════ */
-boot().then(() => { routeHash(); }).catch(console.error);
+════════════════════════════ */
+boot().then(()=>routeHash()).catch(console.error);
 
-
-/* ════════════════════════════════════════════════════════════
-   FIRESTORE BIZTONSÁGI SZABÁLYOK
-   Másold be ezeket a Firebase Console-ba:
-   Firestore Database → Szabályok (Rules) fül → Közzététel
+/*
+════════════════════════════════════════════════════════════
+  FIRESTORE + STORAGE BIZTONSÁGI SZABÁLYOK
+  Másold be a Firebase Console → Firestore → Szabályok fülre:
 
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-
     function isAdmin() {
       return request.auth != null &&
-        request.auth.token.email in [
-          "kelemeng771@gmail.com"
-        ];
+        request.auth.token.email in ["kelemeng771@gmail.com"];
     }
-
-    match /articles/{articleId} {
-      allow read: if true;
-      allow write: if isAdmin();
-    }
-    match /topics/{topicId} {
-      allow read: if true;
-      allow write: if isAdmin();
-    }
-    match /settings/{docId} {
-      allow read: if true;
-      allow write: if isAdmin();
-    }
-    match /admins/{docId} {
-      allow read, write: if false;
-    }
-    match /profiles/{uid} {
-      allow read: if true;
-      allow write: if isAdmin() && request.auth.uid == uid;
-    }
+    match /articles/{id}           { allow read: if true; allow write: if isAdmin(); }
+    match /topics/{id}             { allow read: if true; allow write: if isAdmin(); }
+    match /settings/{id}           { allow read: if true; allow write: if isAdmin(); }
+    match /podcasts/{id}           { allow read: if true; allow write: if isAdmin(); }
+    match /podcastCategories/{id}  { allow read: if true; allow write: if isAdmin(); }
+    match /profiles/{uid}          { allow read: if true; allow write: if isAdmin() && request.auth.uid == uid; }
+    match /admins/{id}             { allow read, write: if false; }
   }
 }
 
-   FONTOS: Ne használj {document=**} mintát a gyűjteményeknél —
-   az nem illeszkedik a /articles/xyz dokumentumokra, ezért
-   a mentés permission-denied hibát ad.
-════════════════════════════════════════════════════════════ */
-
+  Firebase Storage szabályok (Storage → Szabályok):
+  rules_version = '2';
+  service firebase.storage {
+    match /b/{bucket}/o {
+      match /podcasts/{file} {
+        allow read: if true;
+        allow write: if request.auth != null;
+      }
+    }
+  }
+════════════════════════════════════════════════════════════
+*/
 </script>
 </body>
 </html>
